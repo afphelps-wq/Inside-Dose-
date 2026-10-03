@@ -1,0 +1,27 @@
+# Environment (never commit secrets; .env.example is committed)
+.env
+.env.*
+!.env.example
+
+# Frontend (Node / Vite)
+node_modules/
+dist/
+*.local
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Backend (Python)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
