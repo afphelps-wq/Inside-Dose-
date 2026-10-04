@@ -1,0 +1,694 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "Generated from backend/app/models.py. Do not edit by hand; run `python -m backend.app.validate_data --write-schema`.",
+  "$defs": {
+    "Bioavailability": {
+      "additionalProperties": false,
+      "properties": {
+        "range": {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Range",
+          "type": "array"
+        },
+        "model": {
+          "exclusiveMinimum": 0,
+          "title": "Model",
+          "type": "number"
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        },
+        "unit": {
+          "const": "fraction",
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "range",
+        "model",
+        "source",
+        "unit"
+      ],
+      "title": "Bioavailability",
+      "type": "object"
+    },
+    "Curation": {
+      "additionalProperties": false,
+      "properties": {
+        "reviewed_by": {
+          "minLength": 1,
+          "title": "Reviewed By",
+          "type": "string"
+        },
+        "reviewed_on": {
+          "format": "date",
+          "title": "Reviewed On",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "verified"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reviewed_by",
+        "reviewed_on",
+        "status"
+      ],
+      "title": "Curation",
+      "type": "object"
+    },
+    "DoseRange": {
+      "additionalProperties": false,
+      "properties": {
+        "min": {
+          "exclusiveMinimum": 0,
+          "title": "Min",
+          "type": "number"
+        },
+        "max": {
+          "exclusiveMinimum": 0,
+          "title": "Max",
+          "type": "number"
+        },
+        "typical": {
+          "exclusiveMinimum": 0,
+          "title": "Typical",
+          "type": "number"
+        },
+        "intervals_h": {
+          "items": {
+            "type": "number"
+          },
+          "minItems": 1,
+          "title": "Intervals H",
+          "type": "array"
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        }
+      },
+      "required": [
+        "min",
+        "max",
+        "typical",
+        "intervals_h",
+        "source"
+      ],
+      "title": "DoseRange",
+      "type": "object"
+    },
+    "Effect": {
+      "additionalProperties": false,
+      "properties": {
+        "category": {
+          "enum": [
+            "anticoagulant",
+            "bleeding_risk",
+            "serotonergic",
+            "lowers_blood_pressure",
+            "raises_potassium",
+            "nsaid",
+            "lowers_seizure_threshold",
+            "sedation"
+          ],
+          "title": "Category",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        }
+      },
+      "required": [
+        "category",
+        "source"
+      ],
+      "title": "Effect",
+      "type": "object"
+    },
+    "Elimination": {
+      "additionalProperties": false,
+      "properties": {
+        "routes": {
+          "items": {
+            "$ref": "#/$defs/EliminationRouteEntry"
+          },
+          "minItems": 1,
+          "title": "Routes",
+          "type": "array"
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        }
+      },
+      "required": [
+        "routes",
+        "source"
+      ],
+      "title": "Elimination",
+      "type": "object"
+    },
+    "EliminationRouteEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "route": {
+          "enum": [
+            "kidney",
+            "bile",
+            "other"
+          ],
+          "title": "Route",
+          "type": "string"
+        },
+        "fraction": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Fraction",
+          "type": "number"
+        },
+        "unchanged_fraction": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unchanged Fraction"
+        }
+      },
+      "required": [
+        "route",
+        "fraction"
+      ],
+      "title": "EliminationRouteEntry",
+      "type": "object"
+    },
+    "EnzymeEntry": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "role": {
+                "const": "substrate"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "importance": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "importance"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "role": {
+                "enum": [
+                  "inhibitor",
+                  "inducer"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "strength": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "strength"
+            ]
+          }
+        }
+      ],
+      "description": "Also used for transporters (spec \u00a76.1: same rule).",
+      "properties": {
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "substrate",
+            "inhibitor",
+            "inducer"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "strength": {
+          "anyOf": [
+            {
+              "enum": [
+                "strong",
+                "moderate",
+                "weak"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Strength"
+        },
+        "importance": {
+          "anyOf": [
+            {
+              "enum": [
+                "major",
+                "minor"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Importance"
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        }
+      },
+      "required": [
+        "name",
+        "role",
+        "source"
+      ],
+      "title": "EnzymeEntry",
+      "type": "object"
+    },
+    "Formulation": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-z0-9_]+$",
+          "title": "Id",
+          "type": "string"
+        },
+        "label": {
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "route": {
+          "minLength": 1,
+          "title": "Route",
+          "type": "string"
+        },
+        "dose_mg": {
+          "$ref": "#/$defs/DoseRange"
+        },
+        "pk": {
+          "$ref": "#/$defs/Pk"
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "route",
+        "dose_mg",
+        "pk"
+      ],
+      "title": "Formulation",
+      "type": "object"
+    },
+    "HalfLife": {
+      "additionalProperties": false,
+      "properties": {
+        "range": {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Range",
+          "type": "array"
+        },
+        "model": {
+          "exclusiveMinimum": 0,
+          "title": "Model",
+          "type": "number"
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        },
+        "unit": {
+          "const": "h",
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "range",
+        "model",
+        "source",
+        "unit"
+      ],
+      "title": "HalfLife",
+      "type": "object"
+    },
+    "Ids": {
+      "additionalProperties": false,
+      "properties": {
+        "rxcui": {
+          "pattern": "^\\d+$",
+          "title": "Rxcui",
+          "type": "string"
+        },
+        "chembl": {
+          "pattern": "^CHEMBL\\d+$",
+          "title": "Chembl",
+          "type": "string"
+        },
+        "pubchem_cid": {
+          "exclusiveMinimum": 0,
+          "title": "Pubchem Cid",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "rxcui",
+        "chembl",
+        "pubchem_cid"
+      ],
+      "title": "Ids",
+      "type": "object"
+    },
+    "JourneyStep": {
+      "additionalProperties": false,
+      "properties": {
+        "step": {
+          "enum": [
+            "absorption",
+            "distribution",
+            "metabolism",
+            "action",
+            "elimination"
+          ],
+          "title": "Step",
+          "type": "string"
+        },
+        "organ": {
+          "enum": [
+            "brain",
+            "heart",
+            "lungs",
+            "liver",
+            "stomach",
+            "intestines",
+            "kidneys",
+            "pancreas",
+            "blood_vessels",
+            "muscle",
+            "skin",
+            "fat",
+            "thyroid",
+            "spleen",
+            "bladder"
+          ],
+          "title": "Organ",
+          "type": "string"
+        },
+        "text": {
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "step",
+        "organ",
+        "text"
+      ],
+      "title": "JourneyStep",
+      "type": "object"
+    },
+    "Names": {
+      "additionalProperties": false,
+      "properties": {
+        "generic": {
+          "minLength": 1,
+          "title": "Generic",
+          "type": "string"
+        },
+        "brands": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Brands",
+          "type": "array"
+        }
+      },
+      "required": [
+        "generic",
+        "brands"
+      ],
+      "title": "Names",
+      "type": "object"
+    },
+    "Pk": {
+      "additionalProperties": false,
+      "properties": {
+        "bioavailability": {
+          "$ref": "#/$defs/Bioavailability"
+        },
+        "half_life": {
+          "$ref": "#/$defs/HalfLife"
+        },
+        "vd": {
+          "$ref": "#/$defs/Vd"
+        },
+        "tmax": {
+          "$ref": "#/$defs/Tmax"
+        }
+      },
+      "required": [
+        "bioavailability",
+        "half_life",
+        "vd",
+        "tmax"
+      ],
+      "title": "Pk",
+      "type": "object"
+    },
+    "Source": {
+      "additionalProperties": false,
+      "properties": {
+        "dailymed_setid": {
+          "description": "DailyMed label set ID",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+          "title": "Dailymed Setid",
+          "type": "string"
+        },
+        "section": {
+          "description": "Label section, e.g. \"2\" or \"12.3\"",
+          "pattern": "^\\d+(\\.\\d+)*$",
+          "title": "Section",
+          "type": "string"
+        }
+      },
+      "required": [
+        "dailymed_setid",
+        "section"
+      ],
+      "title": "Source",
+      "type": "object"
+    },
+    "Tmax": {
+      "additionalProperties": false,
+      "properties": {
+        "range": {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Range",
+          "type": "array"
+        },
+        "model": {
+          "exclusiveMinimum": 0,
+          "title": "Model",
+          "type": "number"
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        },
+        "unit": {
+          "const": "h",
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "range",
+        "model",
+        "source",
+        "unit"
+      ],
+      "title": "Tmax",
+      "type": "object"
+    },
+    "Vd": {
+      "additionalProperties": false,
+      "properties": {
+        "range": {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Range",
+          "type": "array"
+        },
+        "model": {
+          "exclusiveMinimum": 0,
+          "title": "Model",
+          "type": "number"
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        },
+        "unit": {
+          "enum": [
+            "L/kg",
+            "L"
+          ],
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "range",
+        "model",
+        "source",
+        "unit"
+      ],
+      "title": "Vd",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "pattern": "^[a-z0-9_]+$",
+      "title": "Id",
+      "type": "string"
+    },
+    "names": {
+      "$ref": "#/$defs/Names"
+    },
+    "ids": {
+      "$ref": "#/$defs/Ids"
+    },
+    "common_use": {
+      "minLength": 1,
+      "title": "Common Use",
+      "type": "string"
+    },
+    "formulations": {
+      "items": {
+        "$ref": "#/$defs/Formulation"
+      },
+      "minItems": 1,
+      "title": "Formulations",
+      "type": "array"
+    },
+    "enzymes": {
+      "items": {
+        "$ref": "#/$defs/EnzymeEntry"
+      },
+      "title": "Enzymes",
+      "type": "array"
+    },
+    "transporters": {
+      "items": {
+        "$ref": "#/$defs/EnzymeEntry"
+      },
+      "title": "Transporters",
+      "type": "array"
+    },
+    "effects": {
+      "items": {
+        "$ref": "#/$defs/Effect"
+      },
+      "title": "Effects",
+      "type": "array"
+    },
+    "elimination": {
+      "$ref": "#/$defs/Elimination"
+    },
+    "journey": {
+      "items": {
+        "$ref": "#/$defs/JourneyStep"
+      },
+      "minItems": 1,
+      "title": "Journey",
+      "type": "array"
+    },
+    "curation": {
+      "$ref": "#/$defs/Curation"
+    }
+  },
+  "required": [
+    "id",
+    "names",
+    "ids",
+    "common_use",
+    "formulations",
+    "enzymes",
+    "transporters",
+    "effects",
+    "elimination",
+    "journey",
+    "curation"
+  ],
+  "title": "Drug",
+  "type": "object"
+}
