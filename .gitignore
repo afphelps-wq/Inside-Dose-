@@ -28,3 +28,11 @@ htmlcov/
 
 # Curation helper output (raw label text)
 curation/
+.neon
+
+# Neon CLI tooling (local-only; not part of the app itself)
+.claude/
+skills-lock.json
+/neon.ts
+/package.json
+/package-lock.json
