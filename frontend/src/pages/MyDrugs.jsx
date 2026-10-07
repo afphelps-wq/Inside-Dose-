@@ -15,9 +15,11 @@ export default function MyDrugs() {
 
   useEffect(() => {
     const controller = new AbortController()
-    Promise.all(myDrugs.list.map((rxcui) => getDrug(rxcui, { signal: controller.signal })))
-      .then((loaded) => setBundles(Object.fromEntries(loaded.map((b) => [b.rxcui, b]))))
-      .catch((err) => { if (err.name !== 'AbortError') setError(err.message) })
+    Promise.allSettled(myDrugs.list.map((rxcui) => getDrug(rxcui, { signal: controller.signal })))
+      .then((results) => {
+        const loaded = results.filter((r) => r.status === 'fulfilled').map((r) => r.value)
+        setBundles(Object.fromEntries(loaded.map((b) => [b.rxcui, b])))
+      })
     return () => controller.abort()
   }, [myDrugs.list])
 

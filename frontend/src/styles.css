@@ -305,13 +305,18 @@ button.ghost { background: transparent; color: var(--muted); border-color: var(-
 .target { display: flex; justify-content: space-between; align-items: flex-start; }
 .target p { margin: 0; }
 
-.body-map { width: 100%; max-width: 230px; }
-.organ { transition: opacity 0.2s, filter 0.2s; }
+.card.center {
+  background:
+    radial-gradient(ellipse at center, rgba(34, 211, 238, 0.07), transparent 70%),
+    var(--surface);
+}
+.body-map { width: 100%; max-width: 260px; }
+.organ { transition: opacity 0.2s; }
 .organ[role='button'] { cursor: pointer; }
-.organ[role='button']:hover { filter: brightness(1.2); }
+.organ[role='button']:hover { opacity: 0.8; }
 .organ.selected { stroke: var(--accent); stroke-width: 3; }
-.organ.highlight { fill: var(--accent); animation: pulse 1.2s ease-in-out infinite; }
-#blood_vessels.highlight { stroke: var(--accent); fill: none; }
+.organ.highlight { fill: var(--amber); animation: pulse 1.2s ease-in-out infinite; }
+#blood_vessels.highlight { stroke: var(--amber); fill: none; }
 @keyframes pulse { 50% { opacity: 0.45; } }
 .legend { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; font-size: 0.85rem; color: var(--muted); }
 .legend i {
