@@ -1,0 +1,145 @@
+{
+  "id": "lisinopril",
+  "names": {
+    "generic": "lisinopril",
+    "brands": [
+      "Zestril",
+      "Prinivil"
+    ]
+  },
+  "ids": {
+    "rxcui": "29046",
+    "chembl": "CHEMBL419213",
+    "pubchem_cid": 5362119
+  },
+  "common_use": "Blood pressure",
+  "formulations": [
+    {
+      "id": "tablet_ir",
+      "label": "Lisinopril tablets",
+      "route": "oral",
+      "dose_mg": {
+        "min": 2.5,
+        "max": 40,
+        "typical": 10,
+        "intervals_h": [
+          24
+        ],
+        "source": {
+          "dailymed_setid": "838c2d78-d2d8-4981-9ec9-e50ef9e1a5d8",
+          "section": "2.1",
+          "note": "Hypertension: start 10 mg once daily, usual 20-40 mg; 2.5 mg starts appear in 2.2-2.4; max 40 mg once daily (2.2, 2.4). 'Doses up to 80 mg have been used but do not appear to give greater effect.'"
+        }
+      },
+      "pk": {
+        "bioavailability": {
+          "range": [
+            0.06,
+            0.6
+          ],
+          "model": 0.25,
+          "unit": "fraction",
+          "source": {
+            "dailymed_setid": "838c2d78-d2d8-4981-9ec9-e50ef9e1a5d8",
+            "section": "12.3",
+            "note": "'mean extent of absorption ... approximately 25%, with large intersubject variability (6% to 60%)'; model = the stated mean 0.25"
+          }
+        },
+        "half_life": {
+          "range": [
+            12,
+            12
+          ],
+          "model": 12,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "838c2d78-d2d8-4981-9ec9-e50ef9e1a5d8",
+            "section": "12.3",
+            "note": "'effective half-life of 12 hours' on multiple dosing"
+          }
+        },
+        "tmax": {
+          "range": [
+            7,
+            7
+          ],
+          "model": 7,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "838c2d78-d2d8-4981-9ec9-e50ef9e1a5d8",
+            "section": "12.3",
+            "note": "'peak serum concentrations ... occur within about 7 hours'"
+          }
+        },
+        "vd": {
+          "range": [
+            0.15,
+            0.747
+          ],
+          "model": 0.448,
+          "unit": "L/kg",
+          "source": {
+            "citation": "Sandra L, Degraeuwe E, De Bruyne P, et al. Population pharmacokinetics of lisinopril in hypertensive children and adolescents with normal to mildly reduced kidney function. Br J Clin Pharmacol. 2024;90(2):504-515. doi:10.1111/bcp.15936",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/37864281/",
+            "note": "No US label, Health Canada monograph, or adult PK paper found gives a Vd number (Beermann 1988, Am J Med, gives bioavailability/half-life but no Vd). This population-PK study reports 'volume of distribution (31.38 L 70 kg-1 [10.5, 52.3])' in pediatric patients; converted to L/kg by dividing by 70. The label notes pediatric PK 'are similar to those obtained previously in adults,' so used here as the best available estimate pending an adult-specific number."
+          }
+        }
+      }
+    }
+  ],
+  "enzymes": [],
+  "transporters": [],
+  "effects": [
+    {
+      "category": "lowers_blood_pressure",
+      "source": {
+        "dailymed_setid": "838c2d78-d2d8-4981-9ec9-e50ef9e1a5d8",
+        "section": "1.1"
+      }
+    },
+    {
+      "category": "raises_potassium",
+      "source": {
+        "dailymed_setid": "838c2d78-d2d8-4981-9ec9-e50ef9e1a5d8",
+        "section": "5.5",
+        "note": "Hyperkalemia"
+      }
+    }
+  ],
+  "elimination": {
+    "routes": [
+      {
+        "route": "kidney",
+        "fraction": 1.0,
+        "unchanged_fraction": 1.0
+      }
+    ],
+    "source": {
+      "dailymed_setid": "838c2d78-d2d8-4981-9ec9-e50ef9e1a5d8",
+      "section": "12.3",
+      "note": "'does not undergo metabolism and is excreted unchanged entirely in the urine' (fractions are of the absorbed drug). MISSING: no US label, Health Canada monograph or PubMed abstract checked gives a volume of distribution."
+    }
+  },
+  "journey": [
+    {
+      "step": "absorption",
+      "organ": "intestines",
+      "text": "Only about a quarter of a dose is absorbed from the gut, and this varies a lot between people; levels peak about 7 hours later."
+    },
+    {
+      "step": "action",
+      "organ": "blood_vessels",
+      "text": "Blocks ACE, an enzyme that makes angiotensin II, a hormone that tightens blood vessels. Vessels relax and blood pressure drops."
+    },
+    {
+      "step": "elimination",
+      "organ": "kidneys",
+      "text": "Not broken down at all: it leaves unchanged in urine."
+    }
+  ],
+  "curation": {
+    "reviewed_by": "Claude (AI draft, not yet reviewed)",
+    "reviewed_on": "2026-10-07",
+    "status": "draft"
+  }
+}

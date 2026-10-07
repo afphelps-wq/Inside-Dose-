@@ -1,0 +1,153 @@
+{
+  "id": "metoprolol",
+  "names": {
+    "generic": "metoprolol",
+    "brands": [
+      "Lopressor"
+    ]
+  },
+  "ids": {
+    "rxcui": "6918",
+    "chembl": "CHEMBL13",
+    "pubchem_cid": 4171
+  },
+  "common_use": "Blood pressure / heart rate",
+  "formulations": [
+    {
+      "id": "tartrate_ir",
+      "label": "Metoprolol tartrate (immediate release)",
+      "route": "oral",
+      "dose_mg": {
+        "min": 50,
+        "max": 225,
+        "typical": 50,
+        "intervals_h": [
+          12
+        ],
+        "source": {
+          "dailymed_setid": "0283bc9d-6998-493a-824a-d4c85f704111",
+          "section": "2.1",
+          "note": "Hypertension: 'usual initial dosage is 100 mg daily in single or divided doses ... effective dosage range of Lopressor tablets is 100 mg to 450 mg per day.' Modeled as twice-daily (12 h) dosing, so per-dose = half the daily amount: min 50 mg, typical 50 mg (initial), max 225 mg."
+        }
+      },
+      "pk": {
+        "bioavailability": {
+          "range": [
+            0.5,
+            0.5
+          ],
+          "model": 0.5,
+          "unit": "fraction",
+          "source": {
+            "dailymed_setid": "0283bc9d-6998-493a-824a-d4c85f704111",
+            "section": "12.3",
+            "note": "'The estimated oral bioavailability of immediate release metoprolol is about 50%'"
+          }
+        },
+        "half_life": {
+          "range": [
+            3,
+            4
+          ],
+          "model": 3.5,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "0283bc9d-6998-493a-824a-d4c85f704111",
+            "section": "12.3",
+            "note": "'The mean elimination half-life of metoprolol is 3 to 4 hours; in poor CYP2D6 metabolizers the half-life may be 7 to 9 hours.' model = midpoint of the normal-metabolizer range; poor metabolizers (~8% of Caucasians, ~2% of other groups) run longer."
+          }
+        },
+        "vd": {
+          "range": [
+            3.2,
+            5.6
+          ],
+          "model": 4.4,
+          "unit": "L/kg",
+          "source": {
+            "dailymed_setid": "0283bc9d-6998-493a-824a-d4c85f704111",
+            "section": "12.3",
+            "note": "'Metoprolol is extensively distributed with a reported volume of distribution of 3.2 to 5.6 L/kg.' model = midpoint of the label range (curve value; change if you prefer another)"
+          }
+        },
+        "tmax": {
+          "range": [
+            1.5,
+            2
+          ],
+          "model": 1.75,
+          "unit": "h",
+          "source": {
+            "citation": "Health Canada Product Monograph: PrMETOPROLOL (Metoprolol Tartrate Tablets USP), Pro Doc Ltée, revised 2021-08-17, p.22 (Pharmacokinetics – Absorption)",
+            "url": "https://pdf.hres.ca/dpd_pm/00062554.PDF",
+            "note": "US Lopressor label (12.3) gives no Tmax number. Monograph: 'Peak plasma concentrations are attained after approximately 1.5 to 2 hours with conventional metoprolol formulations.' model = midpoint of the range."
+          }
+        }
+      }
+    }
+  ],
+  "enzymes": [
+    {
+      "name": "CYP2D6",
+      "role": "substrate",
+      "importance": "major",
+      "source": {
+        "dailymed_setid": "0283bc9d-6998-493a-824a-d4c85f704111",
+        "section": "12.3",
+        "note": "'Lopressor is primarily metabolized by CYP2D6 ... Poor CYP2D6 metabolizers exhibit several-fold higher plasma concentrations of Lopressor than extensive metabolizers'"
+      }
+    }
+  ],
+  "transporters": [],
+  "effects": [
+    {
+      "category": "lowers_blood_pressure",
+      "source": {
+        "dailymed_setid": "0283bc9d-6998-493a-824a-d4c85f704111",
+        "section": "1.1",
+        "note": "'LOPRESSOR is indicated for the treatment of hypertension in adult patients, to lower blood pressure.'"
+      }
+    }
+  ],
+  "elimination": {
+    "routes": [
+      {
+        "route": "kidney",
+        "fraction": 0.95,
+        "unchanged_fraction": 0.05
+      }
+    ],
+    "source": {
+      "dailymed_setid": "0283bc9d-6998-493a-824a-d4c85f704111",
+      "section": "12.3",
+      "note": "'Approximately 95% of the dose can be recovered in urine. In most subjects (extensive metabolizers), less than 5% of an oral dose ... are excreted as unchanged drug in the urine.' unchanged_fraction uses the stated <5% upper bound for extensive metabolizers; poor metabolizers may excrete up to 30-40% unchanged."
+    }
+  },
+  "journey": [
+    {
+      "step": "absorption",
+      "organ": "intestines",
+      "text": "Taken by mouth and absorbed from the gut; the liver breaks down about half of each dose before it reaches the rest of the body."
+    },
+    {
+      "step": "metabolism",
+      "organ": "liver",
+      "text": "Broken down in the liver, mainly by the CYP2D6 enzyme. People whose CYP2D6 works slowly build up higher levels."
+    },
+    {
+      "step": "action",
+      "organ": "heart",
+      "text": "Blocks beta-1 receptors in the heart, slowing the heart rate and easing its workload, which lowers blood pressure."
+    },
+    {
+      "step": "elimination",
+      "organ": "kidneys",
+      "text": "Leaves the body in urine within about a day, mostly as broken-down pieces rather than unchanged drug."
+    }
+  ],
+  "curation": {
+    "reviewed_by": "Claude (AI draft, not yet reviewed)",
+    "reviewed_on": "2026-10-07",
+    "status": "draft"
+  }
+}

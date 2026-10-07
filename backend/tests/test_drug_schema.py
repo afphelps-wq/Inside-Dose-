@@ -84,6 +84,11 @@ INVALID_CASES = [
     ("unknown extra field", ("surprise",), 1, True),
     ("missing source", ("effects", 0, "source"), DELETE, True),
     ("placeholder setid", ("effects", 0, "source"), {"dailymed_setid": "<lookup>", "section": "2"}, True),
+    ("placeholder section", ("effects", 0, "source"), {**SOURCE, "section": "<lookup>"}, True),
+    ("secondary source without url", ("effects", 0, "source"), {"citation": "Smith 2020"}, True),
+    ("secondary source with bad url", ("effects", 0, "source"), {"citation": "Smith 2020", "url": "n/a"}, True),
+    ("source mixing both kinds", ("effects", 0, "source"),
+     {**SOURCE, "citation": "Smith 2020", "url": "https://example.org"}, True),
     ("placeholder rxcui", ("ids", "rxcui"), "<lookup>", True),
     ("no formulations", ("formulations",), [], True),
     ("no journey steps", ("journey",), [], True),
@@ -107,6 +112,19 @@ def test_invalid_record_rejected(name, path, value, in_schema):
         Drug.model_validate(record)
     schema_errors = list(Draft202012Validator(SCHEMA).iter_errors(record))
     assert bool(schema_errors) == in_schema
+
+
+@pytest.mark.parametrize("source", [
+    {**SOURCE, "section": "Clinical Pharmacology > Pharmacokinetics"},
+    {**SOURCE, "note": "450 mg/day split twice daily = 225 mg per dose"},
+    {"citation": "Example et al. 2020, J Example Pharmacol", "url": "https://example.org/paper"},
+], ids=["section heading", "label note", "secondary source"])
+def test_alternative_sources_accepted(source):
+    assert validate_record(mutate((*PK, "tmax", "source"), source)) == []
+
+
+def test_elimination_route_without_fraction_accepted():
+    assert validate_record(mutate(("elimination", "routes"), [{"route": "bile"}])) == []
 
 
 def test_id_must_match_file_name():

@@ -1,0 +1,130 @@
+{
+  "id": "metformin",
+  "names": {
+    "generic": "metformin",
+    "brands": [
+      "Glucophage"
+    ]
+  },
+  "ids": {
+    "rxcui": "6809",
+    "chembl": "CHEMBL1431",
+    "pubchem_cid": 4091
+  },
+  "common_use": "Type 2 diabetes",
+  "formulations": [
+    {
+      "id": "tablet_ir",
+      "label": "Metformin hydrochloride tablets (immediate release)",
+      "route": "oral",
+      "dose_mg": {
+        "min": 500,
+        "max": 1000,
+        "typical": 500,
+        "intervals_h": [
+          12,
+          24,
+          8
+        ],
+        "source": {
+          "dailymed_setid": "4ac6d01a-af26-44e7-ae2e-3618de0080aa",
+          "section": "2.1",
+          "note": "Start 500 mg twice daily or 850 mg once daily; max 2550 mg/day in divided doses, above 2000 mg possibly three times daily. Per dose: typical 500 (twice daily); max 1000 = 2000 mg/day twice daily (2550 mg/day three times daily = 850 per dose). Label is a generic (Aurobindo); Glucophage itself is no longer on DailyMed."
+        }
+      },
+      "pk": {
+        "bioavailability": {
+          "range": [
+            0.5,
+            0.6
+          ],
+          "model": 0.55,
+          "unit": "fraction",
+          "source": {
+            "dailymed_setid": "4ac6d01a-af26-44e7-ae2e-3618de0080aa",
+            "section": "12.3",
+            "note": "'approximately 50% to 60%' (500 mg tablet, fasting) model = midpoint of the label range (curve value; change if you prefer another)"
+          }
+        },
+        "half_life": {
+          "range": [
+            6.2,
+            6.2
+          ],
+          "model": 6.2,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "4ac6d01a-af26-44e7-ae2e-3618de0080aa",
+            "section": "12.3",
+            "note": "plasma half-life 'approximately 6.2 hours' (17.6 h in blood)"
+          }
+        },
+        "vd": {
+          "range": [
+            359.7,
+            359.7
+          ],
+          "model": 359.7,
+          "unit": "L",
+          "source": {
+            "dailymed_setid": "4ac6d01a-af26-44e7-ae2e-3618de0080aa",
+            "section": "12.3",
+            "note": "Label gives apparent V/F = 654 L (single 850 mg dose). The curve needs V, so V = 654 x 0.55 (model bioavailability) = 359.7 L."
+          }
+        },
+        "tmax": {
+          "range": [
+            2.64,
+            2.75
+          ],
+          "model": 2.695,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "4ac6d01a-af26-44e7-ae2e-3618de0080aa",
+            "section": "12.3",
+            "note": "Table 4, healthy adults: Tmax 2.75 h (500 mg single dose) and 2.64 h (850 mg single dose) model = midpoint of the label range (curve value; change if you prefer another)"
+          }
+        }
+      }
+    }
+  ],
+  "enzymes": [],
+  "transporters": [],
+  "effects": [],
+  "elimination": {
+    "routes": [
+      {
+        "route": "kidney",
+        "fraction": 0.9,
+        "unchanged_fraction": 0.9
+      }
+    ],
+    "source": {
+      "dailymed_setid": "4ac6d01a-af26-44e7-ae2e-3618de0080aa",
+      "section": "12.3",
+      "note": "'approximately 90% of the absorbed drug is eliminated via the renal route within the first 24 hours'; not metabolized, so it leaves unchanged. Fractions are of the absorbed drug. OCT2/MATE transporters are named in section 7 without a major/minor role, so they are left out."
+    }
+  },
+  "journey": [
+    {
+      "step": "absorption",
+      "organ": "intestines",
+      "text": "About half to 60% of a dose is absorbed from the gut. Food lowers and slows absorption a little."
+    },
+    {
+      "step": "action",
+      "organ": "liver",
+      "text": "Lowers blood sugar mainly by making the liver release less sugar, and helps the body respond better to insulin."
+    },
+    {
+      "step": "elimination",
+      "organ": "kidneys",
+      "text": "Not broken down at all: the absorbed drug leaves unchanged in urine, about 90% within a day."
+    }
+  ],
+  "curation": {
+    "reviewed_by": "Claude (AI draft, not yet reviewed)",
+    "reviewed_on": "2026-10-06",
+    "status": "draft"
+  }
+}

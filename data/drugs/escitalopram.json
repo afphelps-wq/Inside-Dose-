@@ -1,0 +1,181 @@
+{
+  "id": "escitalopram",
+  "names": {
+    "generic": "escitalopram",
+    "brands": [
+      "Lexapro"
+    ]
+  },
+  "ids": {
+    "rxcui": "321988",
+    "chembl": "CHEMBL1508",
+    "pubchem_cid": 146570
+  },
+  "common_use": "Depression / anxiety",
+  "formulations": [
+    {
+      "id": "tablet_ir",
+      "label": "Escitalopram tablets",
+      "route": "oral",
+      "dose_mg": {
+        "min": 10,
+        "max": 20,
+        "typical": 10,
+        "intervals_h": [
+          24
+        ],
+        "source": {
+          "dailymed_setid": "13bb8267-1cab-43e5-acae-55a4d957630a",
+          "section": "2.1",
+          "note": "Adults: 10 mg once daily, may increase to max 20 mg once daily (5 mg is not a labeled adult dose)."
+        }
+      },
+      "pk": {
+        "bioavailability": {
+          "range": [
+            0.8,
+            0.8
+          ],
+          "model": 0.8,
+          "unit": "fraction",
+          "source": {
+            "dailymed_setid": "13bb8267-1cab-43e5-acae-55a4d957630a",
+            "section": "12.3",
+            "note": "Label: 'The absolute bioavailability of citalopram is about 80%' (citalopram, the racemic parent; no escitalopram-specific value given)"
+          }
+        },
+        "half_life": {
+          "range": [
+            27,
+            32
+          ],
+          "model": 29.5,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "13bb8267-1cab-43e5-acae-55a4d957630a",
+            "section": "12.3",
+            "note": "'mean terminal half-life of about 27-32 hours' model = midpoint of the label range (curve value; change if you prefer another)"
+          }
+        },
+        "vd": {
+          "range": [
+            12,
+            12
+          ],
+          "model": 12,
+          "unit": "L/kg",
+          "source": {
+            "dailymed_setid": "13bb8267-1cab-43e5-acae-55a4d957630a",
+            "section": "12.3",
+            "note": "Label: 'volume of distribution of citalopram is about 12 L/kg. Data specific on escitalopram are unavailable.'"
+          }
+        },
+        "tmax": {
+          "range": [
+            5,
+            5
+          ],
+          "model": 5,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "13bb8267-1cab-43e5-acae-55a4d957630a",
+            "section": "12.3",
+            "note": "'peak blood levels occur at about 5 hours'"
+          }
+        }
+      }
+    }
+  ],
+  "enzymes": [
+    {
+      "name": "CYP2C19",
+      "role": "substrate",
+      "importance": "major",
+      "source": {
+        "dailymed_setid": "13bb8267-1cab-43e5-acae-55a4d957630a",
+        "section": "12.3",
+        "note": "'CYP3A4 and -2C19 are the primary enzymes involved'; label adds that inhibiting a single enzyme 'may not appreciably decrease escitalopram clearance'"
+      }
+    },
+    {
+      "name": "CYP3A4",
+      "role": "substrate",
+      "importance": "major",
+      "source": {
+        "dailymed_setid": "13bb8267-1cab-43e5-acae-55a4d957630a",
+        "section": "12.3",
+        "note": "'CYP3A4 and -2C19 are the primary enzymes involved'; ritonavir did not significantly change escitalopram levels"
+      }
+    },
+    {
+      "name": "CYP2D6",
+      "role": "inhibitor",
+      "strength": "weak",
+      "source": {
+        "citation": "FDA, 'For Healthcare Professionals | FDA's Examples of Drugs that Interact with CYP Enzymes and Transporter Systems' (content current as of 05/29/2026)",
+        "url": "https://www.fda.gov/drugs/drug-interactions-labeling/healthcare-professionals-fdas-examples-drugs-interact-cyp-enzymes-and-transporter-systems",
+        "note": "Table lists escitalopram as '2D6 weak inhibitor'. Label 12.3: 'a modest 2D6 inhibitory effect'."
+      }
+    }
+  ],
+  "transporters": [],
+  "effects": [
+    {
+      "category": "serotonergic",
+      "source": {
+        "dailymed_setid": "13bb8267-1cab-43e5-acae-55a4d957630a",
+        "section": "5.2",
+        "note": "Serotonin Syndrome"
+      }
+    },
+    {
+      "category": "bleeding_risk",
+      "source": {
+        "dailymed_setid": "13bb8267-1cab-43e5-acae-55a4d957630a",
+        "section": "5.7",
+        "note": "Increased Risk of Bleeding"
+      }
+    }
+  ],
+  "elimination": {
+    "routes": [
+      {
+        "route": "kidney",
+        "fraction": 0.18,
+        "unchanged_fraction": 0.08
+      }
+    ],
+    "source": {
+      "dailymed_setid": "13bb8267-1cab-43e5-acae-55a4d957630a",
+      "section": "12.3",
+      "note": "Urine: 'about 8%' as escitalopram and '10%' as S-DCT (0.18 total). Biotransformation is 'mainly hepatic'; the rest of the dose's route is not quantified."
+    }
+  },
+  "journey": [
+    {
+      "step": "absorption",
+      "organ": "intestines",
+      "text": "Absorbed well from the gut, with or without food; blood levels peak about 5 hours later."
+    },
+    {
+      "step": "action",
+      "organ": "brain",
+      "text": "Blocks serotonin from being taken back up by nerve cells in the brain, so more serotonin stays active."
+    },
+    {
+      "step": "metabolism",
+      "organ": "liver",
+      "text": "Broken down in the liver, mainly by the CYP2C19 and CYP3A4 enzymes."
+    },
+    {
+      "step": "elimination",
+      "organ": "kidneys",
+      "text": "About a fifth of a dose leaves in urine; the rest is broken down first."
+    }
+  ],
+  "curation": {
+    "reviewed_by": "Claude (AI draft, not yet reviewed)",
+    "reviewed_on": "2026-10-06",
+    "status": "draft"
+  }
+}

@@ -1,0 +1,174 @@
+{
+  "id": "losartan",
+  "names": {
+    "generic": "losartan",
+    "brands": [
+      "Cozaar"
+    ]
+  },
+  "ids": {
+    "rxcui": "52175",
+    "chembl": "CHEMBL191",
+    "pubchem_cid": 3961
+  },
+  "common_use": "Blood pressure",
+  "formulations": [
+    {
+      "id": "tablet_ir",
+      "label": "Losartan potassium tablets",
+      "route": "oral",
+      "dose_mg": {
+        "min": 25,
+        "max": 100,
+        "typical": 50,
+        "intervals_h": [
+          24
+        ],
+        "source": {
+          "dailymed_setid": "9949448f-c3b9-44ee-94ed-c1aca8c90f39",
+          "section": "2.1",
+          "note": "Usual start 50 mg once daily, max 100 mg once daily; 25 mg start with possible volume depletion."
+        }
+      },
+      "pk": {
+        "bioavailability": {
+          "range": [
+            0.33,
+            0.33
+          ],
+          "model": 0.33,
+          "unit": "fraction",
+          "source": {
+            "dailymed_setid": "9949448f-c3b9-44ee-94ed-c1aca8c90f39",
+            "section": "12.3",
+            "note": "'approximately 33%'"
+          }
+        },
+        "half_life": {
+          "range": [
+            2,
+            2
+          ],
+          "model": 2,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "9949448f-c3b9-44ee-94ed-c1aca8c90f39",
+            "section": "12.3",
+            "note": "losartan 'about 2 hours'; its active metabolite 6-9 hours (the curve shows losartan only)"
+          }
+        },
+        "vd": {
+          "range": [
+            34,
+            34
+          ],
+          "model": 34,
+          "unit": "L",
+          "source": {
+            "dailymed_setid": "9949448f-c3b9-44ee-94ed-c1aca8c90f39",
+            "section": "12.3",
+            "note": "losartan 'about 34 liters' (active metabolite 12 L)"
+          }
+        },
+        "tmax": {
+          "range": [
+            1,
+            1
+          ],
+          "model": 1,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "9949448f-c3b9-44ee-94ed-c1aca8c90f39",
+            "section": "12.3",
+            "note": "losartan peak 'in 1 hour' (active metabolite 3-4 hours)"
+          }
+        }
+      }
+    }
+  ],
+  "enzymes": [
+    {
+      "name": "CYP2C9",
+      "role": "substrate",
+      "importance": "major",
+      "source": {
+        "dailymed_setid": "9949448f-c3b9-44ee-94ed-c1aca8c90f39",
+        "section": "12.3",
+        "note": "'conversion of losartan to its active metabolite is mediated primarily by P450 2C9'"
+      }
+    },
+    {
+      "name": "CYP3A4",
+      "role": "substrate",
+      "importance": "minor",
+      "source": {
+        "dailymed_setid": "9949448f-c3b9-44ee-94ed-c1aca8c90f39",
+        "section": "12.3",
+        "note": "2C9 and 3A4 'involved'; conversion is 'primarily by P450 2C9 and not P450 3A4'"
+      }
+    }
+  ],
+  "transporters": [],
+  "effects": [
+    {
+      "category": "lowers_blood_pressure",
+      "source": {
+        "dailymed_setid": "9949448f-c3b9-44ee-94ed-c1aca8c90f39",
+        "section": "1.1"
+      }
+    },
+    {
+      "category": "raises_potassium",
+      "source": {
+        "dailymed_setid": "9949448f-c3b9-44ee-94ed-c1aca8c90f39",
+        "section": "5.4",
+        "note": "Hyperkalemia"
+      }
+    }
+  ],
+  "elimination": {
+    "routes": [
+      {
+        "route": "kidney",
+        "fraction": 0.35,
+        "unchanged_fraction": 0.04
+      },
+      {
+        "route": "bile",
+        "fraction": 0.6
+      }
+    ],
+    "source": {
+      "dailymed_setid": "9949448f-c3b9-44ee-94ed-c1aca8c90f39",
+      "section": "12.3",
+      "note": "Oral 14C-losartan: 'about 35% of radioactivity is recovered in the urine and about 60% in the feces'; 'about 4% of the dose is excreted unchanged in the urine'. Feces recorded as bile ('Biliary excretion contributes')."
+    }
+  },
+  "journey": [
+    {
+      "step": "absorption",
+      "organ": "intestines",
+      "text": "Well absorbed from the gut, but much is changed by the liver on the first pass; about a third reaches the blood unchanged."
+    },
+    {
+      "step": "metabolism",
+      "organ": "liver",
+      "text": "The liver turns part of it, mainly with the CYP2C9 enzyme, into a stronger active form that does most of the work."
+    },
+    {
+      "step": "action",
+      "organ": "blood_vessels",
+      "text": "Blocks angiotensin II from tightening blood vessels, so they relax and blood pressure drops."
+    },
+    {
+      "step": "elimination",
+      "organ": "intestines",
+      "text": "Leaves through bile into the gut (about 60%) and in urine (about 35%)."
+    }
+  ],
+  "curation": {
+    "reviewed_by": "Claude (AI draft, not yet reviewed)",
+    "reviewed_on": "2026-10-06",
+    "status": "draft"
+  }
+}

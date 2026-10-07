@@ -1,0 +1,165 @@
+{
+  "id": "sertraline",
+  "names": {
+    "generic": "sertraline",
+    "brands": [
+      "Zoloft"
+    ]
+  },
+  "ids": {
+    "rxcui": "36437",
+    "chembl": "CHEMBL809",
+    "pubchem_cid": 68617
+  },
+  "common_use": "Depression / anxiety",
+  "formulations": [
+    {
+      "id": "tablet_ir",
+      "label": "Sertraline tablets",
+      "route": "oral",
+      "dose_mg": {
+        "min": 25,
+        "max": 200,
+        "typical": 50,
+        "intervals_h": [
+          24
+        ],
+        "source": {
+          "dailymed_setid": "fda754f6-d0f3-4dce-a17a-927d64f912f7",
+          "section": "2.1",
+          "note": "Starting 25 or 50 mg/day (Table 1; MDD 50 mg), up to a maximum of 200 mg per day, once daily."
+        }
+      },
+      "pk": {
+        "half_life": {
+          "range": [
+            26,
+            26
+          ],
+          "model": 26,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "fda754f6-d0f3-4dce-a17a-927d64f912f7",
+            "section": "12.3",
+            "note": "'average terminal elimination half-life of plasma sertraline is about 26 hours'"
+          }
+        },
+        "tmax": {
+          "range": [
+            4.5,
+            8.4
+          ],
+          "model": 6.45,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "fda754f6-d0f3-4dce-a17a-927d64f912f7",
+            "section": "12.3",
+            "note": "'peak plasma concentrations ... occurred between 4.5 to 8.4 hours post-dosing' model = midpoint of the label range (curve value; change if you prefer another)"
+          }
+        },
+        "bioavailability": {
+          "range": [
+            0.44,
+            0.44
+          ],
+          "model": 0.44,
+          "unit": "fraction",
+          "source": {
+            "citation": "DrugBank: Sertraline (DB01104), Absorption/ADME summary, via PubChem CID 68617",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/compound/68617",
+            "note": "US label does not state a number. DrugBank-compiled PK summary: 'Bioavailability has been estimated to be above 44%.' Used as a lower-bound point estimate (true absolute bioavailability has not been formally determined in humans per HSDB, which notes only that it exceeds the value seen with incomplete first-pass extraction)."
+          }
+        },
+        "vd": {
+          "range": [
+            20,
+            20
+          ],
+          "model": 20,
+          "unit": "L/kg",
+          "source": {
+            "citation": "DrugBank: Sertraline (DB01104), Volume of Distribution summary, via PubChem CID 68617",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/compound/68617",
+            "note": "US label does not give a number. DrugBank-compiled PK summary: 'its volume of distribution is estimated to be more than 20 L/kg.' Used as a lower-bound point estimate; HSDB notes direct human Vd has not been formally determined, with animal (rat/dog) data showing >20 L/kg."
+          }
+        }
+      }
+    }
+  ],
+  "enzymes": [
+    {
+      "name": "CYP2D6",
+      "role": "inhibitor",
+      "strength": "weak",
+      "source": {
+        "citation": "FDA, 'For Healthcare Professionals | FDA's Examples of Drugs that Interact with CYP Enzymes and Transporter Systems' (content current as of 05/29/2026)",
+        "url": "https://www.fda.gov/drugs/drug-interactions-labeling/healthcare-professionals-fdas-examples-drugs-interact-cyp-enzymes-and-transporter-systems",
+        "note": "Table lists sertraline as '2D6 weak inhibitor'. Label 7.1: 'ZOLOFT is a CYP2D6 inhibitor' (no strength)."
+      }
+    }
+  ],
+  "transporters": [],
+  "effects": [
+    {
+      "category": "serotonergic",
+      "source": {
+        "dailymed_setid": "fda754f6-d0f3-4dce-a17a-927d64f912f7",
+        "section": "5.2",
+        "note": "Serotonin Syndrome"
+      }
+    },
+    {
+      "category": "bleeding_risk",
+      "source": {
+        "dailymed_setid": "fda754f6-d0f3-4dce-a17a-927d64f912f7",
+        "section": "5.3",
+        "note": "Increased Risk of Bleeding"
+      }
+    }
+  ],
+  "elimination": {
+    "routes": [
+      {
+        "route": "kidney",
+        "fraction": 0.425
+      },
+      {
+        "route": "bile",
+        "fraction": 0.425,
+        "unchanged_fraction": 0.13
+      }
+    ],
+    "source": {
+      "dailymed_setid": "fda754f6-d0f3-4dce-a17a-927d64f912f7",
+      "section": "12.3",
+      "note": "Radiolabel study: urine 40-45% (no unchanged drug), feces 40-45% 'including 12-14% unchanged sertraline' (midpoints). Feces recorded as bile. MISSING: human bioavailability and Vd are not in the US label, the Zoloft Canada monograph (animal values only) or PubMed abstracts checked."
+    }
+  },
+  "journey": [
+    {
+      "step": "absorption",
+      "organ": "intestines",
+      "text": "Absorbed slowly from the gut; blood levels peak 4.5 to 8.4 hours after a dose."
+    },
+    {
+      "step": "action",
+      "organ": "brain",
+      "text": "Blocks serotonin from being taken back up by nerve cells in the brain, so more serotonin stays active."
+    },
+    {
+      "step": "metabolism",
+      "organ": "liver",
+      "text": "Heavily broken down on its first pass through the liver."
+    },
+    {
+      "step": "elimination",
+      "organ": "kidneys",
+      "text": "Leaves about equally in urine and through the gut, mostly as broken-down pieces."
+    }
+  ],
+  "curation": {
+    "reviewed_by": "Claude (AI draft, not yet reviewed)",
+    "reviewed_on": "2026-10-07",
+    "status": "draft"
+  }
+}

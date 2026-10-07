@@ -1,0 +1,145 @@
+{
+  "id": "atorvastatin",
+  "names": {
+    "generic": "atorvastatin",
+    "brands": [
+      "Lipitor"
+    ]
+  },
+  "ids": {
+    "rxcui": "83367",
+    "chembl": "CHEMBL1487",
+    "pubchem_cid": 60823
+  },
+  "common_use": "Cholesterol",
+  "formulations": [
+    {
+      "id": "tablet_ir",
+      "label": "Atorvastatin calcium tablets",
+      "route": "oral",
+      "dose_mg": {
+        "min": 10,
+        "max": 80,
+        "typical": 10,
+        "intervals_h": [
+          24
+        ],
+        "source": {
+          "dailymed_setid": "a60cc18b-0631-4cf0-b021-9f52224ece65",
+          "section": "2.2",
+          "note": "'dosage range is 10 mg to 80 mg once daily'; starting dose '10 mg to 20 mg', typical set to the lower start."
+        }
+      },
+      "pk": {
+        "bioavailability": {
+          "range": [
+            0.14,
+            0.14
+          ],
+          "model": 0.14,
+          "unit": "fraction",
+          "source": {
+            "dailymed_setid": "a60cc18b-0631-4cf0-b021-9f52224ece65",
+            "section": "12.3",
+            "note": "'absolute bioavailability of atorvastatin (parent drug) is approximately 14%'"
+          }
+        },
+        "half_life": {
+          "range": [
+            14,
+            14
+          ],
+          "model": 14,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "a60cc18b-0631-4cf0-b021-9f52224ece65",
+            "section": "12.3",
+            "note": "'approximately 14 hours' for the parent drug (20-30 h for inhibitory activity incl. active metabolites)"
+          }
+        },
+        "vd": {
+          "range": [
+            381,
+            381
+          ],
+          "model": 381,
+          "unit": "L",
+          "source": {
+            "dailymed_setid": "a60cc18b-0631-4cf0-b021-9f52224ece65",
+            "section": "12.3",
+            "note": "'approximately 381 liters'"
+          }
+        },
+        "tmax": {
+          "range": [
+            1,
+            2
+          ],
+          "model": 1.5,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "a60cc18b-0631-4cf0-b021-9f52224ece65",
+            "section": "12.3",
+            "note": "'maximum plasma concentrations occur within 1 to 2 hours' model = midpoint of the label range (curve value; change if you prefer another)"
+          }
+        }
+      }
+    }
+  ],
+  "enzymes": [
+    {
+      "name": "CYP3A4",
+      "role": "substrate",
+      "importance": "major",
+      "source": {
+        "dailymed_setid": "a60cc18b-0631-4cf0-b021-9f52224ece65",
+        "section": "12.3",
+        "note": "'suggest the importance of LIPITOR metabolism by cytochrome P450 3A4'; 2.5 limits doses with CYP3A4 inhibitors"
+      }
+    }
+  ],
+  "transporters": [],
+  "effects": [],
+  "elimination": {
+    "routes": [
+      {
+        "route": "bile"
+      },
+      {
+        "route": "kidney"
+      }
+    ],
+    "source": {
+      "dailymed_setid": "a60cc18b-0631-4cf0-b021-9f52224ece65",
+      "section": "12.3",
+      "note": "'eliminated primarily in bile' (no %). Urine: 'Less than 2% of a dose', given only as a bound, so no fraction."
+    }
+  },
+  "journey": [
+    {
+      "step": "absorption",
+      "organ": "intestines",
+      "text": "Absorbed quickly from the gut, but only about 14% reaches the blood unchanged; much is broken down first in the gut wall and liver."
+    },
+    {
+      "step": "action",
+      "organ": "liver",
+      "text": "Blocks HMG-CoA reductase, the enzyme the liver uses to make cholesterol, and helps the liver pull LDL (\"bad\") cholesterol out of the blood."
+    },
+    {
+      "step": "metabolism",
+      "organ": "liver",
+      "text": "Broken down mainly by the CYP3A4 enzyme into pieces that keep working."
+    },
+    {
+      "step": "elimination",
+      "organ": "intestines",
+      "text": "Leaves mainly in bile, the digestive fluid the liver sends into the gut. Less than 2% leaves in urine."
+    }
+  ],
+  "curation": {
+    "reviewed_by": "Claude (AI draft, not yet reviewed)",
+    "reviewed_on": "2026-10-06",
+    "status": "draft"
+  }
+}

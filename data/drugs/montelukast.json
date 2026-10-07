@@ -1,0 +1,163 @@
+{
+  "id": "montelukast",
+  "names": {
+    "generic": "montelukast",
+    "brands": [
+      "Singulair"
+    ]
+  },
+  "ids": {
+    "rxcui": "88249",
+    "chembl": "CHEMBL787",
+    "pubchem_cid": 5281040
+  },
+  "common_use": "Asthma / allergies",
+  "formulations": [
+    {
+      "id": "tablet_ir",
+      "label": "Montelukast 10 mg tablets",
+      "route": "oral",
+      "dose_mg": {
+        "min": 10,
+        "max": 10,
+        "typical": 10,
+        "intervals_h": [
+          24
+        ],
+        "source": {
+          "dailymed_setid": "482dcc92-b47f-4ea6-854a-f5ac2aea7842",
+          "section": "2.1",
+          "note": "Adults and adolescents 15+: one 10 mg tablet once daily"
+        }
+      },
+      "pk": {
+        "bioavailability": {
+          "range": [
+            0.64,
+            0.64
+          ],
+          "model": 0.64,
+          "unit": "fraction",
+          "source": {
+            "dailymed_setid": "482dcc92-b47f-4ea6-854a-f5ac2aea7842",
+            "section": "12.3",
+            "note": "10 mg tablet: 'mean oral bioavailability is 64%'"
+          }
+        },
+        "half_life": {
+          "range": [
+            2.7,
+            5.5
+          ],
+          "model": 4.1,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "482dcc92-b47f-4ea6-854a-f5ac2aea7842",
+            "section": "12.3",
+            "note": "'mean plasma half-life ... ranged from 2.7 to 5.5 hours' model = midpoint of the label range (curve value; change if you prefer another)"
+          }
+        },
+        "vd": {
+          "range": [
+            8,
+            11
+          ],
+          "model": 9.5,
+          "unit": "L",
+          "source": {
+            "dailymed_setid": "482dcc92-b47f-4ea6-854a-f5ac2aea7842",
+            "section": "12.3",
+            "note": "'steady state volume of distribution ... averages 8 to 11 liters' model = midpoint of the label range (curve value; change if you prefer another)"
+          }
+        },
+        "tmax": {
+          "range": [
+            3,
+            4
+          ],
+          "model": 3.5,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "482dcc92-b47f-4ea6-854a-f5ac2aea7842",
+            "section": "12.3",
+            "note": "10 mg tablet, fasted adults: Tmax '3 to 4 hours' model = midpoint of the label range (curve value; change if you prefer another)"
+          }
+        }
+      }
+    }
+  ],
+  "enzymes": [
+    {
+      "name": "CYP2C8",
+      "role": "substrate",
+      "importance": "major",
+      "source": {
+        "dailymed_setid": "482dcc92-b47f-4ea6-854a-f5ac2aea7842",
+        "section": "12.3",
+        "note": "'2C8 appears to play a major role in the metabolism of montelukast'"
+      }
+    },
+    {
+      "name": "CYP3A4",
+      "role": "substrate",
+      "importance": "minor",
+      "source": {
+        "dailymed_setid": "482dcc92-b47f-4ea6-854a-f5ac2aea7842",
+        "section": "12.3",
+        "note": "CYP3A4, 2C8 and 2C9 'are involved'; only 2C8 is called major, so 3A4 is recorded as minor"
+      }
+    },
+    {
+      "name": "CYP2C9",
+      "role": "substrate",
+      "importance": "minor",
+      "source": {
+        "dailymed_setid": "482dcc92-b47f-4ea6-854a-f5ac2aea7842",
+        "section": "12.3",
+        "note": "CYP3A4, 2C8 and 2C9 'are involved'; only 2C8 is called major, so 2C9 is recorded as minor"
+      }
+    }
+  ],
+  "transporters": [],
+  "effects": [],
+  "elimination": {
+    "routes": [
+      {
+        "route": "bile",
+        "fraction": 0.86
+      }
+    ],
+    "source": {
+      "dailymed_setid": "482dcc92-b47f-4ea6-854a-f5ac2aea7842",
+      "section": "12.3",
+      "note": "'86% of the radioactivity was recovered in 5-day fecal collections and <0.2% was recovered in urine'; 'excreted almost exclusively via the bile'."
+    }
+  },
+  "journey": [
+    {
+      "step": "absorption",
+      "organ": "intestines",
+      "text": "About two thirds of a dose is absorbed from the gut, peaking 3 to 4 hours later."
+    },
+    {
+      "step": "action",
+      "organ": "lungs",
+      "text": "Blocks leukotriene receptors in the airways, calming the swelling and tightening that cause asthma and allergy symptoms."
+    },
+    {
+      "step": "metabolism",
+      "organ": "liver",
+      "text": "Broken down in the liver, mainly by the CYP2C8 enzyme."
+    },
+    {
+      "step": "elimination",
+      "organ": "intestines",
+      "text": "Leaves almost entirely through bile into the gut, not in urine."
+    }
+  ],
+  "curation": {
+    "reviewed_by": "Claude (AI draft, not yet reviewed)",
+    "reviewed_on": "2026-10-06",
+    "status": "draft"
+  }
+}

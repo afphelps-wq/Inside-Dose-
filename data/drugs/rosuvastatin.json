@@ -1,0 +1,138 @@
+{
+  "id": "rosuvastatin",
+  "names": {
+    "generic": "rosuvastatin",
+    "brands": [
+      "Crestor"
+    ]
+  },
+  "ids": {
+    "rxcui": "301542",
+    "chembl": "CHEMBL1496",
+    "pubchem_cid": 446157
+  },
+  "common_use": "Cholesterol",
+  "formulations": [
+    {
+      "id": "tablet_ir",
+      "label": "Rosuvastatin tablets",
+      "route": "oral",
+      "dose_mg": {
+        "min": 5,
+        "max": 40,
+        "typical": 5,
+        "intervals_h": [
+          24
+        ],
+        "source": {
+          "dailymed_setid": "325a5d0e-9a72-4015-9fcd-1655fb504cee",
+          "section": "2.2",
+          "note": "'dosage range for CRESTOR is 5 to 40 mg orally once daily'. The label gives no single usual dose, so typical is set to the lowest."
+        }
+      },
+      "pk": {
+        "bioavailability": {
+          "range": [
+            0.2,
+            0.2
+          ],
+          "model": 0.2,
+          "unit": "fraction",
+          "source": {
+            "dailymed_setid": "325a5d0e-9a72-4015-9fcd-1655fb504cee",
+            "section": "12.3",
+            "note": "'approximately 20%'"
+          }
+        },
+        "half_life": {
+          "range": [
+            19,
+            19
+          ],
+          "model": 19,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "325a5d0e-9a72-4015-9fcd-1655fb504cee",
+            "section": "12.3",
+            "note": "'approximately 19 hours'"
+          }
+        },
+        "vd": {
+          "range": [
+            134,
+            134
+          ],
+          "model": 134,
+          "unit": "L",
+          "source": {
+            "dailymed_setid": "325a5d0e-9a72-4015-9fcd-1655fb504cee",
+            "section": "12.3",
+            "note": "'approximately 134 liters'"
+          }
+        },
+        "tmax": {
+          "range": [
+            3,
+            5
+          ],
+          "model": 4.0,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "325a5d0e-9a72-4015-9fcd-1655fb504cee",
+            "section": "12.3",
+            "note": "'3 to 5 hours following oral dosing' model = midpoint of the label range (curve value; change if you prefer another)"
+          }
+        }
+      }
+    }
+  ],
+  "enzymes": [
+    {
+      "name": "CYP2C9",
+      "role": "substrate",
+      "importance": "minor",
+      "source": {
+        "dailymed_setid": "325a5d0e-9a72-4015-9fcd-1655fb504cee",
+        "section": "12.3",
+        "note": "'not extensively metabolized; approximately 10% ... recovered as metabolite', formed 'principally by cytochrome P450 2C9'. Recorded as minor because only ~10% is metabolized."
+      }
+    }
+  ],
+  "transporters": [],
+  "effects": [],
+  "elimination": {
+    "routes": [
+      {
+        "route": "bile",
+        "fraction": 0.9
+      }
+    ],
+    "source": {
+      "dailymed_setid": "325a5d0e-9a72-4015-9fcd-1655fb504cee",
+      "section": "12.3",
+      "note": "'primarily excreted in the feces (90%)' after oral dosing; recorded as bile. OATP1B1 and BCRP transporters have no stated major/minor role, so they are left out."
+    }
+  },
+  "journey": [
+    {
+      "step": "absorption",
+      "organ": "intestines",
+      "text": "About 20% of a dose reaches the blood from the gut; levels peak 3 to 5 hours later."
+    },
+    {
+      "step": "action",
+      "organ": "liver",
+      "text": "Blocks HMG-CoA reductase, the enzyme the liver uses to make cholesterol."
+    },
+    {
+      "step": "elimination",
+      "organ": "intestines",
+      "text": "Mostly leaves unchanged through the gut; only about 10% is broken down first."
+    }
+  ],
+  "curation": {
+    "reviewed_by": "Claude (AI draft, not yet reviewed)",
+    "reviewed_on": "2026-10-06",
+    "status": "draft"
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "id": "gabapentin",
+  "names": {
+    "generic": "gabapentin",
+    "brands": [
+      "Neurontin"
+    ]
+  },
+  "ids": {
+    "rxcui": "25480",
+    "chembl": "CHEMBL940",
+    "pubchem_cid": 3446
+  },
+  "common_use": "Nerve pain / seizures",
+  "formulations": [
+    {
+      "id": "ir",
+      "label": "Gabapentin capsules and tablets",
+      "route": "oral",
+      "dose_mg": {
+        "min": 300,
+        "max": 1200,
+        "typical": 300,
+        "intervals_h": [
+          8
+        ],
+        "source": {
+          "dailymed_setid": "97935fd9-1d4a-43b6-a5d9-de994591187b",
+          "section": "2.2",
+          "note": "Epilepsy: start 300 mg three times a day, maintenance 300-600 mg three times a day; up to 3600 mg/day (2.1, 2.2) = 1200 mg per dose three times daily."
+        }
+      },
+      "pk": {
+        "bioavailability": {
+          "range": [
+            0.27,
+            0.6
+          ],
+          "model": 0.6,
+          "unit": "fraction",
+          "source": {
+            "dailymed_setid": "97935fd9-1d4a-43b6-a5d9-de994591187b",
+            "section": "12.3",
+            "note": "Falls as dose rises: '60%, 47%, 34%, 33%, and 27% following 900, 1200, 2400, 3600, and 4800 mg/day'. Model 0.6 = value at 900 mg/day (300 mg three times daily, the typical dose); the curve does not model this drop."
+          }
+        },
+        "half_life": {
+          "range": [
+            5,
+            7
+          ],
+          "model": 6.0,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "97935fd9-1d4a-43b6-a5d9-de994591187b",
+            "section": "12.3",
+            "note": "'elimination half-life is 5 to 7 hours' model = midpoint of the label range (curve value; change if you prefer another)"
+          }
+        },
+        "vd": {
+          "range": [
+            58,
+            58
+          ],
+          "model": 58,
+          "unit": "L",
+          "source": {
+            "dailymed_setid": "97935fd9-1d4a-43b6-a5d9-de994591187b",
+            "section": "12.3",
+            "note": "'apparent volume of distribution ... after 150 mg intravenous administration is 58 +/- 6 L'"
+          }
+        },
+        "tmax": {
+          "range": [
+            2,
+            3
+          ],
+          "model": 2.5,
+          "unit": "h",
+          "source": {
+            "citation": "NEURONTIN (gabapentin) Product Monograph, Pfizer Canada, Health Canada, p. 18 (Absorption)",
+            "url": "https://pdf.hres.ca/dpd_pm/00044022.PDF",
+            "note": "US label gives Tmax only for children (2-3 h). Monograph: 'peak plasma concentrations are observed within 2 to 3 hours'. model = midpoint of the label range (curve value; change if you prefer another)"
+          }
+        }
+      }
+    }
+  ],
+  "enzymes": [],
+  "transporters": [],
+  "effects": [
+    {
+      "category": "sedation",
+      "source": {
+        "dailymed_setid": "97935fd9-1d4a-43b6-a5d9-de994591187b",
+        "section": "5.4",
+        "note": "Somnolence/Sedation and Dizziness"
+      }
+    }
+  ],
+  "elimination": {
+    "routes": [
+      {
+        "route": "kidney",
+        "fraction": 1.0,
+        "unchanged_fraction": 1.0
+      }
+    ],
+    "source": {
+      "dailymed_setid": "97935fd9-1d4a-43b6-a5d9-de994591187b",
+      "section": "12.3",
+      "note": "'eliminated from the systemic circulation by renal excretion as unchanged drug'; 'not appreciably metabolized' (fractions are of the absorbed drug)."
+    }
+  },
+  "journey": [
+    {
+      "step": "absorption",
+      "organ": "intestines",
+      "text": "Absorbed from the gut, but the gut can only take up so much: the bigger the dose, the smaller the share absorbed."
+    },
+    {
+      "step": "action",
+      "organ": "brain",
+      "text": "Binds to calcium channels on nerve cells, calming overactive nerve signals behind nerve pain and seizures. Exactly how it helps is not fully known."
+    },
+    {
+      "step": "elimination",
+      "organ": "kidneys",
+      "text": "Not broken down at all: it leaves unchanged in urine."
+    }
+  ],
+  "curation": {
+    "reviewed_by": "Claude (AI draft, not yet reviewed)",
+    "reviewed_on": "2026-10-06",
+    "status": "draft"
+  }
+}

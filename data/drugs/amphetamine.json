@@ -1,0 +1,146 @@
+{
+  "id": "amphetamine",
+  "names": {
+    "generic": "amphetamine mixed salts",
+    "brands": [
+      "Adderall"
+    ]
+  },
+  "ids": {
+    "rxcui": "725",
+    "chembl": "CHEMBL405",
+    "pubchem_cid": 3007
+  },
+  "common_use": "ADHD",
+  "formulations": [
+    {
+      "id": "tablet_ir",
+      "label": "Mixed amphetamine salts tablets (immediate release)",
+      "route": "oral",
+      "dose_mg": {
+        "min": 5,
+        "max": 20,
+        "typical": 5,
+        "intervals_h": [
+          24,
+          6,
+          4
+        ],
+        "source": {
+          "dailymed_setid": "f22635fe-821d-4cde-aa12-419f8b53db81",
+          "section": "Dosage and Administration > Attention Deficit Hyperactivity Disorder",
+          "note": "Age 6+: start 5 mg once or twice daily; 'Only in rare cases will it be necessary to exceed a total of 40 mg per day'; extra doses 'at intervals of 4 to 6 hours'. Max 20 = 40 mg/day split in two (the label gives no per-dose max). The curve repeats doses round the clock; the label means 1-3 doses during the day."
+        }
+      },
+      "pk": {
+        "half_life": {
+          "range": [
+            9.77,
+            11
+          ],
+          "model": 10.385,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "f22635fe-821d-4cde-aa12-419f8b53db81",
+            "section": "Clinical Pharmacology > Pharmacokinetics",
+            "note": "d-amphetamine '9.77 to 11 hours' (l-isomer 11.5 to 13.8 h); d is 3/4 of the mix model = midpoint of the label range (curve value; change if you prefer another)"
+          }
+        },
+        "vd": {
+          "range": [
+            4,
+            4
+          ],
+          "model": 4,
+          "unit": "L/kg",
+          "source": {
+            "citation": "de la Torre R et al. Clinical pharmacokinetics of amfetamine and related substances. Clin Pharmacokinet. 2004;43(3):157-85 (PMID 14871155)",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/14871155/",
+            "note": "Abstract: 'Their oral bioavailability is good, with a high distribution volume (4 L/kg)' (amfetamine-type stimulants as a class)."
+          }
+        },
+        "tmax": {
+          "range": [
+            3,
+            3
+          ],
+          "model": 3,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "f22635fe-821d-4cde-aa12-419f8b53db81",
+            "section": "Clinical Pharmacology > Pharmacokinetics",
+            "note": "'peak plasma concentrations occurred approximately 3 hours post-dose'"
+          }
+        },
+        "bioavailability": {
+          "range": [
+            0.9,
+            0.9
+          ],
+          "model": 0.9,
+          "unit": "fraction",
+          "source": {
+            "citation": "Widely repeated ~90% oral bioavailability figure for amphetamine (e.g. Wikipedia/Drugs.com), traced back to an unresolved citation tag ('handbook2022_PK') that could not be matched to an actual publication",
+            "url": "https://en.wikipedia.org/wiki/Amphetamine",
+            "note": "No label, PK review (de la Torre 2004; Markowitz & Patrick 2017, paywalled), or database (DrugBank: 'Bioavailability data of dextroamphetamine is not readily available') gives a verifiable number -- not even an animal estimate. This is the weakest-sourced value in the dataset: a commonly repeated figure with no traceable primary source. Flagged for Anabella to replace if she finds a real citation."
+          }
+        }
+      }
+    }
+  ],
+  "enzymes": [],
+  "transporters": [],
+  "effects": [
+    {
+      "category": "serotonergic",
+      "source": {
+        "dailymed_setid": "f22635fe-821d-4cde-aa12-419f8b53db81",
+        "section": "Warnings > Serotonin Syndrome"
+      }
+    },
+    {
+      "category": "lowers_seizure_threshold",
+      "source": {
+        "dailymed_setid": "f22635fe-821d-4cde-aa12-419f8b53db81",
+        "section": "Warnings > Seizures",
+        "note": "'stimulants may lower the convulsive threshold'"
+      }
+    }
+  ],
+  "elimination": {
+    "routes": [
+      {
+        "route": "kidney",
+        "fraction": 0.85,
+        "unchanged_fraction": 0.35
+      }
+    ],
+    "source": {
+      "dailymed_setid": "f22635fe-821d-4cde-aa12-419f8b53db81",
+      "section": "Clinical Pharmacology > Pharmacokinetics > Metabolism and Excretion",
+      "note": "At normal urine pH, 'approximately half' as alpha-hydroxy-amphetamine derivatives plus '30% to 40%' unchanged (0.5 + 0.35); very dependent on urine pH (1% to 75% unchanged). CYP2D6 is 'involved' but its importance is not stated, so no enzyme entry. MISSING: oral bioavailability is only described as 'good' (no number) in the review; no label gives it."
+    }
+  },
+  "journey": [
+    {
+      "step": "absorption",
+      "organ": "intestines",
+      "text": "Absorbed from the gut; blood levels peak about 3 hours after a dose."
+    },
+    {
+      "step": "action",
+      "organ": "brain",
+      "text": "Boosts the brain chemicals dopamine and norepinephrine, which help with focus and attention."
+    },
+    {
+      "step": "elimination",
+      "organ": "kidneys",
+      "text": "Most of a dose leaves in urine, part unchanged and part broken down. Acidic urine speeds this up; alkaline urine slows it."
+    }
+  ],
+  "curation": {
+    "reviewed_by": "Claude (AI draft, not yet reviewed)",
+    "reviewed_on": "2026-10-07",
+    "status": "draft"
+  }
+}

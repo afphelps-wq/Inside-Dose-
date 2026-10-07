@@ -1,0 +1,140 @@
+{
+  "id": "ibuprofen",
+  "names": {
+    "generic": "ibuprofen",
+    "brands": [
+      "Advil",
+      "Motrin"
+    ]
+  },
+  "ids": {
+    "rxcui": "5640",
+    "chembl": "CHEMBL521",
+    "pubchem_cid": 3672
+  },
+  "common_use": "Pain / inflammation",
+  "formulations": [
+    {
+      "id": "tablet_ir",
+      "label": "Ibuprofen tablets (immediate release)",
+      "route": "oral",
+      "dose_mg": {
+        "min": 400,
+        "max": 800,
+        "typical": 400,
+        "intervals_h": [
+          4,
+          6,
+          8
+        ],
+        "source": {
+          "dailymed_setid": "3e131710-2579-446e-8076-f602ecea813f",
+          "section": "Dosage and Administration",
+          "note": "Pain: 400 mg every 4 to 6 hours; arthritis: 400, 600 or 800 mg three or four times daily (every 8 or 6 h). Do not exceed 3200 mg/day, so 800 mg every 4 h would exceed the label."
+        }
+      },
+      "pk": {
+        "bioavailability": {
+          "range": [
+            0.8,
+            0.8
+          ],
+          "model": 0.8,
+          "unit": "fraction",
+          "source": {
+            "citation": "MOTRIN IB (ibuprofen tablets) Product Monograph, McNeil Consumer Healthcare, Health Canada, revised August 9, 2003, p. 2",
+            "url": "https://pdf.hres.ca/dpd_pm/00000478.PDF",
+            "note": "'Oral absorption is estimated to be 80% of the dose.' The US tablet label only says absorption is rapid, with no number. Strictly this is the fraction absorbed, used here as bioavailability."
+          }
+        },
+        "half_life": {
+          "range": [
+            1.8,
+            2.0
+          ],
+          "model": 1.9,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "3e131710-2579-446e-8076-f602ecea813f",
+            "section": "Clinical Pharmacology > Pharmacokinetics",
+            "note": "'The serum half-life is 1.8 to 2.0 hours.' model = midpoint of the label range (curve value; change if you prefer another)"
+          }
+        },
+        "vd": {
+          "range": [
+            0.12,
+            0.12
+          ],
+          "model": 0.12,
+          "unit": "L/kg",
+          "source": {
+            "dailymed_setid": "a8b46ae5-67bc-494d-850e-b4e4ed5a33b3",
+            "section": "Clinical Pharmacology > Pharmacokinetics > Distribution",
+            "note": "The tablet label gives no Vd; this is the Sun Pharma ibuprofen oral suspension label: 'adults have a volume of approximately 0.12 L/kg'."
+          }
+        },
+        "tmax": {
+          "range": [
+            1,
+            2
+          ],
+          "model": 1.5,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "3e131710-2579-446e-8076-f602ecea813f",
+            "section": "Clinical Pharmacology > Pharmacokinetics",
+            "note": "'Peak serum ibuprofen levels are generally attained one to two hours after administration.' model = midpoint of the label range (curve value; change if you prefer another)"
+          }
+        }
+      }
+    }
+  ],
+  "enzymes": [],
+  "transporters": [],
+  "effects": [
+    {
+      "category": "nsaid",
+      "source": {
+        "dailymed_setid": "3e131710-2579-446e-8076-f602ecea813f",
+        "section": "Description",
+        "note": "'Ibuprofen, a nonsteroidal anti-inflammatory drug (NSAID)'"
+      }
+    }
+  ],
+  "elimination": {
+    "routes": [
+      {
+        "route": "kidney",
+        "fraction": 0.62,
+        "unchanged_fraction": 0.01
+      }
+    ],
+    "source": {
+      "dailymed_setid": "3e131710-2579-446e-8076-f602ecea813f",
+      "section": "Clinical Pharmacology > Pharmacokinetics",
+      "note": "'45% to 79% of the dose was recovered in the urine within 24 hours'; fraction 0.62 is the midpoint. Free (unchanged) ibuprofen was 'approximately 1%'."
+    }
+  },
+  "journey": [
+    {
+      "step": "absorption",
+      "organ": "intestines",
+      "text": "Absorbed quickly after swallowing. Blood levels peak within 1 to 2 hours."
+    },
+    {
+      "step": "action",
+      "organ": "muscle",
+      "text": "Thought to work by blocking prostaglandins, chemicals the body makes that cause pain, fever and swelling."
+    },
+    {
+      "step": "elimination",
+      "organ": "kidneys",
+      "text": "Quickly broken down and removed in urine. It is almost completely gone within 24 hours of the last dose."
+    }
+  ],
+  "curation": {
+    "reviewed_by": "Claude (AI draft, not yet reviewed)",
+    "reviewed_on": "2026-10-05",
+    "status": "draft"
+  }
+}

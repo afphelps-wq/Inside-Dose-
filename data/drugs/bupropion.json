@@ -1,0 +1,169 @@
+{
+  "id": "bupropion",
+  "names": {
+    "generic": "bupropion",
+    "brands": [
+      "Wellbutrin"
+    ]
+  },
+  "ids": {
+    "rxcui": "42347",
+    "chembl": "CHEMBL894",
+    "pubchem_cid": 444
+  },
+  "common_use": "Depression / smoking cessation",
+  "formulations": [
+    {
+      "id": "tablet_ir",
+      "label": "Bupropion hydrochloride tablets (immediate release)",
+      "route": "oral",
+      "dose_mg": {
+        "min": 75,
+        "max": 150,
+        "typical": 100,
+        "intervals_h": [
+          12,
+          8,
+          6
+        ],
+        "source": {
+          "dailymed_setid": "6563b923-269f-40c3-b992-cbacdfca6e16",
+          "section": "2.1",
+          "note": "Start 100 mg twice daily; then 100 mg three times daily (at least 6 h apart); up to 450 mg/day 'in divided doses of not more than 150 mg each'; 75 mg tablets for doses above 300 mg/day. Generic IR label (Aurobindo): Wellbutrin IR is no longer on DailyMed."
+        }
+      },
+      "pk": {
+        "bioavailability": {
+          "range": [
+            0.05,
+            0.2
+          ],
+          "model": 0.125,
+          "unit": "fraction",
+          "source": {
+            "dailymed_setid": "6563b923-269f-40c3-b992-cbacdfca6e16",
+            "section": "12.3",
+            "note": "'The absolute bioavailability of bupropion hydrochloride in humans has not been determined because an intravenous formulation for human use is not available ... In rat and dog studies, the bioavailability of bupropion ranged from 5% to 20%.' No human measurement exists anywhere; using the animal range as the best available surrogate, model = midpoint 12.5%. Flagged for Anabella: this is an animal-derived estimate, not a human-measured value."
+          }
+        },
+        "half_life": {
+          "range": [
+            21,
+            21
+          ],
+          "model": 21,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "6563b923-269f-40c3-b992-cbacdfca6e16",
+            "section": "12.3",
+            "note": "'mean elimination half-life ... after chronic dosing is 21 (+/-9) hours'"
+          }
+        },
+        "vd": {
+          "range": [
+            1950,
+            1950
+          ],
+          "model": 1950,
+          "unit": "L",
+          "source": {
+            "citation": "Health Canada Product Monograph: PrWELLBUTRIN XL (Bupropion Hydrochloride Extended-Release Tablets), Bausch Health Canada Inc., revised 2024-12-16, Pharmacokinetics – Distribution.",
+            "url": "https://pdf.hres.ca/dpd_pm/00078042.PDF",
+            "note": "'The volume of distribution (Vss/F) estimated from a single 150 mg dose given to 17 subjects is 1,950 L (20% CV).' This is the study's reported Vss/F (bioavailability-normalized), not an independently measured Vd -- no human Vd exists on its own. Paired here with the animal-derived bioavailability estimate above; the combination is an approximation. Flagged for Anabella's review since bupropion has no real human measurement of either quantity independently."
+          }
+        },
+        "tmax": {
+          "range": [
+            2,
+            2
+          ],
+          "model": 2,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "6563b923-269f-40c3-b992-cbacdfca6e16",
+            "section": "12.3",
+            "note": "'peak plasma bupropion concentrations are usually achieved within 2 hours'"
+          }
+        }
+      }
+    }
+  ],
+  "enzymes": [
+    {
+      "name": "CYP2B6",
+      "role": "substrate",
+      "importance": "major",
+      "source": {
+        "dailymed_setid": "6563b923-269f-40c3-b992-cbacdfca6e16",
+        "section": "12.3",
+        "note": "'CYP2B6 is the principal isoenzyme involved in the formation of hydroxybupropion'"
+      }
+    },
+    {
+      "name": "CYP2D6",
+      "role": "inhibitor",
+      "strength": "strong",
+      "source": {
+        "citation": "FDA, 'For Healthcare Professionals | FDA's Examples of Drugs that Interact with CYP Enzymes and Transporter Systems' (content current as of 05/29/2026)",
+        "url": "https://www.fda.gov/drugs/drug-interactions-labeling/healthcare-professionals-fdas-examples-drugs-interact-cyp-enzymes-and-transporter-systems",
+        "note": "Table lists bupropion as '2D6 strong inhibitor'. Label 7.2: bupropion and its metabolites 'are CYP2D6 inhibitors' (no strength)."
+      }
+    }
+  ],
+  "transporters": [],
+  "effects": [
+    {
+      "category": "lowers_seizure_threshold",
+      "source": {
+        "dailymed_setid": "6563b923-269f-40c3-b992-cbacdfca6e16",
+        "section": "5.3",
+        "note": "'can cause seizure. The risk of seizure is dose-related.'"
+      }
+    }
+  ],
+  "elimination": {
+    "routes": [
+      {
+        "route": "kidney",
+        "fraction": 0.87,
+        "unchanged_fraction": 0.005
+      },
+      {
+        "route": "bile",
+        "fraction": 0.1
+      }
+    ],
+    "source": {
+      "dailymed_setid": "6563b923-269f-40c3-b992-cbacdfca6e16",
+      "section": "12.3",
+      "note": "14C-bupropion: '87% and 10% ... recovered in the urine and feces'; 'Only 0.5% ... excreted as unchanged bupropion'. Feces recorded as bile. Absolute bioavailability is unknown in humans (no IV formulation); see pk.bioavailability/pk.vd for the F=1, V=Vss/F=1,950 L modeling convention used for the PK curve."
+    }
+  },
+  "journey": [
+    {
+      "step": "absorption",
+      "organ": "intestines",
+      "text": "Absorbed from the gut, though only a small part reaches the blood intact; levels peak within about 2 hours."
+    },
+    {
+      "step": "action",
+      "organ": "brain",
+      "text": "Weakly blocks the brain from reabsorbing norepinephrine and dopamine. It does not act on serotonin."
+    },
+    {
+      "step": "metabolism",
+      "organ": "liver",
+      "text": "Heavily broken down, partly by the CYP2B6 enzyme, into active pieces that build up to higher levels than the drug itself."
+    },
+    {
+      "step": "elimination",
+      "organ": "kidneys",
+      "text": "Almost all leaves in urine as broken-down pieces."
+    }
+  ],
+  "curation": {
+    "reviewed_by": "Claude (AI draft, not yet reviewed)",
+    "reviewed_on": "2026-10-07",
+    "status": "draft"
+  }
+}

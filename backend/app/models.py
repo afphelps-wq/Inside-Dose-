@@ -42,9 +42,26 @@ class StrictModel(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
 
-class Source(StrictModel):
+class LabelSource(StrictModel):
+    """An FDA label on DailyMed (the default source)."""
+
     dailymed_setid: str = Field(pattern=UUID_PATTERN, description="DailyMed label set ID")
-    section: str = Field(pattern=r"^\d+(\.\d+)*$", description='Label section, e.g. "2" or "12.3"')
+    section: str = Field(
+        pattern=r"^(\d+(\.\d+)*|[A-Za-z][^<]*)$",
+        description='Numbered section ("12.3") or, for older labels, its heading ("Clinical Pharmacology")',
+    )
+    note: str | None = Field(default=None, min_length=1, description="How the value was read, e.g. arithmetic")
+
+
+class SecondarySource(StrictModel):
+    """Used only when no label gives the value (e.g. an FDA review or a published PK study)."""
+
+    citation: str = Field(min_length=1)
+    url: str = Field(pattern=r"^https?://\S+$")
+    note: str | None = Field(default=None, min_length=1)
+
+
+Source = LabelSource | SecondarySource
 
 
 # ---- PK values: label range + the single value used for the curve ----
@@ -95,6 +112,8 @@ class Pk(StrictModel):
 
 
 class DoseRange(StrictModel):
+    """mg per single dose (not per day); daily label ranges are divided by doses per day."""
+
     min: float = Field(gt=0)
     max: float = Field(gt=0)
     typical: float = Field(gt=0)
@@ -160,7 +179,7 @@ class Effect(StrictModel):
 
 class EliminationRouteEntry(StrictModel):
     route: EliminationRoute
-    fraction: float = Field(ge=0, le=1)
+    fraction: float | None = Field(default=None, ge=0, le=1, description="Left out when the label gives no number")
     unchanged_fraction: float | None = Field(default=None, ge=0, le=1)
 
 
@@ -170,7 +189,7 @@ class Elimination(StrictModel):
 
     @model_validator(mode="after")
     def check_total(self):
-        if sum(route.fraction for route in self.routes) > 1 + 1e-9:
+        if sum(route.fraction or 0 for route in self.routes) > 1 + 1e-9:
             raise ValueError("elimination route fractions add up to more than 1")
         return self
 

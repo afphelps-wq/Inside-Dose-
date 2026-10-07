@@ -1,0 +1,170 @@
+{
+  "id": "fluoxetine",
+  "names": {
+    "generic": "fluoxetine",
+    "brands": [
+      "Prozac"
+    ]
+  },
+  "ids": {
+    "rxcui": "4493",
+    "chembl": "CHEMBL41",
+    "pubchem_cid": 3386
+  },
+  "common_use": "Depression",
+  "formulations": [
+    {
+      "id": "capsule_ir",
+      "label": "Fluoxetine capsules",
+      "route": "oral",
+      "dose_mg": {
+        "min": 20,
+        "max": 80,
+        "typical": 20,
+        "intervals_h": [
+          24,
+          12
+        ],
+        "source": {
+          "dailymed_setid": "c88f33ed-6dfb-4c5e-bc01-d8e36dd97299",
+          "section": "2.1",
+          "note": "Adults: start 20 mg/day in the morning; above 20 mg/day once daily or twice daily (morning and noon); 'should not exceed 80 mg/day' (so 80 mg twice daily would exceed the label)."
+        }
+      },
+      "pk": {
+        "half_life": {
+          "range": [
+            24,
+            72
+          ],
+          "model": 48.0,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "c88f33ed-6dfb-4c5e-bc01-d8e36dd97299",
+            "section": "12.3",
+            "note": "'1 to 3 days after acute administration and 4 to 6 days after chronic administration'; norfluoxetine 4 to 16 days model = midpoint of the label range (curve value; change if you prefer another)"
+          }
+        },
+        "vd": {
+          "range": [
+            1480,
+            1480
+          ],
+          "model": 1480,
+          "unit": "L",
+          "source": {
+            "citation": "Eugene AR. Fluoxetine pharmacokinetics and tissue distribution quantitatively supports a therapeutic role in COVID-19 at a minimum dose of 20 mg per day. F1000Research. 2022;10:477. doi:10.12688/f1000research.53275.3",
+            "url": "https://doi.org/10.12688/f1000research.53275.3",
+            "note": "'The pharmacometric parameters referenced from the NDA were calculated by the FDA after combining 3 pharmacokinetic study datasets resulting in ... volume of distribution (Vd) value of 1,480 liters' (population PK estimate from the original Prozac NDA 18-936, Eli Lilly; not given per kg, so the weight slider is fixed)."
+          }
+        },
+        "tmax": {
+          "range": [
+            6,
+            8
+          ],
+          "model": 7.0,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "c88f33ed-6dfb-4c5e-bc01-d8e36dd97299",
+            "section": "12.3",
+            "note": "single 40 mg dose: peak 'after 6 to 8 hours' model = midpoint of the label range (curve value; change if you prefer another)"
+          }
+        },
+        "bioavailability": {
+          "range": [
+            0.9,
+            0.9
+          ],
+          "model": 0.9,
+          "unit": "fraction",
+          "source": {
+            "citation": "DrugBank DB00472 (Fluoxetine), Absorption/ADME summary, via PubChem CID 3386",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/3386/JSON?heading=Absorption,%20Distribution%20and%20Excretion",
+            "note": "'The oral bioavailability of fluoxetine is <90% as a result of hepatic first pass metabolism.' (DrugBank, via PubChem). Stated only as an upper bound, not an exact figure -- US label gives no number at all. Used here as the model value, same upper-bound convention used for metoprolol's unchanged_fraction elsewhere in this dataset. Flagged for Anabella's review."
+          }
+        }
+      }
+    }
+  ],
+  "enzymes": [
+    {
+      "name": "CYP2D6",
+      "role": "inhibitor",
+      "strength": "strong",
+      "source": {
+        "dailymed_setid": "0283bc9d-6998-493a-824a-d4c85f704111",
+        "section": "7.3",
+        "note": "Lopressor (metoprolol) label: 'strong inhibitors of CYP2D6 such as quinidine, fluoxetine, paroxetine'. Prozac 7.7: 'Fluoxetine inhibits the activity of CYP2D6'. FDA table agrees (strong)."
+      }
+    },
+    {
+      "name": "CYP2C19",
+      "role": "inhibitor",
+      "strength": "strong",
+      "source": {
+        "citation": "FDA, 'For Healthcare Professionals | FDA's Examples of Drugs that Interact with CYP Enzymes and Transporter Systems' (content current as of 05/29/2026)",
+        "url": "https://www.fda.gov/drugs/drug-interactions-labeling/healthcare-professionals-fdas-examples-drugs-interact-cyp-enzymes-and-transporter-systems",
+        "note": "Table lists fluoxetine as '2C19; 2D6 strong inhibitor'."
+      }
+    }
+  ],
+  "transporters": [],
+  "effects": [
+    {
+      "category": "serotonergic",
+      "source": {
+        "dailymed_setid": "c88f33ed-6dfb-4c5e-bc01-d8e36dd97299",
+        "section": "5.2",
+        "note": "Serotonin Syndrome"
+      }
+    },
+    {
+      "category": "bleeding_risk",
+      "source": {
+        "dailymed_setid": "c88f33ed-6dfb-4c5e-bc01-d8e36dd97299",
+        "section": "5.7",
+        "note": "Increased Risk of Bleeding"
+      }
+    }
+  ],
+  "elimination": {
+    "routes": [
+      {
+        "route": "kidney"
+      }
+    ],
+    "source": {
+      "dailymed_setid": "c88f33ed-6dfb-4c5e-bc01-d8e36dd97299",
+      "section": "12.3",
+      "note": "'primary route of elimination appears to be hepatic metabolism to inactive metabolites excreted by the kidney' (no %). CYP2D6 is involved in its metabolism but its importance isn't stated, so no substrate entry. MISSING: bioavailability and Vd: labels and Canadian monographs only say 'large volume of distribution'; the Altamura 1994 review abstract gives no numbers."
+    }
+  },
+  "journey": [
+    {
+      "step": "absorption",
+      "organ": "intestines",
+      "text": "Absorbed from the gut; blood levels peak 6 to 8 hours after a dose."
+    },
+    {
+      "step": "action",
+      "organ": "brain",
+      "text": "Blocks serotonin from being taken back up by nerve cells in the brain, so more serotonin stays active."
+    },
+    {
+      "step": "metabolism",
+      "organ": "liver",
+      "text": "Broken down in the liver into norfluoxetine, an active form that lasts even longer."
+    },
+    {
+      "step": "elimination",
+      "organ": "kidneys",
+      "text": "Leaves very slowly in urine as inactive pieces: active drug can remain for weeks after the last dose."
+    }
+  ],
+  "curation": {
+    "reviewed_by": "Claude (AI draft, not yet reviewed)",
+    "reviewed_on": "2026-10-07",
+    "status": "draft"
+  }
+}

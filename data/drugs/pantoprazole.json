@@ -1,0 +1,159 @@
+{
+  "id": "pantoprazole",
+  "names": {
+    "generic": "pantoprazole",
+    "brands": [
+      "Protonix"
+    ]
+  },
+  "ids": {
+    "rxcui": "40790",
+    "chembl": "CHEMBL1502",
+    "pubchem_cid": 4679
+  },
+  "common_use": "Acid reflux",
+  "formulations": [
+    {
+      "id": "delayed_release",
+      "label": "Pantoprazole delayed-release tablets",
+      "route": "oral",
+      "dose_mg": {
+        "min": 40,
+        "max": 40,
+        "typical": 40,
+        "intervals_h": [
+          24,
+          12
+        ],
+        "source": {
+          "dailymed_setid": "08098cb2-c048-4640-f387-6beec4a38936",
+          "section": "2.1",
+          "note": "Adults: 40 mg once daily (erosive esophagitis, maintenance), 40 mg twice daily (Zollinger-Ellison; 'Doses up to 240 mg daily have been administered'). NOTE: delayed release only, which the spec's immediate-release rule does not cover."
+        }
+      },
+      "pk": {
+        "bioavailability": {
+          "range": [
+            0.77,
+            0.77
+          ],
+          "model": 0.77,
+          "unit": "fraction",
+          "source": {
+            "dailymed_setid": "08098cb2-c048-4640-f387-6beec4a38936",
+            "section": "12.3",
+            "note": "'absolute bioavailability of approximately 77%'"
+          }
+        },
+        "half_life": {
+          "range": [
+            1,
+            1
+          ],
+          "model": 1,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "08098cb2-c048-4640-f387-6beec4a38936",
+            "section": "12.3",
+            "note": "'terminal elimination half-life of approximately one hour'"
+          }
+        },
+        "vd": {
+          "range": [
+            11,
+            23.6
+          ],
+          "model": 17.3,
+          "unit": "L",
+          "source": {
+            "dailymed_setid": "08098cb2-c048-4640-f387-6beec4a38936",
+            "section": "12.3",
+            "note": "'apparent volume of distribution of pantoprazole is approximately 11 to 23.6 L' model = midpoint of the label range (curve value; change if you prefer another)"
+          }
+        },
+        "tmax": {
+          "range": [
+            2.5,
+            2.5
+          ],
+          "model": 2.5,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "08098cb2-c048-4640-f387-6beec4a38936",
+            "section": "12.3",
+            "note": "40 mg tablet: tmax 'approximately 2.5 hours'"
+          }
+        }
+      }
+    }
+  ],
+  "enzymes": [
+    {
+      "name": "CYP2C19",
+      "role": "substrate",
+      "importance": "major",
+      "source": {
+        "dailymed_setid": "08098cb2-c048-4640-f387-6beec4a38936",
+        "section": "12.3",
+        "note": "'The main metabolic pathway is demethylation, by CYP2C19'"
+      }
+    },
+    {
+      "name": "CYP3A4",
+      "role": "substrate",
+      "importance": "minor",
+      "source": {
+        "dailymed_setid": "08098cb2-c048-4640-f387-6beec4a38936",
+        "section": "12.3",
+        "note": "'other metabolic pathways include oxidation by CYP3A4'"
+      }
+    }
+  ],
+  "transporters": [],
+  "effects": [],
+  "elimination": {
+    "routes": [
+      {
+        "route": "kidney",
+        "fraction": 0.71,
+        "unchanged_fraction": 0.0
+      },
+      {
+        "route": "bile",
+        "fraction": 0.18
+      }
+    ],
+    "source": {
+      "dailymed_setid": "08098cb2-c048-4640-f387-6beec4a38936",
+      "section": "12.3",
+      "note": "'approximately 71% of the dose was excreted in the urine, with 18% excreted in the feces through biliary excretion. There was no renal excretion of unchanged pantoprazole.'"
+    }
+  },
+  "journey": [
+    {
+      "step": "absorption",
+      "organ": "intestines",
+      "text": "Its coating protects it from stomach acid; it is absorbed after leaving the stomach, peaking about 2.5 hours later."
+    },
+    {
+      "step": "action",
+      "organ": "stomach",
+      "text": "Locks onto the proton pumps in the stomach lining that make acid; the effect lasts more than a day."
+    },
+    {
+      "step": "metabolism",
+      "organ": "liver",
+      "text": "Broken down in the liver, mainly by the CYP2C19 enzyme; it is gone from the blood within hours."
+    },
+    {
+      "step": "elimination",
+      "organ": "kidneys",
+      "text": "About 71% leaves in urine as broken-down pieces and 18% through bile."
+    }
+  ],
+  "curation": {
+    "reviewed_by": "Claude (AI draft, not yet reviewed)",
+    "reviewed_on": "2026-10-06",
+    "status": "draft"
+  }
+}

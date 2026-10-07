@@ -1,0 +1,202 @@
+{
+  "id": "apixaban",
+  "names": {
+    "generic": "apixaban",
+    "brands": [
+      "Eliquis"
+    ]
+  },
+  "ids": {
+    "rxcui": "1364430",
+    "chembl": "CHEMBL231779",
+    "pubchem_cid": 10182969
+  },
+  "common_use": "Blood thinner",
+  "formulations": [
+    {
+      "id": "tablet_ir",
+      "label": "Apixaban tablets",
+      "route": "oral",
+      "dose_mg": {
+        "min": 2.5,
+        "max": 10,
+        "typical": 5,
+        "intervals_h": [
+          12
+        ],
+        "source": {
+          "dailymed_setid": "e9481622-7cc6-418a-acb6-c5450daae9b0",
+          "section": "2.1",
+          "note": "All adult doses are twice daily. Typical 5 mg (atrial fibrillation, most patients); min 2.5 mg; max 10 mg is only for the first 7 days of DVT/PE treatment."
+        }
+      },
+      "pk": {
+        "bioavailability": {
+          "range": [
+            0.5,
+            0.5
+          ],
+          "model": 0.5,
+          "unit": "fraction",
+          "source": {
+            "dailymed_setid": "e9481622-7cc6-418a-acb6-c5450daae9b0",
+            "section": "12.3",
+            "note": "'approximately 50% for doses up to 10 mg'"
+          }
+        },
+        "half_life": {
+          "range": [
+            12,
+            12
+          ],
+          "model": 12,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "e9481622-7cc6-418a-acb6-c5450daae9b0",
+            "section": "12.3",
+            "note": "'apparent half-life of approximately 12 hours following oral administration'"
+          }
+        },
+        "vd": {
+          "range": [
+            21,
+            21
+          ],
+          "model": 21,
+          "unit": "L",
+          "source": {
+            "dailymed_setid": "e9481622-7cc6-418a-acb6-c5450daae9b0",
+            "section": "12.3",
+            "note": "'volume of distribution (Vss) is approximately 21 liters' (not per kg, so the weight slider is fixed)"
+          }
+        },
+        "tmax": {
+          "range": [
+            3,
+            4
+          ],
+          "model": 3.5,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "e9481622-7cc6-418a-acb6-c5450daae9b0",
+            "section": "12.3",
+            "note": "'Cmax ... appear 3 to 4 hours after oral administration'. model = midpoint of the label range (curve value; change if you prefer another)"
+          }
+        }
+      }
+    }
+  ],
+  "enzymes": [
+    {
+      "name": "CYP3A4",
+      "role": "substrate",
+      "importance": "major",
+      "source": {
+        "dailymed_setid": "e9481622-7cc6-418a-acb6-c5450daae9b0",
+        "section": "12.3",
+        "note": "'metabolized mainly via CYP3A4'"
+      }
+    },
+    {
+      "name": "CYP1A2",
+      "role": "substrate",
+      "importance": "minor",
+      "source": {
+        "dailymed_setid": "e9481622-7cc6-418a-acb6-c5450daae9b0",
+        "section": "12.3",
+        "note": "'minor contributions from CYP1A2, 2C8, 2C9, 2C19, and 2J2'"
+      }
+    },
+    {
+      "name": "CYP2C8",
+      "role": "substrate",
+      "importance": "minor",
+      "source": {
+        "dailymed_setid": "e9481622-7cc6-418a-acb6-c5450daae9b0",
+        "section": "12.3",
+        "note": "'minor contributions from CYP1A2, 2C8, 2C9, 2C19, and 2J2'"
+      }
+    },
+    {
+      "name": "CYP2C9",
+      "role": "substrate",
+      "importance": "minor",
+      "source": {
+        "dailymed_setid": "e9481622-7cc6-418a-acb6-c5450daae9b0",
+        "section": "12.3",
+        "note": "'minor contributions from CYP1A2, 2C8, 2C9, 2C19, and 2J2'"
+      }
+    },
+    {
+      "name": "CYP2C19",
+      "role": "substrate",
+      "importance": "minor",
+      "source": {
+        "dailymed_setid": "e9481622-7cc6-418a-acb6-c5450daae9b0",
+        "section": "12.3",
+        "note": "'minor contributions from CYP1A2, 2C8, 2C9, 2C19, and 2J2'"
+      }
+    },
+    {
+      "name": "CYP2J2",
+      "role": "substrate",
+      "importance": "minor",
+      "source": {
+        "dailymed_setid": "e9481622-7cc6-418a-acb6-c5450daae9b0",
+        "section": "12.3",
+        "note": "'minor contributions from CYP1A2, 2C8, 2C9, 2C19, and 2J2'"
+      }
+    }
+  ],
+  "transporters": [],
+  "effects": [
+    {
+      "category": "anticoagulant",
+      "source": {
+        "dailymed_setid": "e9481622-7cc6-418a-acb6-c5450daae9b0",
+        "section": "12.1",
+        "note": "selective factor Xa inhibitor"
+      }
+    }
+  ],
+  "elimination": {
+    "routes": [
+      {
+        "route": "kidney",
+        "fraction": 0.27
+      }
+    ],
+    "source": {
+      "dailymed_setid": "e9481622-7cc6-418a-acb6-c5450daae9b0",
+      "section": "12.3",
+      "note": "'Renal excretion accounts for about 27% of total clearance'. Biliary and direct intestinal excretion is not quantified, so no bile entry."
+    }
+  },
+  "journey": [
+    {
+      "step": "absorption",
+      "organ": "intestines",
+      "text": "Absorbed from the gut. About half of each dose reaches the blood, with or without food."
+    },
+    {
+      "step": "action",
+      "organ": "blood_vessels",
+      "text": "Blocks factor Xa, a clotting protein in the blood, so clots form more slowly."
+    },
+    {
+      "step": "metabolism",
+      "organ": "liver",
+      "text": "Partly broken down in the liver, mainly by the CYP3A4 enzyme. Most of the drug in the blood stays unchanged."
+    },
+    {
+      "step": "elimination",
+      "organ": "kidneys",
+      "text": "About a quarter leaves through the kidneys in urine; the rest leaves through the gut."
+    }
+  ],
+  "curation": {
+    "reviewed_by": "Claude (AI draft, not yet reviewed)",
+    "reviewed_on": "2026-10-05",
+    "status": "draft"
+  }
+}

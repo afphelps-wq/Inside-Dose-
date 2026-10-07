@@ -1,0 +1,168 @@
+{
+  "id": "omeprazole",
+  "names": {
+    "generic": "omeprazole",
+    "brands": [
+      "Prilosec"
+    ]
+  },
+  "ids": {
+    "rxcui": "7646",
+    "chembl": "CHEMBL1503",
+    "pubchem_cid": 4594
+  },
+  "common_use": "Acid reflux",
+  "formulations": [
+    {
+      "id": "delayed_release",
+      "label": "Omeprazole (delayed release)",
+      "route": "oral",
+      "dose_mg": {
+        "min": 20,
+        "max": 40,
+        "typical": 20,
+        "intervals_h": [
+          24,
+          12
+        ],
+        "source": {
+          "dailymed_setid": "b6761f84-53ac-4745-a8c8-1e5427d7e179",
+          "section": "2.1",
+          "note": "Adults: 20 mg once daily (ulcer, GERD), 40 mg once daily (gastric ulcer); 20 mg twice daily in H. pylori triple therapy. NOTE: omeprazole only exists as delayed release, which the spec's immediate-release rule does not cover."
+        }
+      },
+      "pk": {
+        "bioavailability": {
+          "range": [
+            0.58,
+            0.58
+          ],
+          "model": 0.58,
+          "unit": "fraction",
+          "source": {
+            "dailymed_setid": "b6761f84-53ac-4745-a8c8-1e5427d7e179",
+            "section": "12.3",
+            "note": "Geriatric section: '76% bioavailable ... in healthy elderly volunteers, versus 58% in young volunteers' (single 40 mg buffered solution)"
+          }
+        },
+        "half_life": {
+          "range": [
+            0.5,
+            1
+          ],
+          "model": 0.75,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "b6761f84-53ac-4745-a8c8-1e5427d7e179",
+            "section": "12.3",
+            "note": "'plasma half-life is 0.5 to 1 hour' model = midpoint of the label range (curve value; change if you prefer another)"
+          }
+        },
+        "vd": {
+          "range": [
+            0.44,
+            0.44
+          ],
+          "model": 0.44,
+          "unit": "L/kg",
+          "source": {
+            "citation": "Marier JF et al. Pharmacokinetics of omeprazole in healthy adults and in children with gastroesophageal reflux disease. Ther Drug Monit. 2004;26(1):3-8 (PMID 14749542)",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/14749542/",
+            "note": "Label gives no Vd. Abstract: apparent V(ss)/F in healthy adults 0.76 +/- 0.26 L/kg. V = 0.76 x 0.58 (model bioavailability) = 0.44 L/kg."
+          }
+        },
+        "tmax": {
+          "range": [
+            1.5,
+            2
+          ],
+          "model": 1.75,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "b6761f84-53ac-4745-a8c8-1e5427d7e179",
+            "section": "12.3",
+            "note": "'Peak plasma concentrations ... after repeated doses ... occur within 1.5 to 2 hours' model = midpoint of the label range (curve value; change if you prefer another)"
+          }
+        }
+      }
+    }
+  ],
+  "enzymes": [
+    {
+      "name": "CYP2C19",
+      "role": "substrate",
+      "importance": "major",
+      "source": {
+        "dailymed_setid": "b6761f84-53ac-4745-a8c8-1e5427d7e179",
+        "section": "12.3",
+        "note": "'The major part of its metabolism is dependent on ... CYP2C19'"
+      }
+    },
+    {
+      "name": "CYP3A4",
+      "role": "substrate",
+      "importance": "minor",
+      "source": {
+        "dailymed_setid": "b6761f84-53ac-4745-a8c8-1e5427d7e179",
+        "section": "12.3",
+        "note": "'The remaining part is dependent on ... CYP3A4'"
+      }
+    },
+    {
+      "name": "CYP2C19",
+      "role": "inhibitor",
+      "strength": "weak",
+      "source": {
+        "citation": "FDA, 'For Healthcare Professionals | FDA's Examples of Drugs that Interact with CYP Enzymes and Transporter Systems' (content current as of 05/29/2026)",
+        "url": "https://www.fda.gov/drugs/drug-interactions-labeling/healthcare-professionals-fdas-examples-drugs-interact-cyp-enzymes-and-transporter-systems",
+        "note": "Table lists omeprazole as '2C19 weak inhibitor'. The label (12.3) calls it 'a time-dependent inhibitor of CYP2C19' without a strength."
+      }
+    }
+  ],
+  "transporters": [],
+  "effects": [],
+  "elimination": {
+    "routes": [
+      {
+        "route": "kidney",
+        "fraction": 0.77
+      },
+      {
+        "route": "bile",
+        "fraction": 0.23
+      }
+    ],
+    "source": {
+      "dailymed_setid": "b6761f84-53ac-4745-a8c8-1e5427d7e179",
+      "section": "12.3",
+      "note": "'about 77% was eliminated in urine as at least six metabolites'; 'The remainder of the dose was recoverable in feces', implying 'significant biliary excretion' (1 - 0.77 = 0.23). 'little if any unchanged drug' in urine, so no unchanged fraction."
+    }
+  },
+  "journey": [
+    {
+      "step": "absorption",
+      "organ": "intestines",
+      "text": "Its coating protects it from stomach acid; it is absorbed only after it leaves the stomach, peaking 1.5 to 2 hours later."
+    },
+    {
+      "step": "action",
+      "organ": "stomach",
+      "text": "Switches off the proton pumps in the stomach lining that make acid."
+    },
+    {
+      "step": "metabolism",
+      "organ": "liver",
+      "text": "Quickly broken down in the liver, mostly by the CYP2C19 enzyme; it is gone from the blood within hours."
+    },
+    {
+      "step": "elimination",
+      "organ": "kidneys",
+      "text": "About three quarters leaves in urine as broken-down pieces; the rest through bile and the gut."
+    }
+  ],
+  "curation": {
+    "reviewed_by": "Claude (AI draft, not yet reviewed)",
+    "reviewed_on": "2026-10-06",
+    "status": "draft"
+  }
+}

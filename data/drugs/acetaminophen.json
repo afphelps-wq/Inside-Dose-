@@ -1,0 +1,133 @@
+{
+  "id": "acetaminophen",
+  "names": {
+    "generic": "acetaminophen",
+    "brands": [
+      "Tylenol"
+    ]
+  },
+  "ids": {
+    "rxcui": "161",
+    "chembl": "CHEMBL112",
+    "pubchem_cid": 1983
+  },
+  "common_use": "Pain / fever",
+  "formulations": [
+    {
+      "id": "tablet_ir",
+      "label": "Acetaminophen 500 mg caplets (Extra Strength)",
+      "route": "oral",
+      "dose_mg": {
+        "min": 1000,
+        "max": 1000,
+        "typical": 1000,
+        "intervals_h": [
+          6
+        ],
+        "source": {
+          "dailymed_setid": "103d109d-f520-409c-8da2-eb6b0fbec891",
+          "section": "Directions",
+          "note": "Adults: 'take 2 caplets [2 x 500 mg] every 6 hours ... do not take more than 6 caplets in 24 hours'. OTC Drug Facts label (no PK section)."
+        }
+      },
+      "pk": {
+        "bioavailability": {
+          "range": [
+            0.7,
+            0.9
+          ],
+          "model": 0.8,
+          "unit": "fraction",
+          "source": {
+            "citation": "Forrest JA, Clements JA, Prescott LF. Clinical pharmacokinetics of paracetamol. Clin Pharmacokinet. 1982;7(2):93-107 (PMID 7039926)",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/7039926/",
+            "note": "No label gives oral bioavailability. Abstract: 'systemic bioavailability being dose-dependent and ranging from 70 to 90%'. model = midpoint of the label range (curve value; change if you prefer another)"
+          }
+        },
+        "half_life": {
+          "range": [
+            2.4,
+            2.4
+          ],
+          "model": 2.4,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "1d456d07-fca2-4d43-92c0-f3b3c8b54420",
+            "section": "12.3",
+            "note": "IV acetaminophen label, Table 5, adults (1000 mg): T1/2 2.4 (0.6) h. The OTC label has no PK."
+          }
+        },
+        "vd": {
+          "range": [
+            0.8,
+            0.8
+          ],
+          "model": 0.8,
+          "unit": "L/kg",
+          "source": {
+            "dailymed_setid": "1d456d07-fca2-4d43-92c0-f3b3c8b54420",
+            "section": "12.3",
+            "note": "IV acetaminophen label, Table 5, adults: Vss 0.8 (0.2) L/kg (Forrest 1982: approximately 0.9 L/kg)"
+          }
+        },
+        "tmax": {
+          "range": [
+            0.4,
+            1
+          ],
+          "model": 0.7,
+          "unit": "h",
+          "source": {
+            "citation": "Extra Strength TYLENOL Nighttime Product Monograph, Johnson & Johnson Inc., Health Canada, p. 23 (acetaminophen pharmacokinetics)",
+            "url": "https://pdf.hres.ca/dpd_pm/00056762.PDF",
+            "note": "'Peak plasma concentrations occur within 0.4 to 1 hour depending on the product formulation.' model = midpoint of the label range (curve value; change if you prefer another)"
+          }
+        }
+      }
+    }
+  ],
+  "enzymes": [],
+  "transporters": [],
+  "effects": [],
+  "elimination": {
+    "routes": [
+      {
+        "route": "kidney",
+        "fraction": 0.9,
+        "unchanged_fraction": 0.04
+      }
+    ],
+    "source": {
+      "citation": "Forrest JA, Clements JA, Prescott LF. Clinical pharmacokinetics of paracetamol. Clin Pharmacokinet. 1982;7(2):93-107 (PMID 7039926)",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/7039926/",
+      "note": "'85 to 95% of a therapeutic dose is excreted in the urine within 24 hours with about 4 ... % appearing as unchanged paracetamol' (midpoint 0.9). IV label 12.3 agrees qualitatively ('mainly excreted in the urine'). CYP2E1 forms the toxic NAPQI metabolite, but its share isn't stated, so no enzyme entry."
+    }
+  },
+  "journey": [
+    {
+      "step": "absorption",
+      "organ": "intestines",
+      "text": "Absorbed quickly from the small intestine; blood levels peak within about an hour."
+    },
+    {
+      "step": "action",
+      "organ": "brain",
+      "text": "Thought to work mainly in the brain and spinal cord to ease pain and bring down fever. The exact mechanism is not established."
+    },
+    {
+      "step": "metabolism",
+      "organ": "liver",
+      "text": "Broken down in the liver, mostly by joining it to other molecules. A small part becomes a toxic by-product the liver normally neutralizes, which is why overdoses harm the liver."
+    },
+    {
+      "step": "elimination",
+      "organ": "kidneys",
+      "text": "Almost all of a dose leaves in urine within a day."
+    }
+  ],
+  "curation": {
+    "reviewed_by": "Claude (AI draft, not yet reviewed)",
+    "reviewed_on": "2026-10-06",
+    "status": "draft"
+  }
+}

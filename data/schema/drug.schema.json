@@ -25,7 +25,15 @@
           "type": "number"
         },
         "source": {
-          "$ref": "#/$defs/Source"
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LabelSource"
+            },
+            {
+              "$ref": "#/$defs/SecondarySource"
+            }
+          ],
+          "title": "Source"
         },
         "unit": {
           "const": "fraction",
@@ -74,6 +82,7 @@
     },
     "DoseRange": {
       "additionalProperties": false,
+      "description": "mg per single dose (not per day); daily label ranges are divided by doses per day.",
       "properties": {
         "min": {
           "exclusiveMinimum": 0,
@@ -99,7 +108,15 @@
           "type": "array"
         },
         "source": {
-          "$ref": "#/$defs/Source"
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LabelSource"
+            },
+            {
+              "$ref": "#/$defs/SecondarySource"
+            }
+          ],
+          "title": "Source"
         }
       },
       "required": [
@@ -130,7 +147,15 @@
           "type": "string"
         },
         "source": {
-          "$ref": "#/$defs/Source"
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LabelSource"
+            },
+            {
+              "$ref": "#/$defs/SecondarySource"
+            }
+          ],
+          "title": "Source"
         }
       },
       "required": [
@@ -152,7 +177,15 @@
           "type": "array"
         },
         "source": {
-          "$ref": "#/$defs/Source"
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LabelSource"
+            },
+            {
+              "$ref": "#/$defs/SecondarySource"
+            }
+          ],
+          "title": "Source"
         }
       },
       "required": [
@@ -175,10 +208,19 @@
           "type": "string"
         },
         "fraction": {
-          "maximum": 1,
-          "minimum": 0,
-          "title": "Fraction",
-          "type": "number"
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Left out when the label gives no number",
+          "title": "Fraction"
         },
         "unchanged_fraction": {
           "anyOf": [
@@ -196,8 +238,7 @@
         }
       },
       "required": [
-        "route",
-        "fraction"
+        "route"
       ],
       "title": "EliminationRouteEntry",
       "type": "object"
@@ -297,7 +338,15 @@
           "title": "Importance"
         },
         "source": {
-          "$ref": "#/$defs/Source"
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LabelSource"
+            },
+            {
+              "$ref": "#/$defs/SecondarySource"
+            }
+          ],
+          "title": "Source"
         }
       },
       "required": [
@@ -366,7 +415,15 @@
           "type": "number"
         },
         "source": {
-          "$ref": "#/$defs/Source"
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LabelSource"
+            },
+            {
+              "$ref": "#/$defs/SecondarySource"
+            }
+          ],
+          "title": "Source"
         },
         "unit": {
           "const": "h",
@@ -459,6 +516,44 @@
       "title": "JourneyStep",
       "type": "object"
     },
+    "LabelSource": {
+      "additionalProperties": false,
+      "description": "An FDA label on DailyMed (the default source).",
+      "properties": {
+        "dailymed_setid": {
+          "description": "DailyMed label set ID",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+          "title": "Dailymed Setid",
+          "type": "string"
+        },
+        "section": {
+          "description": "Numbered section (\"12.3\") or, for older labels, its heading (\"Clinical Pharmacology\")",
+          "pattern": "^(\\d+(\\.\\d+)*|[A-Za-z][^<]*)$",
+          "title": "Section",
+          "type": "string"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "How the value was read, e.g. arithmetic",
+          "title": "Note"
+        }
+      },
+      "required": [
+        "dailymed_setid",
+        "section"
+      ],
+      "title": "LabelSource",
+      "type": "object"
+    },
     "Names": {
       "additionalProperties": false,
       "properties": {
@@ -507,27 +602,39 @@
       "title": "Pk",
       "type": "object"
     },
-    "Source": {
+    "SecondarySource": {
       "additionalProperties": false,
+      "description": "Used only when no label gives the value (e.g. an FDA review or a published PK study).",
       "properties": {
-        "dailymed_setid": {
-          "description": "DailyMed label set ID",
-          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
-          "title": "Dailymed Setid",
+        "citation": {
+          "minLength": 1,
+          "title": "Citation",
           "type": "string"
         },
-        "section": {
-          "description": "Label section, e.g. \"2\" or \"12.3\"",
-          "pattern": "^\\d+(\\.\\d+)*$",
-          "title": "Section",
+        "url": {
+          "pattern": "^https?://\\S+$",
+          "title": "Url",
           "type": "string"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
         }
       },
       "required": [
-        "dailymed_setid",
-        "section"
+        "citation",
+        "url"
       ],
-      "title": "Source",
+      "title": "SecondarySource",
       "type": "object"
     },
     "Tmax": {
@@ -553,7 +660,15 @@
           "type": "number"
         },
         "source": {
-          "$ref": "#/$defs/Source"
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LabelSource"
+            },
+            {
+              "$ref": "#/$defs/SecondarySource"
+            }
+          ],
+          "title": "Source"
         },
         "unit": {
           "const": "h",
@@ -593,7 +708,15 @@
           "type": "number"
         },
         "source": {
-          "$ref": "#/$defs/Source"
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LabelSource"
+            },
+            {
+              "$ref": "#/$defs/SecondarySource"
+            }
+          ],
+          "title": "Source"
         },
         "unit": {
           "enum": [

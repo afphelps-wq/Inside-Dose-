@@ -1,0 +1,136 @@
+{
+  "id": "hydrochlorothiazide",
+  "names": {
+    "generic": "hydrochlorothiazide",
+    "brands": [
+      "Microzide"
+    ]
+  },
+  "ids": {
+    "rxcui": "5487",
+    "chembl": "CHEMBL435",
+    "pubchem_cid": 3639
+  },
+  "common_use": "Blood pressure (diuretic)",
+  "formulations": [
+    {
+      "id": "tablet_ir",
+      "label": "Hydrochlorothiazide tablets",
+      "route": "oral",
+      "dose_mg": {
+        "min": 25,
+        "max": 50,
+        "typical": 25,
+        "intervals_h": [
+          24,
+          12
+        ],
+        "source": {
+          "dailymed_setid": "8c868894-667e-4a51-906a-838d63e420ba",
+          "section": "Dosage and Administration > Adults",
+          "note": "Hypertension: 'usual initial dose ... 25 mg daily given as a single dose', may increase to '50 mg daily, given as a single or two divided doses'."
+        }
+      },
+      "pk": {
+        "bioavailability": {
+          "range": [
+            0.7,
+            0.7
+          ],
+          "model": 0.7,
+          "unit": "fraction",
+          "source": {
+            "dailymed_setid": "52332190-2a12-d205-e063-6394a90ab7c5",
+            "section": "12.3",
+            "note": "The single-ingredient label gives none; this olmesartan/HCTZ label: 'estimated absolute bioavailability of hydrochlorothiazide ... is about 70%'"
+          }
+        },
+        "half_life": {
+          "range": [
+            5.6,
+            14.8
+          ],
+          "model": 10.2,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "8c868894-667e-4a51-906a-838d63e420ba",
+            "section": "Clinical Pharmacology > Pharmacokinetics and Metabolism",
+            "note": "'plasma half-life has been observed to vary between 5.6 and 14.8 hours' (olmesartan/HCTZ label: about 10 h) model = midpoint of the label range (curve value; change if you prefer another)"
+          }
+        },
+        "vd": {
+          "range": [
+            1.53,
+            4.19
+          ],
+          "model": 2.86,
+          "unit": "L/kg",
+          "source": {
+            "citation": "Chen TM, Chiou WL. Large differences in the biological half-life and volume of distribution of hydrochlorothiazide in normal subjects from eleven studies. Int J Clin Pharmacol Ther Toxicol. 1992;30(1):34-7 (PMID 1551742)",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/1551742/",
+            "note": "No label gives Vd. Abstract: mean Vdarea across 11 studies 'from 1.53 to 4.19 l/kg' (and studies with short sampling underestimate it). model = midpoint of the label range (curve value; change if you prefer another)"
+          }
+        },
+        "tmax": {
+          "range": [
+            2,
+            5
+          ],
+          "model": 3.5,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "52332190-2a12-d205-e063-6394a90ab7c5",
+            "section": "12.3",
+            "note": "'Peak plasma hydrochlorothiazide concentrations (Cmax) are reached within 2 to 5 hours' model = midpoint of the label range (curve value; change if you prefer another)"
+          }
+        }
+      }
+    }
+  ],
+  "enzymes": [],
+  "transporters": [],
+  "effects": [
+    {
+      "category": "lowers_blood_pressure",
+      "source": {
+        "dailymed_setid": "8c868894-667e-4a51-906a-838d63e420ba",
+        "section": "Indications and Usage",
+        "note": "'In the management of hypertension'"
+      }
+    }
+  ],
+  "elimination": {
+    "routes": [
+      {
+        "route": "kidney"
+      }
+    ],
+    "source": {
+      "dailymed_setid": "8c868894-667e-4a51-906a-838d63e420ba",
+      "section": "Clinical Pharmacology > Pharmacokinetics and Metabolism",
+      "note": "'not metabolized but is eliminated rapidly by the kidney'; 'At least 61% of the oral dose is eliminated unchanged within 24 hours' (a bound, so no fraction)."
+    }
+  },
+  "journey": [
+    {
+      "step": "absorption",
+      "organ": "intestines",
+      "text": "About 70% of a dose is absorbed from the gut, peaking 2 to 5 hours later."
+    },
+    {
+      "step": "action",
+      "organ": "kidneys",
+      "text": "Makes the kidneys flush out more salt and water, lowering the amount of fluid in the blood vessels and with it blood pressure."
+    },
+    {
+      "step": "elimination",
+      "organ": "kidneys",
+      "text": "Not broken down at all: it leaves unchanged in urine."
+    }
+  ],
+  "curation": {
+    "reviewed_by": "Claude (AI draft, not yet reviewed)",
+    "reviewed_on": "2026-10-06",
+    "status": "draft"
+  }
+}

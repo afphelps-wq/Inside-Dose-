@@ -1,0 +1,152 @@
+{
+  "id": "amlodipine",
+  "names": {
+    "generic": "amlodipine",
+    "brands": [
+      "Norvasc"
+    ]
+  },
+  "ids": {
+    "rxcui": "17767",
+    "chembl": "CHEMBL1491",
+    "pubchem_cid": 2162
+  },
+  "common_use": "Blood pressure",
+  "formulations": [
+    {
+      "id": "tablet_ir",
+      "label": "Amlodipine besylate tablets",
+      "route": "oral",
+      "dose_mg": {
+        "min": 2.5,
+        "max": 10,
+        "typical": 5,
+        "intervals_h": [
+          24
+        ],
+        "source": {
+          "dailymed_setid": "7367289c-b0b0-466a-83e2-558e2985c29f",
+          "section": "2.1",
+          "note": "'usual initial antihypertensive oral dose ... is 5 mg once daily, and the maximum dose is 10 mg once daily'; 2.5 mg for small, fragile or elderly patients."
+        }
+      },
+      "pk": {
+        "bioavailability": {
+          "range": [
+            0.64,
+            0.9
+          ],
+          "model": 0.77,
+          "unit": "fraction",
+          "source": {
+            "dailymed_setid": "7367289c-b0b0-466a-83e2-558e2985c29f",
+            "section": "12.3",
+            "note": "'between 64 and 90%' model = midpoint of the label range (curve value; change if you prefer another)"
+          }
+        },
+        "half_life": {
+          "range": [
+            30,
+            50
+          ],
+          "model": 40.0,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "7367289c-b0b0-466a-83e2-558e2985c29f",
+            "section": "12.3",
+            "note": "'terminal elimination half-life of about 30-50 hours' model = midpoint of the label range (curve value; change if you prefer another)"
+          }
+        },
+        "vd": {
+          "range": [
+            21,
+            21
+          ],
+          "model": 21,
+          "unit": "L/kg",
+          "source": {
+            "dailymed_setid": "18d7820d-471f-4ee2-9ec6-25d8d27c77de",
+            "section": "12.3",
+            "note": "Norvasc label gives no Vd; this Novartis amlodipine/valsartan/HCTZ label: 'The apparent volume of distribution of amlodipine is 21 L/kg.'"
+          }
+        },
+        "tmax": {
+          "range": [
+            6,
+            12
+          ],
+          "model": 9.0,
+          "unit": "h",
+          "source": {
+            "dailymed_setid": "7367289c-b0b0-466a-83e2-558e2985c29f",
+            "section": "12.3",
+            "note": "'peak plasma concentrations between 6 and 12 hours' model = midpoint of the label range (curve value; change if you prefer another)"
+          }
+        }
+      }
+    }
+  ],
+  "enzymes": [
+    {
+      "name": "CYP3A4",
+      "role": "inhibitor",
+      "strength": "weak",
+      "source": {
+        "dailymed_setid": "7367289c-b0b0-466a-83e2-558e2985c29f",
+        "section": "12.3",
+        "note": "'Amlodipine is a weak inhibitor of CYP3A' (label says CYP3A; recorded as CYP3A4 so it matches other drugs). The label shows CYP3A inhibitors raise amlodipine levels (7.1) but never says how important CYP3A is to its metabolism, so no substrate entry."
+      }
+    }
+  ],
+  "transporters": [],
+  "effects": [
+    {
+      "category": "lowers_blood_pressure",
+      "source": {
+        "dailymed_setid": "7367289c-b0b0-466a-83e2-558e2985c29f",
+        "section": "1.1"
+      }
+    }
+  ],
+  "elimination": {
+    "routes": [
+      {
+        "route": "kidney",
+        "fraction": 0.7,
+        "unchanged_fraction": 0.1
+      }
+    ],
+    "source": {
+      "dailymed_setid": "7367289c-b0b0-466a-83e2-558e2985c29f",
+      "section": "12.3",
+      "note": "'about 90% converted to inactive metabolites via hepatic metabolism with 10% of the parent compound and 60% of the metabolites excreted in the urine' (0.1 + 0.6 = 0.7)."
+    }
+  },
+  "journey": [
+    {
+      "step": "absorption",
+      "organ": "intestines",
+      "text": "Absorbed slowly from the gut; blood levels peak 6 to 12 hours after a dose."
+    },
+    {
+      "step": "action",
+      "organ": "blood_vessels",
+      "text": "Blocks calcium from entering the muscle cells in blood vessel walls, so the vessels relax and blood pressure drops."
+    },
+    {
+      "step": "metabolism",
+      "organ": "liver",
+      "text": "About 90% is turned into inactive pieces in the liver."
+    },
+    {
+      "step": "elimination",
+      "organ": "kidneys",
+      "text": "The pieces, plus about 10% unchanged drug, leave in urine. It lingers for days (half-life 30 to 50 hours)."
+    }
+  ],
+  "curation": {
+    "reviewed_by": "Claude (AI draft, not yet reviewed)",
+    "reviewed_on": "2026-10-06",
+    "status": "draft"
+  }
+}

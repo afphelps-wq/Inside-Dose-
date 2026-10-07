@@ -25,3 +25,6 @@ htmlcov/
 .DS_Store
 .vscode/
 .idea/
+
+# Curation helper output (raw label text)
+curation/
