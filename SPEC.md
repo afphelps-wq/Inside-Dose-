@@ -52,8 +52,8 @@ Use hash routing (`/#/drug/...`) or a 404.html redirect so deep links work on Gi
 |---|---|---|---|
 | Molecule | Rotatable 3D structure + key properties (formula, weight) | Any drug | 3Dmol.js |
 | Targets | Target list with plain-language function; 3D drug-in-target view when a PDB structure exists | Any drug | Mol* |
-| Body | Body SVG with organs shaded by target expression level (§6.3) | Any drug | D3 (SVG) |
-| Journey | Animated path through organs from the drug's `journey` steps + concentration-over-time curve | Curated only | D3 |
+| Body | Rotatable 3D body with organs shaded by target expression level (§6.3) | Any drug | three.js |
+| Journey | 3D body highlighting the active organ from the drug's `journey` steps + concentration-over-time curve (D3) | Curated only | three.js + D3 |
 
 ### 2.4 Inputs
 
@@ -277,7 +277,7 @@ Selection: most-prescribed US drugs (ClinCalc DrugStats, 2024, from MEPS), with 
 
 ### 5.5 Static assets
 
-- **Body SVG:** an openly licensed (CC) body/organ SVG, restyled to the friendly style. Each of the 15 organs must be a separate element with `id` equal to its organ key. Record the license and author in `frontend/src/assets/CREDITS.md`.
+- **Body model:** a 3D model (BodyParts3D 4.0, CC BY 4.0, via DBCLS), trimmed from ashemag/human-atlas's packaged geometry (MIT) to one merged mesh per organ. 13 of the 15 organ keys are covered; BodyParts3D has no thyroid or fat/adipose mesh at all, so those two have no 3D visual (confirmed by exhaustive search, not a naming gap). Built by `backend/scripts/extract_anatomy.py` into `frontend/public/anatomy/organs.json` + `organs.bin.gz`; license and full adaptation notes in `frontend/src/assets/CREDITS.md`.
 - **Tissue map:** `data/hpa_tissue_map.json` maps Human Protein Atlas tissue names → organ keys.
 
 ## 6. Logic
@@ -332,7 +332,7 @@ One-compartment model, first-order oral absorption, first-order elimination.
 - For each target, take its Human Protein Atlas **protein** level per tissue (High / Medium / Low / Not detected) and map tissues → organs with `hpa_tissue_map.json`.
 - If an organ has several tissues or targets, use the **highest** level.
 - **Shading:** High = darkest, Medium = mid, Low = light, Not detected = none.
-- **RNA fallback:** if a target has no protein data, use its RNA level, binned into the same 3 levels. Draw RNA-based shading with a hatched pattern; the legend explains the difference.
+- **RNA fallback:** if a target has no protein data, use its RNA level, binned into the same 3 levels. RNA-based organs render at reduced opacity rather than a solid fill; the legend explains the difference.
 - Clicking an organ lists which targets drove its shading and what each one does.
 
 ## 7. Error and empty states

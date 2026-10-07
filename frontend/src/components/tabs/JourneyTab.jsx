@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { concentrationCurve } from '../../lib/pk.js'
-import BodyMap, { ORGAN_LABELS } from '../BodyMap.jsx'
+import { ORGAN_LABELS } from '../../lib/organs.js'
+import Body3D from '../Body3D.jsx'
 import ConcentrationChart from '../ConcentrationChart.jsx'
 
 export default function JourneyTab({ curated }) {
@@ -43,7 +44,7 @@ export default function JourneyTab({ curated }) {
     <div className="stack">
       <div className="tab-grid">
         <div className="card center">
-          <BodyMap highlight={active.organ} />
+          <Body3D highlight={active.organ} />
         </div>
         <div className="card">
           <div className="row">

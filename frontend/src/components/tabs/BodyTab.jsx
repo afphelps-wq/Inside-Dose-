@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import BodyMap, { BodyLegend, ORGAN_LABELS } from '../BodyMap.jsx'
+import Body3D, { BodyLegend } from '../Body3D.jsx'
+import { ORGAN_LABELS } from '../../lib/organs.js'
 
 export default function BodyTab({ drug }) {
   const [selected, setSelected] = useState(null)
@@ -9,7 +10,7 @@ export default function BodyTab({ drug }) {
   return (
     <div className="tab-grid">
       <div className="card center">
-        <BodyMap bodyMap={drug.body_map} selected={selected} onSelect={setSelected} />
+        <Body3D bodyMap={drug.body_map} selected={selected} onSelect={setSelected} />
         <BodyLegend />
       </div>
       <div className="card">
