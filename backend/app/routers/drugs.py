@@ -70,15 +70,18 @@ def get_drug(rxcui: str) -> DrugBundle:
             molecule = None
 
     curated: Drug | None = info["curated"]
-    targets = [] if curated is not None else chembl.fetch_targets(info["generic"], info["pubchem_cid"])
+    # Molecule/targets are live-fetched regardless of curated status -- the
+    # curated record only covers PK/dosing/journey data, never structure or
+    # targets, so every drug (curated or not) needs PubChem/ChEMBL for those.
+    targets = chembl.fetch_targets(info["generic"], info["pubchem_cid"])
 
     sources = []
     if curated is None:
         sources.append({"name": "RxNorm", "url": f"https://rxnav.nlm.nih.gov/REST/rxcui/{info['rxcui']}"})
-        if molecule:
-            sources.append({"name": "PubChem", "url": f"https://pubchem.ncbi.nlm.nih.gov/compound/{info['pubchem_cid']}"})
-        if targets:
-            sources.append({"name": "ChEMBL", "url": "https://www.ebi.ac.uk/chembl/"})
+    if molecule:
+        sources.append({"name": "PubChem", "url": f"https://pubchem.ncbi.nlm.nih.gov/compound/{info['pubchem_cid']}"})
+    if targets:
+        sources.append({"name": "ChEMBL", "url": "https://www.ebi.ac.uk/chembl/"})
 
     return DrugBundle(
         rxcui=info["rxcui"],

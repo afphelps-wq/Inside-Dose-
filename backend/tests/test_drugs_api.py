@@ -1,3 +1,4 @@
+import pytest
 from fastapi.testclient import TestClient
 
 from backend.app.main import app
@@ -6,6 +7,16 @@ from backend.app.services import chembl, drug_store, pubchem, rxnorm
 client = TestClient(app)
 
 METOPROLOL_RXCUI = "6918"
+
+
+@pytest.fixture(autouse=True)
+def no_real_chembl_calls(monkeypatch):
+    # ChEMBL targets are now fetched for every drug, curated or not (that was
+    # the bug this fixture's sibling test below caught -- see
+    # test_get_drug_fetches_targets_for_curated_drugs_too). Default every test
+    # in this file to a mocked empty result so a test that doesn't care about
+    # targets never makes a real network call; tests that do care override it.
+    monkeypatch.setattr(chembl, "fetch_targets", lambda generic, cid: [])
 
 
 def test_curated_list_includes_every_drug_file():
@@ -40,8 +51,32 @@ def test_get_drug_returns_curated_bundle_with_molecule(monkeypatch):
     assert body["rxcui"] == METOPROLOL_RXCUI
     assert body["curated"]["id"] == "metoprolol"
     assert body["molecule"] == {"pubchem_cid": 4171, "formula": "C15H25NO3", "weight": 267.4}
-    assert body["targets"] == []
+    assert body["targets"] == []  # mocked to [] by the autouse fixture; see the test below
     assert body["stale"] is False
+
+
+def test_get_drug_fetches_targets_for_curated_drugs_too(monkeypatch):
+    # Regression test: an earlier version of get_drug() unconditionally set
+    # targets=[] for curated drugs, never actually calling chembl.fetch_targets
+    # for them even though they have everything (generic name, pubchem_cid)
+    # needed to -- so every curated drug's Targets tab was always empty.
+    calls = []
+
+    def fake_fetch_targets(generic, cid):
+        calls.append((generic, cid))
+        return [{"chembl_id": "CHEMBL211", "uniprot": "P08588", "gene": "ADRB1",
+                  "name": "Beta-1 adrenergic receptor", "action": "antagonist",
+                  "plain_description": "Beta-1 adrenergic receptor antagonist"}]
+
+    monkeypatch.setattr(chembl, "fetch_targets", fake_fetch_targets)
+    monkeypatch.setattr(pubchem, "fetch_properties", lambda cid: None)
+
+    response = client.get(f"/drugs/{METOPROLOL_RXCUI}")
+    assert response.status_code == 200
+    body = response.json()
+    assert calls == [("metoprolol", 4171)]
+    assert body["targets"][0]["gene"] == "ADRB1"
+    assert {"name": "ChEMBL", "url": "https://www.ebi.ac.uk/chembl/"} in body["sources"]
 
 
 def test_get_drug_degrades_gracefully_when_pubchem_fails(monkeypatch):
