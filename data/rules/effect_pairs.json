@@ -1,0 +1,56 @@
+[
+  {
+    "category_a": "anticoagulant",
+    "category_b": "bleeding_risk",
+    "severity": "major",
+    "plain_message": "Together these can raise the risk of bleeding."
+  },
+  {
+    "category_a": "anticoagulant",
+    "category_b": "nsaid",
+    "severity": "major",
+    "plain_message": "Together these can raise the risk of bleeding."
+  },
+  {
+    "category_a": "bleeding_risk",
+    "category_b": "bleeding_risk",
+    "severity": "moderate",
+    "plain_message": "Both can make bleeding more likely."
+  },
+  {
+    "category_a": "serotonergic",
+    "category_b": "serotonergic",
+    "severity": "moderate",
+    "plain_message": "Both raise serotonin; together this can cause side effects."
+  },
+  {
+    "category_a": "raises_potassium",
+    "category_b": "raises_potassium",
+    "severity": "moderate",
+    "plain_message": "Both can raise potassium levels."
+  },
+  {
+    "category_a": "nsaid",
+    "category_b": "lowers_blood_pressure",
+    "severity": "moderate",
+    "plain_message": "Ibuprofen-type drugs can weaken blood pressure medicines."
+  },
+  {
+    "category_a": "lowers_seizure_threshold",
+    "category_b": "lowers_seizure_threshold",
+    "severity": "moderate",
+    "plain_message": "Both can make seizures more likely."
+  },
+  {
+    "category_a": "lowers_blood_pressure",
+    "category_b": "lowers_blood_pressure",
+    "severity": "minor",
+    "plain_message": "Blood pressure can drop more than with either alone."
+  },
+  {
+    "category_a": "sedation",
+    "category_b": "sedation",
+    "severity": "moderate",
+    "plain_message": "Both can cause drowsiness."
+  }
+]
