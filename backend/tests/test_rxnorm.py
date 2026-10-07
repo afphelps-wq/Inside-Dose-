@@ -38,11 +38,11 @@ PROPERTIES_INGREDIENT = {"properties": {"rxcui": "36437", "name": "sertraline", 
 
 
 def _mock_get(monkeypatch, responder):
-    def fake_get(url, params=None, timeout=None):
+    def fake_get(self, url, params=None, timeout=None):
         response = responder(url, params)
         response._request = httpx.Request("GET", url, params=params)
         return response
-    monkeypatch.setattr(httpx, "get", fake_get)
+    monkeypatch.setattr(httpx.Client, "get", fake_get)
 
 
 def test_search_dedupes_to_ingredient_level(monkeypatch):

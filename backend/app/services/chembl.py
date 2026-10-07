@@ -8,9 +8,12 @@ mechanism/target entry is skipped rather than failing the whole list, since
 ChEMBL's target endpoint is observably flaky (confirmed while building this).
 """
 
+from concurrent.futures import ThreadPoolExecutor
+
 import httpx
 
 from backend.app.services.cache import cached_fetch
+from backend.app.services.http_client import get_client
 
 CHEMBL_BASE = "https://www.ebi.ac.uk/chembl/api/data"
 UNICHEM_BASE = "https://www.ebi.ac.uk/unichem/api/v1/compounds"
@@ -20,6 +23,9 @@ UNICHEM_BASE = "https://www.ebi.ac.uk/unichem/api/v1/compounds"
 # blocked page load. Kept short since a slow-but-real response is rarer than a
 # hung one, and targets degrade to [] gracefully either way.
 TIMEOUT = 6
+# A drug's mechanisms each need their own target lookup; fetched concurrently
+# (bounded) instead of one at a time, since that endpoint is the slow/flaky one.
+MAX_CONCURRENT_TARGET_FETCHES = 5
 
 
 class UpstreamError(Exception):
@@ -28,7 +34,7 @@ class UpstreamError(Exception):
 
 def _get_json(url: str, params: dict | None = None) -> dict:
     try:
-        response = httpx.get(url, params=params, timeout=TIMEOUT)
+        response = get_client().get(url, params=params, timeout=TIMEOUT)
         response.raise_for_status()
         return response.json()
     except (httpx.HTTPError, ValueError) as exc:
@@ -37,7 +43,7 @@ def _get_json(url: str, params: dict | None = None) -> dict:
 
 def _post_json(url: str, body: dict) -> dict:
     try:
-        response = httpx.post(url, json=body, timeout=TIMEOUT)
+        response = get_client().post(url, json=body, timeout=TIMEOUT)
         response.raise_for_status()
         return response.json()
     except (httpx.HTTPError, ValueError) as exc:
@@ -86,6 +92,13 @@ def _target(target_chembl_id: str) -> dict | None:
     return targets[0] if targets else None
 
 
+def _target_or_none(target_chembl_id: str) -> dict | None:
+    try:
+        return _target(target_chembl_id)
+    except UpstreamError:
+        return None
+
+
 def fetch_targets(generic_name: str, pubchem_cid: int | None) -> list[dict]:
     chembl_id = resolve_chembl_id(generic_name, pubchem_cid)
     if not chembl_id:
@@ -96,15 +109,17 @@ def fetch_targets(generic_name: str, pubchem_cid: int | None) -> list[dict]:
     except UpstreamError:
         return []
 
+    mechs = [m for m in mechanisms if m.get("target_chembl_id")]
+    if not mechs:
+        return []
+
+    # Independent lookups -- fetched concurrently rather than one at a time.
+    # pool.map preserves input order, so `fetched` still lines up with `mechs`.
+    with ThreadPoolExecutor(max_workers=MAX_CONCURRENT_TARGET_FETCHES) as pool:
+        fetched = list(pool.map(_target_or_none, (m["target_chembl_id"] for m in mechs)))
+
     targets = []
-    for mech in mechanisms:
-        target_chembl_id = mech.get("target_chembl_id")
-        if not target_chembl_id:
-            continue
-        try:
-            target = _target(target_chembl_id)
-        except UpstreamError:
-            continue
+    for mech, target in zip(mechs, fetched):
         if not target:
             continue
 
@@ -117,7 +132,7 @@ def fetch_targets(generic_name: str, pubchem_cid: int | None) -> list[dict]:
             None,
         )
         targets.append({
-            "chembl_id": target_chembl_id,
+            "chembl_id": mech["target_chembl_id"],
             "uniprot": uniprot,
             "gene": gene,
             "name": target.get("pref_name"),

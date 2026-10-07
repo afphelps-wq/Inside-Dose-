@@ -21,28 +21,28 @@ def _response(url, json_body, status=200):
 
 
 def test_ligand_id_for_inchi_returns_first_match(monkeypatch):
-    def fake_post(url, json=None, timeout=None):
+    def fake_post(self, url, json=None, timeout=None):
         return _response(url, {"result_set": [{"identifier": "GG2"}]})
-    monkeypatch.setattr(httpx, "post", fake_post)
+    monkeypatch.setattr(httpx.Client, "post", fake_post)
     assert rcsb.ligand_id_for_inchi(APIXABAN_INCHI) == "GG2"
 
 
 def test_ligand_id_for_inchi_none_when_no_match(monkeypatch):
-    def fake_post(url, json=None, timeout=None):
+    def fake_post(self, url, json=None, timeout=None):
         return _response(url, {}, status=404)
-    monkeypatch.setattr(httpx, "post", fake_post)
+    monkeypatch.setattr(httpx.Client, "post", fake_post)
     assert rcsb.ligand_id_for_inchi(APIXABAN_INCHI) is None
 
 
 def test_ligand_id_for_inchi_degrades_on_upstream_error(monkeypatch):
-    def fake_post(url, json=None, timeout=None):
+    def fake_post(self, url, json=None, timeout=None):
         raise httpx.ConnectError("down")
-    monkeypatch.setattr(httpx, "post", fake_post)
+    monkeypatch.setattr(httpx.Client, "post", fake_post)
     assert rcsb.ligand_id_for_inchi(APIXABAN_INCHI) is None
 
 
 def test_structures_for_target_flags_drug_bound_structure(monkeypatch):
-    def fake_post(url, json=None, timeout=None):
+    def fake_post(self, url, json=None, timeout=None):
         query = json["query"]
         if query.get("service") == "chemical":
             return _response(url, {"result_set": [{"identifier": "GG2"}]})
@@ -51,7 +51,7 @@ def test_structures_for_target_flags_drug_bound_structure(monkeypatch):
         # plain uniprot search -- doesn't include 2P16 in its capped top results,
         # same as the real API for factor Xa (192 total structures).
         return _response(url, {"result_set": [{"identifier": "1FAX"}, {"identifier": "1KSN"}]})
-    monkeypatch.setattr(httpx, "post", fake_post)
+    monkeypatch.setattr(httpx.Client, "post", fake_post)
     monkeypatch.setattr(rcsb, "entry_title", lambda pdb_id: f"Title for {pdb_id}")
 
     structures = rcsb.structures_for_target("P00742", APIXABAN_INCHI)
@@ -61,9 +61,9 @@ def test_structures_for_target_flags_drug_bound_structure(monkeypatch):
 
 
 def test_structures_for_target_without_inchi_has_no_drug_bound_flags(monkeypatch):
-    def fake_post(url, json=None, timeout=None):
+    def fake_post(self, url, json=None, timeout=None):
         return _response(url, {"result_set": [{"identifier": "1FAX"}]})
-    monkeypatch.setattr(httpx, "post", fake_post)
+    monkeypatch.setattr(httpx.Client, "post", fake_post)
     monkeypatch.setattr(rcsb, "entry_title", lambda pdb_id: "Factor Xa")
 
     structures = rcsb.structures_for_target("P00742", None)
@@ -71,25 +71,25 @@ def test_structures_for_target_without_inchi_has_no_drug_bound_flags(monkeypatch
 
 
 def test_structures_for_target_empty_when_no_structures(monkeypatch):
-    def fake_post(url, json=None, timeout=None):
+    def fake_post(self, url, json=None, timeout=None):
         return _response(url, {}, status=404)
-    monkeypatch.setattr(httpx, "post", fake_post)
+    monkeypatch.setattr(httpx.Client, "post", fake_post)
     assert rcsb.structures_for_target("P00742", None) == []
 
 
 def test_structures_for_target_degrades_on_upstream_error(monkeypatch):
-    def fake_post(url, json=None, timeout=None):
+    def fake_post(self, url, json=None, timeout=None):
         raise httpx.ConnectError("down")
-    monkeypatch.setattr(httpx, "post", fake_post)
+    monkeypatch.setattr(httpx.Client, "post", fake_post)
     assert rcsb.structures_for_target("P00742", None) == []
 
 
 def test_structures_for_target_caps_at_max_structures(monkeypatch):
     many_ids = [{"identifier": f"ID{i}"} for i in range(rcsb.MAX_STRUCTURES + 5)]
 
-    def fake_post(url, json=None, timeout=None):
+    def fake_post(self, url, json=None, timeout=None):
         return _response(url, {"result_set": many_ids})
-    monkeypatch.setattr(httpx, "post", fake_post)
+    monkeypatch.setattr(httpx.Client, "post", fake_post)
     monkeypatch.setattr(rcsb, "entry_title", lambda pdb_id: pdb_id)
 
     structures = rcsb.structures_for_target("P00742", None)
@@ -97,16 +97,16 @@ def test_structures_for_target_caps_at_max_structures(monkeypatch):
 
 
 def test_entry_title_returns_struct_title(monkeypatch):
-    def fake_get(url, timeout=None):
+    def fake_get(self, url, timeout=None):
         response = httpx.Response(200, json={"struct": {"title": "Factor Xa in Complex with Apixaban"}})
         response._request = httpx.Request("GET", url)
         return response
-    monkeypatch.setattr(httpx, "get", fake_get)
+    monkeypatch.setattr(httpx.Client, "get", fake_get)
     assert rcsb.entry_title("2P16") == "Factor Xa in Complex with Apixaban"
 
 
 def test_entry_title_falls_back_to_pdb_id_on_failure(monkeypatch):
-    def fake_get(url, timeout=None):
+    def fake_get(self, url, timeout=None):
         raise httpx.ConnectError("down")
-    monkeypatch.setattr(httpx, "get", fake_get)
+    monkeypatch.setattr(httpx.Client, "get", fake_get)
     assert rcsb.entry_title("2P16") == "2P16"

@@ -28,11 +28,11 @@ def no_real_cache(monkeypatch):
 
 
 def _mock_get(monkeypatch, rows):
-    def fake_get(url, params=None, timeout=None):
+    def fake_get(self, url, params=None, timeout=None):
         response = httpx.Response(200, json=rows)
         response._request = httpx.Request("GET", url, params=params)
         return response
-    monkeypatch.setattr(httpx, "get", fake_get)
+    monkeypatch.setattr(httpx.Client, "get", fake_get)
 
 
 def test_tissue_levels_prefers_protein_over_rna(monkeypatch):
@@ -61,9 +61,9 @@ def test_tissue_levels_empty_for_unknown_gene(monkeypatch):
 
 
 def test_tissue_levels_upstream_failure_degrades_to_empty(monkeypatch):
-    def fake_get(url, params=None, timeout=None):
+    def fake_get(self, url, params=None, timeout=None):
         raise httpx.ConnectError("down")
-    monkeypatch.setattr(httpx, "get", fake_get)
+    monkeypatch.setattr(httpx.Client, "get", fake_get)
     assert hpa.tissue_levels("ADRB1") == {}
 
 

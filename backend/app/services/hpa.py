@@ -19,6 +19,7 @@ behind this whole adaptation.
 import httpx
 
 from backend.app.services.cache import cached_fetch
+from backend.app.services.http_client import get_client
 
 HPA_BASE = "https://www.proteinatlas.org/api/search_download.php"
 TIMEOUT = 15
@@ -30,7 +31,7 @@ class UpstreamError(Exception):
 
 def _get_json(params: dict) -> list[dict]:
     try:
-        response = httpx.get(HPA_BASE, params={**params, "format": "json", "compress": "no"}, timeout=TIMEOUT)
+        response = get_client().get(HPA_BASE, params={**params, "format": "json", "compress": "no"}, timeout=TIMEOUT)
         response.raise_for_status()
         return response.json()
     except (httpx.HTTPError, ValueError) as exc:

@@ -8,6 +8,7 @@ DATABASE_URL configured, cached_fetch degrades to a plain live call every time.
 import httpx
 
 from backend.app.services.cache import cached_fetch
+from backend.app.services.http_client import get_client
 
 PUBCHEM_BASE = "https://pubchem.ncbi.nlm.nih.gov/rest/pug"
 TIMEOUT = 10
@@ -22,7 +23,7 @@ def _fetch_structure_sdf(cid: int) -> str:
     for record_type in ("3d", "2d"):
         url = f"{PUBCHEM_BASE}/compound/cid/{cid}/SDF?record_type={record_type}"
         try:
-            response = httpx.get(url, timeout=TIMEOUT)
+            response = get_client().get(url, timeout=TIMEOUT)
         except httpx.HTTPError as exc:
             raise UpstreamError(str(exc)) from exc
         if response.status_code == 200 and response.text.strip():
@@ -60,7 +61,7 @@ def fetch_inchi(cid: int) -> str | None:
     def fetch():
         url = f"{PUBCHEM_BASE}/compound/cid/{cid}/property/InChI/JSON"
         try:
-            response = httpx.get(url, timeout=TIMEOUT)
+            response = get_client().get(url, timeout=TIMEOUT)
             response.raise_for_status()
             return response.json()["PropertyTable"]["Properties"][0]["InChI"]
         except (httpx.HTTPError, KeyError, IndexError, ValueError) as exc:
@@ -78,7 +79,7 @@ def resolve_cid_by_name(name: str) -> int | None:
     def fetch():
         url = f"{PUBCHEM_BASE}/compound/name/{name}/cids/JSON"
         try:
-            response = httpx.get(url, timeout=TIMEOUT)
+            response = get_client().get(url, timeout=TIMEOUT)
             response.raise_for_status()
             return response.json()
         except (httpx.HTTPError, ValueError) as exc:

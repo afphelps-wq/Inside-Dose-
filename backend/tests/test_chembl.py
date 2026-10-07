@@ -43,18 +43,18 @@ def no_real_cache(monkeypatch):
 
 
 def _mock_http(monkeypatch, get_responder=None, post_responder=None):
-    def fake_get(url, params=None, timeout=None):
+    def fake_get(self, url, params=None, timeout=None):
         response = get_responder(url, params)
         response._request = httpx.Request("GET", url, params=params)
         return response
-    def fake_post(url, json=None, timeout=None):
+    def fake_post(self, url, json=None, timeout=None):
         response = post_responder(url, json)
         response._request = httpx.Request("POST", url, json=json)
         return response
     if get_responder:
-        monkeypatch.setattr(httpx, "get", fake_get)
+        monkeypatch.setattr(httpx.Client, "get", fake_get)
     if post_responder:
-        monkeypatch.setattr(httpx, "post", fake_post)
+        monkeypatch.setattr(httpx.Client, "post", fake_post)
 
 
 def test_fetch_targets_full_pipeline(monkeypatch):
@@ -137,3 +137,32 @@ def test_fetch_targets_skips_a_single_failing_target(monkeypatch):
     targets = chembl.fetch_targets("apixaban", 10182969)
     assert len(targets) == 1
     assert targets[0]["plain_description"] == "B"
+
+
+def test_fetch_targets_preserves_mechanism_order_when_fetched_concurrently(monkeypatch):
+    # Target lookups for multiple mechanisms run concurrently (perf); this
+    # confirms the output still lines up with the original mechanism order
+    # rather than whichever thread happens to finish first.
+    target_a = {"targets": [{"target_chembl_id": "CHEMBL_A", "pref_name": "Target A", "target_components": []}]}
+    target_b = {"targets": [{"target_chembl_id": "CHEMBL_B", "pref_name": "Target B", "target_components": []}]}
+    two_mechanisms = {
+        "mechanisms": [
+            {"action_type": "INHIBITOR", "mechanism_of_action": "first", "target_chembl_id": "CHEMBL_A"},
+            {"action_type": "INHIBITOR", "mechanism_of_action": "second", "target_chembl_id": "CHEMBL_B"},
+        ]
+    }
+
+    def get_responder(url, params):
+        if "molecule.json" in url:
+            return httpx.Response(200, json=MOLECULE_APIXABAN)
+        if "mechanism.json" in url:
+            return httpx.Response(200, json=two_mechanisms)
+        if "target.json" in url and params.get("target_chembl_id") == "CHEMBL_A":
+            return httpx.Response(200, json=target_a)
+        if "target.json" in url and params.get("target_chembl_id") == "CHEMBL_B":
+            return httpx.Response(200, json=target_b)
+        raise AssertionError(f"unexpected url {url}")
+    _mock_http(monkeypatch, get_responder=get_responder)
+
+    targets = chembl.fetch_targets("apixaban", 10182969)
+    assert [t["plain_description"] for t in targets] == ["first", "second"]

@@ -9,6 +9,7 @@ not just the target alone.
 import httpx
 
 from backend.app.services.cache import cached_fetch
+from backend.app.services.http_client import get_client
 
 SEARCH_URL = "https://search.rcsb.org/rcsbsearch/v2/query"
 DATA_BASE = "https://data.rcsb.org/rest/v1/core"
@@ -22,7 +23,7 @@ class UpstreamError(Exception):
 
 def _search(query: dict, return_type: str) -> list[str]:
     try:
-        response = httpx.post(
+        response = get_client().post(
             SEARCH_URL, json={"query": query, "return_type": return_type,
                                "request_options": {"paginate": {"rows": 50}}},
             timeout=TIMEOUT,
@@ -87,7 +88,7 @@ def _structures_with_ligand(uniprot: str, ligand_id: str) -> set[str]:
 def entry_title(pdb_id: str) -> str:
     def fetch():
         try:
-            response = httpx.get(f"{DATA_BASE}/entry/{pdb_id}", timeout=TIMEOUT)
+            response = get_client().get(f"{DATA_BASE}/entry/{pdb_id}", timeout=TIMEOUT)
             response.raise_for_status()
             return response.json().get("struct", {}).get("title") or pdb_id
         except (httpx.HTTPError, ValueError) as exc:

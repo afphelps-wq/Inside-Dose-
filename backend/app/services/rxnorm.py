@@ -8,12 +8,19 @@ type (tty) in one call: IN = ingredient, BN = brand name, SBD/SCD/... =
 specific formulated products.
 """
 
+from concurrent.futures import ThreadPoolExecutor
+
 import httpx
 
 from backend.app.services.cache import cached_fetch
+from backend.app.services.http_client import get_client
 
 RXNORM_BASE = "https://rxnav.nlm.nih.gov/REST"
 TIMEOUT = 10
+# search()'s candidates each need their own allrelated lookup; fetched
+# concurrently (bounded) instead of one at a time so autocomplete doesn't pay
+# for N sequential round trips per keystroke.
+MAX_CONCURRENT_LOOKUPS = 5
 
 
 class UpstreamError(Exception):
@@ -22,7 +29,7 @@ class UpstreamError(Exception):
 
 def _get_json(url: str, params: dict | None = None) -> dict:
     try:
-        response = httpx.get(url, params=params, timeout=TIMEOUT)
+        response = get_client().get(url, params=params, timeout=TIMEOUT)
         response.raise_for_status()
         return response.json()
     except (httpx.HTTPError, ValueError) as exc:
@@ -53,17 +60,30 @@ def properties(rxcui: str) -> dict | None:
     return data.get("properties")
 
 
+def _all_related_or_none(rxcui: str) -> dict[str, list[dict]] | None:
+    try:
+        return _all_related(rxcui)
+    except UpstreamError:
+        return None
+
+
 def search(query: str, limit: int = 10) -> list[dict]:
     """Autocomplete: brand/generic name -> ingredient-level {rxcui, generic, brand}."""
+    candidate_rxcuis = [
+        c["rxcui"] for c in _approximate_candidates(query, max_entries=max(20, limit * 2)) if c.get("rxcui")
+    ]
+    if not candidate_rxcuis:
+        return []
+
+    # Independent lookups -- fetched concurrently rather than one at a time.
+    # pool.map preserves input order, so results still line up with candidate_rxcuis.
+    with ThreadPoolExecutor(max_workers=MAX_CONCURRENT_LOOKUPS) as pool:
+        all_groups = list(pool.map(_all_related_or_none, candidate_rxcuis))
+
     results = []
     seen_rxcuis = set()
-    for candidate in _approximate_candidates(query, max_entries=max(20, limit * 2)):
-        rxcui = candidate.get("rxcui")
-        if not rxcui:
-            continue
-        try:
-            groups = _all_related(rxcui)
-        except UpstreamError:
+    for groups in all_groups:
+        if groups is None:
             continue
         ingredients = groups.get("IN") or groups.get("PIN") or []
         if not ingredients:

@@ -22,6 +22,27 @@ def test_passthrough_when_database_url_unset(monkeypatch):
     assert len(calls) == 2
 
 
+def test_degrades_to_live_fetch_when_database_unreachable(monkeypatch):
+    # Nothing listens on port 1; connect_timeout keeps this test fast rather
+    # than hanging for the driver's default connect timeout.
+    monkeypatch.setenv("DATABASE_URL", "postgresql://user:pass@localhost:1/nonexistent?connect_timeout=1")
+    import backend.app.services.cache as cache_module
+    monkeypatch.setattr(cache_module, "_pool", None)
+    monkeypatch.setattr(cache_module, "_pool_url", None)
+    monkeypatch.setattr(cache_module, "_schema_ready", False)
+
+    calls = []
+
+    def fetch():
+        calls.append(1)
+        return {"value": "live"}
+
+    result, stale = cached_fetch("test", "unreachable_key", fetch)
+    assert result == {"value": "live"}
+    assert stale is False
+    assert calls == [1]
+
+
 @pytest.mark.skipif(not os.environ.get("DATABASE_URL"), reason="requires a real DATABASE_URL (not set in CI)")
 class TestRealDatabase:
     def test_second_call_is_a_cache_hit(self):
