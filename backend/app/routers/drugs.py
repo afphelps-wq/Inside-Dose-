@@ -19,7 +19,7 @@ def list_curated() -> list[CuratedSummary]:
             brands=drug.names.brands,
             common_use=drug.common_use,
         )
-        for drug in drug_store.all_drugs()
+        for drug in drug_store.verified_drugs()
     ]
 
 

@@ -64,6 +64,7 @@ export default function Drug() {
           {saved ? '✓ In My Drugs' : full ? 'My Drugs is full (5)' : '+ Add to My Drugs'}
         </button>
       </div>
+      {bundle.stale && <p className="note">Data may be out of date -- couldn't reach the live source just now.</p>}
       <div className="tabs" role="tablist">
         {tabs.map((t) => (
           <button key={t.key} role="tab" aria-selected={t.key === tab}
@@ -76,6 +77,16 @@ export default function Drug() {
       {activeTab.key === 'targets' && <TargetsTab drug={bundle} />}
       {activeTab.key === 'body' && <BodyTab drug={bundle} />}
       {activeTab.key === 'journey' && bundle.curated && <JourneyTab curated={bundle.curated} />}
+      {bundle.sources.length > 0 && (
+        <p className="sources muted small">
+          Data from: {bundle.sources.map((s, i) => (
+            <span key={s.name}>
+              {i > 0 && ', '}
+              <a href={s.url} target="_blank" rel="noreferrer">{s.name}</a>
+            </span>
+          ))}
+        </p>
+      )}
     </section>
   )
 }

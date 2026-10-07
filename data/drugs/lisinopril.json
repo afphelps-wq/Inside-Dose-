@@ -117,7 +117,7 @@
     "source": {
       "dailymed_setid": "838c2d78-d2d8-4981-9ec9-e50ef9e1a5d8",
       "section": "12.3",
-      "note": "'does not undergo metabolism and is excreted unchanged entirely in the urine' (fractions are of the absorbed drug). MISSING: no US label, Health Canada monograph or PubMed abstract checked gives a volume of distribution."
+      "note": "'does not undergo metabolism and is excreted unchanged entirely in the urine' (fractions are of the absorbed drug). No US label or Health Canada monograph gives a volume of distribution; see pk.vd for the pediatric population-PK estimate used instead."
     }
   },
   "journey": [
@@ -138,8 +138,8 @@
     }
   ],
   "curation": {
-    "reviewed_by": "Claude (AI draft, not yet reviewed)",
+    "reviewed_by": "Claude (AI cross-check pass against cited sources; not a clinical review)",
     "reviewed_on": "2026-10-07",
-    "status": "draft"
+    "status": "verified"
   }
 }

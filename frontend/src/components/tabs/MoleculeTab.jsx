@@ -5,6 +5,7 @@ export default function MoleculeTab({ rxcui, molecule }) {
   const containerRef = useRef(null)
   const [sdf, setSdf] = useState(null)
   const [error, setError] = useState(null)
+  const [retryNonce, setRetryNonce] = useState(0)
 
   useEffect(() => {
     setSdf(null)
@@ -14,7 +15,7 @@ export default function MoleculeTab({ rxcui, molecule }) {
       .then(setSdf)
       .catch((err) => { if (err.name !== 'AbortError') setError(err.message) })
     return () => controller.abort()
-  }, [rxcui])
+  }, [rxcui, retryNonce])
 
   useEffect(() => {
     if (!sdf || !containerRef.current) return
@@ -43,7 +44,12 @@ export default function MoleculeTab({ rxcui, molecule }) {
       <div className="card">
         <div className="molecule-viewer" ref={containerRef} />
         {!sdf && !error && <p className="loading-state">Loading 3D structure…</p>}
-        {error && <p className="error-banner">Couldn't load the 3D structure: {error}</p>}
+        {error && (
+          <p className="error-banner">
+            Couldn't load the 3D structure: {error}{' '}
+            <button className="ghost" onClick={() => setRetryNonce((n) => n + 1)}>Retry</button>
+          </p>
+        )}
         {sdf && !error && <p className="muted small">Drag to rotate, scroll to zoom.</p>}
       </div>
       <div className="card">

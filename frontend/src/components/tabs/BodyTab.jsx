@@ -7,6 +7,8 @@ export default function BodyTab({ drug }) {
   const entry = selected && drug.body_map[selected]
   const targets = entry ? drug.targets.filter((t) => entry.targets.includes(t.gene)) : []
 
+  if (!drug.targets.length) return <p>No known protein targets recorded.</p>
+
   return (
     <div className="tab-grid">
       <div className="card center">

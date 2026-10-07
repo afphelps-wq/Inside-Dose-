@@ -21,5 +21,10 @@ def all_drugs() -> list[Drug]:
     return list(_BY_RXCUI.values())
 
 
+def verified_drugs() -> list[Drug]:
+    """Spec §5.2: only `verified` drugs appear in the gallery and interaction checks."""
+    return [drug for drug in _BY_RXCUI.values() if drug.curation.status == "verified"]
+
+
 def get_by_rxcui(rxcui: str) -> Drug | None:
     return _BY_RXCUI.get(rxcui)

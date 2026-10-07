@@ -22,6 +22,7 @@ export default function StructureViewer({ uniprot, rxcui }) {
   const containerRef = useRef(null)
   const [structure, setStructure] = useState(undefined) // undefined = loading, null = none found
   const [error, setError] = useState(null)
+  const [retryNonce, setRetryNonce] = useState(0)
 
   useEffect(() => {
     setStructure(undefined)
@@ -33,7 +34,7 @@ export default function StructureViewer({ uniprot, rxcui }) {
       })
       .catch((err) => { if (err.name !== 'AbortError') setError(err.message) })
     return () => controller.abort()
-  }, [uniprot, rxcui])
+  }, [uniprot, rxcui, retryNonce])
 
   useEffect(() => {
     if (!structure || !containerRef.current) return
@@ -58,7 +59,14 @@ export default function StructureViewer({ uniprot, rxcui }) {
     }
   }, [structure])
 
-  if (error) return <p className="error-banner">Couldn't load the 3D structure: {error}</p>
+  if (error) {
+    return (
+      <p className="error-banner">
+        Couldn't load the 3D structure: {error}{' '}
+        <button className="ghost" onClick={() => setRetryNonce((n) => n + 1)}>Retry</button>
+      </p>
+    )
+  }
   if (structure === undefined) return <p className="loading-state">Checking for a solved structure…</p>
   if (structure === null) return null
 

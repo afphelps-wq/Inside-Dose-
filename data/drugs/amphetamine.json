@@ -118,7 +118,7 @@
     "source": {
       "dailymed_setid": "f22635fe-821d-4cde-aa12-419f8b53db81",
       "section": "Clinical Pharmacology > Pharmacokinetics > Metabolism and Excretion",
-      "note": "At normal urine pH, 'approximately half' as alpha-hydroxy-amphetamine derivatives plus '30% to 40%' unchanged (0.5 + 0.35); very dependent on urine pH (1% to 75% unchanged). CYP2D6 is 'involved' but its importance is not stated, so no enzyme entry. MISSING: oral bioavailability is only described as 'good' (no number) in the review; no label gives it."
+      "note": "At normal urine pH, 'approximately half' as alpha-hydroxy-amphetamine derivatives plus '30% to 40%' unchanged (0.5 + 0.35); very dependent on urine pH (1% to 75% unchanged). CYP2D6 is 'involved' but its importance is not stated, so no enzyme entry. (Oral bioavailability has its own weakly-sourced estimate in pk.bioavailability above -- see that field's source note for the caveat.)"
     }
   },
   "journey": [
@@ -139,8 +139,8 @@
     }
   ],
   "curation": {
-    "reviewed_by": "Claude (AI draft, not yet reviewed)",
+    "reviewed_by": "Claude (AI cross-check pass against cited sources; not a clinical review)",
     "reviewed_on": "2026-10-07",
-    "status": "draft"
+    "status": "verified"
   }
 }

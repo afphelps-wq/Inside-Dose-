@@ -235,6 +235,8 @@ All responses are JSON. The canonical drug ID is the **RxNorm RxCUI** of the ing
 
 `curation.status`: `draft` | `verified`. Only `verified` drugs appear in the gallery and interaction checks.
 
+`verified` here means an AI performed a second, independent pass re-checking every sourced field against its cited primary source (DailyMed label section, FDA page, PubChem/ChEMBL record, or other cited document) and confirmed the quoted text/figure matches and the record is internally consistent -- not a clinical or human expert review. `reviewed_by` should say so explicitly (e.g. "Claude (AI cross-check pass against cited sources; not a clinical review)") rather than implying human sign-off. This project is an educational CMU 15-113 demo, not a source of medical guidance (see disclaimer, §2.1).
+
 ### 5.3 v1 curated drug list
 
 Selection: most-prescribed US drugs (ClinCalc DrugStats, 2024, from MEPS), with these changes:

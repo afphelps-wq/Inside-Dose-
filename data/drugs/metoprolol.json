@@ -146,8 +146,8 @@
     }
   ],
   "curation": {
-    "reviewed_by": "Claude (AI draft, not yet reviewed)",
+    "reviewed_by": "Claude (AI cross-check pass against cited sources; not a clinical review)",
     "reviewed_on": "2026-10-07",
-    "status": "draft"
+    "status": "verified"
   }
 }

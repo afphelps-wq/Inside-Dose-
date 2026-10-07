@@ -1,8 +1,7 @@
 """Interaction checking: the enzyme/transporter rule and the effect-pair rule (spec §6.1).
 
-M2 scope note: checks every curated drug regardless of curation.status, since none
-are "verified" yet. Spec §6.1 restricts this to verified drugs before launch --
-revisit once curation review (M9) promotes some records out of draft.
+Only `verified` drugs (spec §5.2) are checked; draft or uncurated drugs land in
+`unchecked` instead.
 """
 
 import json
@@ -93,7 +92,7 @@ def check_interactions(rxcuis: list[str]) -> dict:
     unchecked: list[str] = []
     for rxcui in rxcuis:
         drug = get_by_rxcui(rxcui)
-        if drug is None:
+        if drug is None or drug.curation.status != "verified":
             unchecked.append(rxcui)
         else:
             drugs[rxcui] = drug

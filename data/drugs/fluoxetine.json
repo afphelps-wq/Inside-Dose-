@@ -42,7 +42,7 @@
           "source": {
             "dailymed_setid": "c88f33ed-6dfb-4c5e-bc01-d8e36dd97299",
             "section": "12.3",
-            "note": "'1 to 3 days after acute administration and 4 to 6 days after chronic administration'; norfluoxetine 4 to 16 days model = midpoint of the label range (curve value; change if you prefer another)"
+            "note": "'1 to 3 days after acute administration and 4 to 6 days after chronic administration'; norfluoxetine 4 to 16 days. Uses the acute/single-dose figure (matches the single-dose PK curve this app models); model = midpoint of that range. Chronic dosing runs longer (4-6 days, i.e. ~96-144h) and isn't modeled here."
           }
         },
         "vd": {
@@ -55,7 +55,7 @@
           "source": {
             "citation": "Eugene AR. Fluoxetine pharmacokinetics and tissue distribution quantitatively supports a therapeutic role in COVID-19 at a minimum dose of 20 mg per day. F1000Research. 2022;10:477. doi:10.12688/f1000research.53275.3",
             "url": "https://doi.org/10.12688/f1000research.53275.3",
-            "note": "'The pharmacometric parameters referenced from the NDA were calculated by the FDA after combining 3 pharmacokinetic study datasets resulting in ... volume of distribution (Vd) value of 1,480 liters' (population PK estimate from the original Prozac NDA 18-936, Eli Lilly; not given per kg, so the weight slider is fixed)."
+            "note": "'The pharmacometric parameters referenced from the NDA were calculated by the FDA after combining 3 pharmacokinetic study datasets resulting in ... volume of distribution (Vd) value of 1,480 liters' (population PK estimate from the original Prozac NDA 19-936 SE5-064, Eli Lilly; not given per kg, so the weight slider is fixed)."
           }
         },
         "tmax": {
@@ -137,7 +137,7 @@
     "source": {
       "dailymed_setid": "c88f33ed-6dfb-4c5e-bc01-d8e36dd97299",
       "section": "12.3",
-      "note": "'primary route of elimination appears to be hepatic metabolism to inactive metabolites excreted by the kidney' (no %). CYP2D6 is involved in its metabolism but its importance isn't stated, so no substrate entry. MISSING: bioavailability and Vd: labels and Canadian monographs only say 'large volume of distribution'; the Altamura 1994 review abstract gives no numbers."
+      "note": "'primary route of elimination appears to be hepatic metabolism to inactive metabolites excreted by the kidney' (no %). CYP2D6 is involved in its metabolism but its importance isn't stated, so no substrate entry. Bioavailability and Vd (above) come from a DrugBank upper-bound figure and an FDA NDA population-PK estimate respectively, since the DailyMed label itself gives no numbers for either -- see their own source notes."
     }
   },
   "journey": [
@@ -163,8 +163,8 @@
     }
   ],
   "curation": {
-    "reviewed_by": "Claude (AI draft, not yet reviewed)",
+    "reviewed_by": "Claude (AI cross-check pass against cited sources; not a clinical review)",
     "reviewed_on": "2026-10-07",
-    "status": "draft"
+    "status": "verified"
   }
 }
