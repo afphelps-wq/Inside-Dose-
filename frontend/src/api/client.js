@@ -18,6 +18,10 @@ export function getCuratedDrugs({ signal } = {}) {
   return getJson('/drugs/curated', { signal })
 }
 
+export function searchDrugs(q, { signal } = {}) {
+  return getJson(`/search?q=${encodeURIComponent(q)}`, { signal })
+}
+
 export function getDrug(rxcui, { signal } = {}) {
   return getJson(`/drugs/${encodeURIComponent(rxcui)}`, { signal })
 }

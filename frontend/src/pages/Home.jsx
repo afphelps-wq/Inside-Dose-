@@ -1,15 +1,19 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { getCuratedDrugs } from '../api/client.js'
+import { getCuratedDrugs, searchDrugs } from '../api/client.js'
 
 function displayName(drug) {
   return drug.brands?.length ? `${drug.brands[0]} (${drug.generic})` : drug.generic
 }
 
+const SEARCH_DEBOUNCE_MS = 250
+
 export default function Home() {
   const [drugs, setDrugs] = useState(null)
   const [error, setError] = useState(null)
   const [query, setQuery] = useState('')
+  const [matches, setMatches] = useState([])
+  const [searching, setSearching] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -20,10 +24,22 @@ export default function Home() {
     return () => controller.abort()
   }, [])
 
-  const q = query.trim().toLowerCase()
-  const matches = q && drugs
-    ? drugs.filter((d) => [d.generic, ...d.brands].some((name) => name.toLowerCase().includes(q))).slice(0, 10)
-    : []
+  const q = query.trim()
+  useEffect(() => {
+    if (!q) {
+      setMatches([])
+      setSearching(false)
+      return
+    }
+    setSearching(true)
+    const controller = new AbortController()
+    const timer = setTimeout(() => {
+      searchDrugs(q, { signal: controller.signal })
+        .then((results) => { setMatches(results); setSearching(false) })
+        .catch((err) => { if (err.name !== 'AbortError') setSearching(false) })
+    }, SEARCH_DEBOUNCE_MS)
+    return () => { clearTimeout(timer); controller.abort() }
+  }, [q])
 
   return (
     <section>
@@ -39,9 +55,16 @@ export default function Home() {
           />
           {q && (
             <ul className="suggestions">
-              {matches.length
-                ? matches.map((d) => <li key={d.rxcui}><Link to={`/drug/${d.rxcui}`}>{displayName(d)}</Link></li>)
-                : <li className="muted">We couldn't find that drug.</li>}
+              {searching && <li className="muted">Searching…</li>}
+              {!searching && !matches.length && <li className="muted">We couldn't find that drug.</li>}
+              {!searching && matches.map((d) => (
+                <li key={d.rxcui}>
+                  <Link to={`/drug/${d.rxcui}`}>
+                    {displayName(d)}
+                    {!d.curated && <span className="pill">Basic info only</span>}
+                  </Link>
+                </li>
+              ))}
             </ul>
           )}
         </div>

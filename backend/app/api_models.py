@@ -15,6 +15,13 @@ class CuratedSummary(BaseModel):
     common_use: str
 
 
+class SearchResult(BaseModel):
+    rxcui: str
+    generic: str
+    brand: str | None
+    curated: bool
+
+
 class DrugBundle(BaseModel):
     """M2 fills in `curated` only; molecule/targets/body_map arrive with live lookup (M6-M8)."""
 
