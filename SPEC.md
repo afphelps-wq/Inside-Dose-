@@ -329,11 +329,13 @@ One-compartment model, first-order oral absorption, first-order elimination.
 
 **Organs (15 keys):** `brain`, `heart`, `lungs`, `liver`, `stomach`, `intestines`, `kidneys`, `pancreas`, `blood_vessels`, `muscle`, `skin`, `fat`, `thyroid`, `spleen`, `bladder`.
 
-- For each target, take its Human Protein Atlas **protein** level per tissue (High / Medium / Low / Not detected) and map tissues → organs with `hpa_tissue_map.json`.
+- For each target, take its Human Protein Atlas tissue data and map tissues → organs with `hpa_tissue_map.json`.
 - If an organ has several tissues or targets, use the **highest** level.
 - **Shading:** High = darkest, Medium = mid, Low = light, Not detected = none.
 - **RNA fallback:** if a target has no protein data, use its RNA level, binned into the same 3 levels. RNA-based organs render at reduced opacity rather than a solid fill; the legend explains the difference.
 - Clicking an organ lists which targets drove its shading and what each one does.
+
+**Data-source caveat (discovered building M7, Oct 2026):** the spec above assumes HPA still publishes its old categorical "High / Medium / Low / Not detected" table per tissue. It doesn't anymore -- checked exhaustively against both the live search API and the full `proteinatlas.tsv` bulk download, neither has it. What HPA publishes now is a numeric "specific" value per tissue (`Protein tissue specific Intensity` / `RNA tissue specific nTPM`), and only for the handful of tissues where a gene is notably enriched -- not a full per-tissue readout. `backend/app/services/hpa.py` adapts: ranks a gene's own listed tissues against each other and bins the top/middle/bottom third into high/medium/low (single or paired values bin high/[high,medium] instead of thirds). Protein data wins when present; RNA is the fallback, exactly as originally specified. The real limitation this introduces: a tissue HPA doesn't list for a gene reads as "not detected" here, which conflates *truly absent* with *not one of that gene's standout tissues* -- an organ can go unshaded even where the target is genuinely present at an unremarkable baseline level. `data/hpa_tissue_map.json` only covers the HPA tissue names actually observed in their data; no tissue in HPA's "specific" columns maps to `spleen`, so that organ key never gets body_map data from this source.
 
 ## 7. Error and empty states
 

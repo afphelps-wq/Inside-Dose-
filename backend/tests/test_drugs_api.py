@@ -2,7 +2,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from backend.app.main import app
-from backend.app.services import chembl, drug_store, pubchem, rxnorm
+from backend.app.services import chembl, drug_store, hpa, pubchem, rxnorm
 
 client = TestClient(app)
 
@@ -10,13 +10,15 @@ METOPROLOL_RXCUI = "6918"
 
 
 @pytest.fixture(autouse=True)
-def no_real_chembl_calls(monkeypatch):
-    # ChEMBL targets are now fetched for every drug, curated or not (that was
-    # the bug this fixture's sibling test below caught -- see
+def no_real_upstream_calls(monkeypatch):
+    # ChEMBL targets (and, downstream of them, HPA tissue data) are now
+    # fetched for every drug, curated or not (that was the bug this fixture's
+    # sibling test below caught -- see
     # test_get_drug_fetches_targets_for_curated_drugs_too). Default every test
-    # in this file to a mocked empty result so a test that doesn't care about
-    # targets never makes a real network call; tests that do care override it.
+    # in this file to mocked empty results so a test that doesn't care about
+    # targets/body_map never makes a real network call; tests that do care override.
     monkeypatch.setattr(chembl, "fetch_targets", lambda generic, cid: [])
+    monkeypatch.setattr(hpa, "tissue_levels", lambda gene: {})
 
 
 def test_curated_list_includes_every_drug_file():
@@ -77,6 +79,31 @@ def test_get_drug_fetches_targets_for_curated_drugs_too(monkeypatch):
     assert calls == [("metoprolol", 4171)]
     assert body["targets"][0]["gene"] == "ADRB1"
     assert {"name": "ChEMBL", "url": "https://www.ebi.ac.uk/chembl/"} in body["sources"]
+
+
+def test_get_drug_populates_body_map_from_targets(monkeypatch):
+    monkeypatch.setattr(
+        chembl, "fetch_targets",
+        lambda generic, cid: [{"chembl_id": "CHEMBL211", "uniprot": "P08588", "gene": "ADRB1",
+                                "name": "Beta-1 adrenergic receptor", "action": "antagonist",
+                                "plain_description": "..."}],
+    )
+    monkeypatch.setattr(
+        hpa, "tissue_levels",
+        lambda gene: {"heart muscle": {"level": "high", "basis": "protein"}} if gene == "ADRB1" else {},
+    )
+    monkeypatch.setattr(pubchem, "fetch_properties", lambda cid: None)
+
+    response = client.get(f"/drugs/{METOPROLOL_RXCUI}")
+    assert response.status_code == 200
+    body = response.json()
+    assert body["body_map"] == {"heart": {"level": "high", "basis": "protein", "targets": ["ADRB1"]}}
+    assert {"name": "Human Protein Atlas", "url": "https://www.proteinatlas.org/"} in body["sources"]
+
+
+def test_get_drug_body_map_empty_when_no_targets():
+    response = client.get(f"/drugs/{METOPROLOL_RXCUI}")
+    assert response.json()["body_map"] == {}
 
 
 def test_get_drug_degrades_gracefully_when_pubchem_fails(monkeypatch):

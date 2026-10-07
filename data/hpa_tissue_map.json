@@ -1,0 +1,19 @@
+{
+  "heart muscle": "heart",
+  "lung": "lungs",
+  "liver": "liver",
+  "kidney": "kidneys",
+  "stomach": "stomach",
+  "intestine": "intestines",
+  "pancreas": "pancreas",
+  "blood vessel": "blood_vessels",
+  "skeletal muscle": "muscle",
+  "smooth muscle": "muscle",
+  "skin": "skin",
+  "adipose tissue": "fat",
+  "thyroid gland": "thyroid",
+  "urinary bladder": "bladder",
+  "brain": "brain",
+  "cerebral cortex": "brain",
+  "choroid plexus": "brain"
+}

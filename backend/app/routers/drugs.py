@@ -3,7 +3,7 @@ from fastapi.responses import PlainTextResponse
 
 from backend.app.api_models import CuratedSummary, DrugBundle, SearchResult
 from backend.app.models import Drug
-from backend.app.services import chembl, drug_store, pubchem, rxnorm
+from backend.app.services import body_map, chembl, drug_store, pubchem, rxnorm
 
 router = APIRouter()
 
@@ -74,6 +74,7 @@ def get_drug(rxcui: str) -> DrugBundle:
     # curated record only covers PK/dosing/journey data, never structure or
     # targets, so every drug (curated or not) needs PubChem/ChEMBL for those.
     targets = chembl.fetch_targets(info["generic"], info["pubchem_cid"])
+    organs = body_map.build(targets)
 
     sources = []
     if curated is None:
@@ -82,6 +83,8 @@ def get_drug(rxcui: str) -> DrugBundle:
         sources.append({"name": "PubChem", "url": f"https://pubchem.ncbi.nlm.nih.gov/compound/{info['pubchem_cid']}"})
     if targets:
         sources.append({"name": "ChEMBL", "url": "https://www.ebi.ac.uk/chembl/"})
+    if organs:
+        sources.append({"name": "Human Protein Atlas", "url": "https://www.proteinatlas.org/"})
 
     return DrugBundle(
         rxcui=info["rxcui"],
@@ -89,6 +92,7 @@ def get_drug(rxcui: str) -> DrugBundle:
         brands=info["brands"],
         molecule=molecule,
         targets=targets,
+        body_map=organs,
         curated=curated.model_dump(mode="json") if curated is not None else None,
         sources=sources,
     )
