@@ -5,7 +5,7 @@ from fastapi.responses import JSONResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from backend.app.config import allowed_origins
-from backend.app.routers import drugs, health, interactions
+from backend.app.routers import drugs, health, interactions, targets
 
 ERROR_CODES = {
     404: "not_found",
@@ -26,6 +26,7 @@ app.add_middleware(
 app.include_router(health.router)
 app.include_router(drugs.router)
 app.include_router(interactions.router)
+app.include_router(targets.router)
 
 
 def error_response(status: int, message: str) -> JSONResponse:

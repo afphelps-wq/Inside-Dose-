@@ -33,3 +33,14 @@ individually selectable sub-structures the original project exposes. Output:
 gzip-compressed position/normal/index buffers), ~14.7 MB total.
 
 Rendered in `frontend/src/components/Body3D.jsx` via three.js.
+
+## Protein structure viewer
+
+**Mol\*** (`https://molstar.org`), licensed under the **MIT License**
+(© 2018-2026 mol* contributors). `frontend/public/vendor/molstar/molstar.js`
+and `molstar.css` are the prebuilt viewer bundle from the `molstar` npm
+package (v5.13.0), copied in rather than imported as an npm dependency since
+only the standalone viewer build is used -- see its embedding docs at
+https://molstar.org/viewer-docs/. Loaded on demand in
+`frontend/src/components/StructureViewer.jsx` for the Targets tab (spec §4,
+§6.3's "Mol\* view"), rendering PDB entries from RCSB.

@@ -40,6 +40,11 @@ export async function postInteractions(rxcuis, { signal } = {}) {
   return body
 }
 
+export function getTargetStructures(uniprot, rxcui, { signal } = {}) {
+  const query = rxcui ? `?rxcui=${encodeURIComponent(rxcui)}` : ''
+  return getJson(`/targets/${encodeURIComponent(uniprot)}/structures${query}`, { signal })
+}
+
 export async function getStructureSdf(rxcui, { signal } = {}) {
   const response = await fetch(`${API_BASE_URL}/drugs/${encodeURIComponent(rxcui)}/structure.sdf`, { signal })
   if (!response.ok) {

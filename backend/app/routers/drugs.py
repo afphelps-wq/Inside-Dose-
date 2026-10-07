@@ -4,6 +4,7 @@ from fastapi.responses import PlainTextResponse
 from backend.app.api_models import CuratedSummary, DrugBundle, SearchResult
 from backend.app.models import Drug
 from backend.app.services import body_map, chembl, drug_store, pubchem, rxnorm
+from backend.app.services.resolve import resolve as resolve_drug
 
 router = APIRouter()
 
@@ -36,29 +37,9 @@ def search(q: str) -> list[SearchResult]:
     ]
 
 
-def _resolve(rxcui: str) -> dict | None:
-    """Either half of spec §4's drug bundle: a curated record, or a live
-    RxNorm/PubChem/ChEMBL lookup (M6) for any other known rxcui."""
-    drug = drug_store.get_by_rxcui(rxcui)
-    if drug is not None:
-        return {
-            "rxcui": drug.ids.rxcui, "generic": drug.names.generic, "brands": drug.names.brands,
-            "pubchem_cid": drug.ids.pubchem_cid, "curated": drug,
-        }
-
-    resolved = rxnorm.resolve_ingredient(rxcui)
-    if resolved is None:
-        return None
-    cid = pubchem.resolve_cid_by_name(resolved["generic"])
-    return {
-        "rxcui": resolved["rxcui"], "generic": resolved["generic"], "brands": resolved["brands"],
-        "pubchem_cid": cid, "curated": None,
-    }
-
-
 @router.get("/drugs/{rxcui}", response_model=DrugBundle)
 def get_drug(rxcui: str) -> DrugBundle:
-    info = _resolve(rxcui)
+    info = resolve_drug(rxcui)
     if info is None:
         raise HTTPException(404, "We couldn't find that drug.")
 
@@ -100,7 +81,7 @@ def get_drug(rxcui: str) -> DrugBundle:
 
 @router.get("/drugs/{rxcui}/structure.sdf")
 def get_structure_sdf(rxcui: str) -> PlainTextResponse:
-    info = _resolve(rxcui)
+    info = resolve_drug(rxcui)
     if info is None or not info["pubchem_cid"]:
         raise HTTPException(404, "We couldn't find a 3D structure for that drug.")
     try:

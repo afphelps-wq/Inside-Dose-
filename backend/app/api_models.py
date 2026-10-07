@@ -36,6 +36,12 @@ class DrugBundle(BaseModel):
     sources: list[dict] = Field(default_factory=list)
 
 
+class TargetStructure(BaseModel):
+    pdb_id: str
+    title: str
+    has_this_drug: bool
+
+
 class InteractionRequest(BaseModel):
     rxcuis: list[str] = Field(min_length=2, max_length=5)
 

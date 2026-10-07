@@ -55,6 +55,24 @@ def fetch_properties(cid: int) -> dict:
     return properties
 
 
+def fetch_inchi(cid: int) -> str | None:
+    """For matching a drug to its PDB chemical-component ID (Targets tab Mol* view)."""
+    def fetch():
+        url = f"{PUBCHEM_BASE}/compound/cid/{cid}/property/InChI/JSON"
+        try:
+            response = httpx.get(url, timeout=TIMEOUT)
+            response.raise_for_status()
+            return response.json()["PropertyTable"]["Properties"][0]["InChI"]
+        except (httpx.HTTPError, KeyError, IndexError, ValueError) as exc:
+            raise UpstreamError(str(exc)) from exc
+
+    try:
+        inchi, _ = cached_fetch("pubchem", f"inchi:{cid}", fetch)
+        return inchi
+    except UpstreamError:
+        return None
+
+
 def resolve_cid_by_name(name: str) -> int | None:
     """Live-lookup drugs (M6): resolve an ingredient name to a PubChem CID."""
     def fetch():
