@@ -3,14 +3,18 @@ import { concentrationCurve } from '../../lib/pk.js'
 import BodyMap, { ORGAN_LABELS } from '../BodyMap.jsx'
 import ConcentrationChart from '../ConcentrationChart.jsx'
 
-export default function JourneyTab({ drug }) {
-  const { dose_mg: dose, pk, journey } = drug.curated
+export default function JourneyTab({ curated }) {
+  const { journey } = curated
+  const formulation = curated.formulations[0]
+  const dose = formulation.dose_mg
+  const pk = formulation.pk
+  const perKg = pk.vd.unit === 'L/kg'
+
   const [doseMg, setDoseMg] = useState(dose.typical)
   const [intervalH, setIntervalH] = useState(dose.intervals_h[0])
   const [weightKg, setWeightKg] = useState(70)
   const [step, setStep] = useState(0)
   const [playing, setPlaying] = useState(true)
-  const perKg = pk.vd_unit === 'L/kg'
 
   useEffect(() => {
     if (!playing) return
@@ -19,7 +23,18 @@ export default function JourneyTab({ drug }) {
   }, [playing, journey.length])
 
   const curve = useMemo(
-    () => concentrationCurve({ doseMg, intervalH, weightKg: perKg ? weightKg : 70, pk }),
+    () => concentrationCurve({
+      doseMg,
+      intervalH,
+      weightKg: perKg ? weightKg : 70,
+      pk: {
+        bioavailability: pk.bioavailability.model,
+        half_life: pk.half_life.model,
+        vd: pk.vd.model,
+        vd_unit: pk.vd.unit,
+        tmax: pk.tmax.model,
+      },
+    }),
     [doseMg, intervalH, weightKg, perKg, pk],
   )
   const active = journey[step]
@@ -53,7 +68,7 @@ export default function JourneyTab({ drug }) {
         <div className="sliders">
           <label>
             Dose: <strong>{doseMg} mg</strong>
-            <input type="range" min={dose.min} max={dose.max} step={dose.min}
+            <input type="range" min={dose.min} max={dose.max} step="1"
                    value={doseMg} onChange={(e) => setDoseMg(Number(e.target.value))} />
           </label>
           <label>
@@ -68,7 +83,7 @@ export default function JourneyTab({ drug }) {
                    onChange={(e) => setWeightKg(Number(e.target.value))} />
             <small>
               {perKg ? 'Shows how body size changes the curve. Not a dosing tool.'
-                : 'Fixed: this drug\'s label doesn\'t scale with weight.'}
+                : "Fixed: this drug's label doesn't scale with weight."}
             </small>
           </label>
         </div>

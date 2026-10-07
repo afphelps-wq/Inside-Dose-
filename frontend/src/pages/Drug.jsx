@@ -1,32 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import BodyTab from '../components/tabs/BodyTab.jsx'
+import JourneyTab from '../components/tabs/JourneyTab.jsx'
 import MoleculeTab from '../components/tabs/MoleculeTab.jsx'
 import TargetsTab from '../components/tabs/TargetsTab.jsx'
-import { ORGAN_LABELS } from '../components/BodyMap.jsx'
 import { getDrug } from '../api/client.js'
 import { MAX_DRUGS, useMyDrugs } from '../lib/myDrugs.js'
-
-// Static read of the curated journey steps. The interactive version (dosing
-// sliders, animation, concentration curve) is M4 -- this just surfaces the
-// real curated text, which is already there, without pretending to be M4.
-function JourneyPreview({ curated }) {
-  return (
-    <div className="card">
-      <h3>The drug's journey</h3>
-      <ol className="journey">
-        {curated.journey.map((step, i) => (
-          <li key={i}>
-            <span className="step-name">{step.step}</span>
-            <span className="muted"> · {ORGAN_LABELS[step.organ]}</span>
-            <p>{step.text}</p>
-          </li>
-        ))}
-      </ol>
-      <p className="muted small">Dosing sliders and the concentration-over-time curve are coming next.</p>
-    </div>
-  )
-}
 
 const TABS = [
   { key: 'molecule', label: 'Molecule' },
@@ -96,7 +75,7 @@ export default function Drug() {
       {activeTab.key === 'molecule' && <MoleculeTab rxcui={bundle.rxcui} molecule={bundle.molecule} />}
       {activeTab.key === 'targets' && <TargetsTab drug={bundle} />}
       {activeTab.key === 'body' && <BodyTab drug={bundle} />}
-      {activeTab.key === 'journey' && bundle.curated && <JourneyPreview curated={bundle.curated} />}
+      {activeTab.key === 'journey' && bundle.curated && <JourneyTab curated={bundle.curated} />}
     </section>
   )
 }
