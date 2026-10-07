@@ -1,13 +1,37 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { DEMO_EFFECT_RULES, displayName, findDemoDrug } from '../demo/demoData.js'
-import { checkInteractions } from '../lib/interactions.js'
+import { getDrug, postInteractions } from '../api/client.js'
 import { MAX_DRUGS, useMyDrugs } from '../lib/myDrugs.js'
+
+function displayName(bundle) {
+  return bundle.brands?.length ? `${bundle.brands[0]} (${bundle.generic})` : bundle.generic
+}
 
 export default function MyDrugs() {
   const myDrugs = useMyDrugs()
-  const drugs = myDrugs.list.map(findDemoDrug).filter(Boolean)
-  const result = drugs.length >= 2 ? checkInteractions(drugs, DEMO_EFFECT_RULES) : null
-  const nameOf = (rxcui) => findDemoDrug(rxcui)?.brands[0] ?? rxcui
+  const [bundles, setBundles] = useState({})
+  const [result, setResult] = useState(null)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    const controller = new AbortController()
+    Promise.all(myDrugs.list.map((rxcui) => getDrug(rxcui, { signal: controller.signal })))
+      .then((loaded) => setBundles(Object.fromEntries(loaded.map((b) => [b.rxcui, b]))))
+      .catch((err) => { if (err.name !== 'AbortError') setError(err.message) })
+    return () => controller.abort()
+  }, [myDrugs.list])
+
+  useEffect(() => {
+    setResult(null)
+    if (myDrugs.list.length < 2) return
+    const controller = new AbortController()
+    postInteractions(myDrugs.list, { signal: controller.signal })
+      .then(setResult)
+      .catch((err) => { if (err.name !== 'AbortError') setError(err.message) })
+    return () => controller.abort()
+  }, [myDrugs.list])
+
+  const nameOf = (rxcui) => (bundles[rxcui] ? displayName(bundles[rxcui]) : rxcui)
 
   return (
     <section>
@@ -15,19 +39,20 @@ export default function MyDrugs() {
       {!myDrugs.persistent && (
         <p className="note">Your browser isn't saving data, so this list lasts for this visit only.</p>
       )}
-      {!drugs.length && (
+      {error && <p className="error-banner">{error}</p>}
+      {!myDrugs.list.length && (
         <p className="muted">No drugs saved yet. Open a drug from <Link to="/">Home</Link> and add it (up to {MAX_DRUGS}).</p>
       )}
       <div className="stack">
-        {drugs.map((d) => (
-          <div key={d.rxcui} className="card row">
-            <Link to={`/drug/${d.rxcui}`}><strong>{displayName(d)}</strong></Link>
-            <button className="ghost" onClick={() => myDrugs.remove(d.rxcui)}>Remove</button>
+        {myDrugs.list.map((rxcui) => (
+          <div key={rxcui} className="card row">
+            <Link to={`/drug/${rxcui}`}><strong>{nameOf(rxcui)}</strong></Link>
+            <button className="ghost" onClick={() => myDrugs.remove(rxcui)}>Remove</button>
           </div>
         ))}
       </div>
 
-      {drugs.length === 1 && <p className="muted">Add another drug to check for interactions.</p>}
+      {myDrugs.list.length === 1 && <p className="muted">Add another drug to check for interactions.</p>}
       {result && (
         <>
           <h2>Interaction check</h2>
@@ -44,6 +69,9 @@ export default function MyDrugs() {
               </div>
             ))}
           </div>
+          {result.unchecked.length > 0 && (
+            <p className="muted small">No data — not checked: {result.unchecked.map(nameOf).join(', ')}</p>
+          )}
         </>
       )}
     </section>

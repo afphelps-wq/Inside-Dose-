@@ -13,3 +13,34 @@ export async function getJson(path, { signal } = {}) {
 export function checkHealth({ signal } = {}) {
   return getJson('/health', { signal })
 }
+
+export function getCuratedDrugs({ signal } = {}) {
+  return getJson('/drugs/curated', { signal })
+}
+
+export function getDrug(rxcui, { signal } = {}) {
+  return getJson(`/drugs/${encodeURIComponent(rxcui)}`, { signal })
+}
+
+export async function postInteractions(rxcuis, { signal } = {}) {
+  const response = await fetch(`${API_BASE_URL}/interactions`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ rxcuis }),
+    signal,
+  })
+  const body = await response.json().catch(() => null)
+  if (!response.ok) {
+    throw new Error(body?.error?.message || 'Something went wrong.')
+  }
+  return body
+}
+
+export async function getStructureSdf(rxcui, { signal } = {}) {
+  const response = await fetch(`${API_BASE_URL}/drugs/${encodeURIComponent(rxcui)}/structure.sdf`, { signal })
+  if (!response.ok) {
+    const body = await response.json().catch(() => null)
+    throw new Error(body?.error?.message || "Couldn't load the molecule structure right now.")
+  }
+  return response.text()
+}

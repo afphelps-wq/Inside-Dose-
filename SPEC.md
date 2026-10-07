@@ -30,7 +30,9 @@
 
 ### 2.1 Design
 
-- **Style:** Friendly illustrated: soft colors, approachable.
+- **Style:** Dark medical-scanner HUD, not a friendly illustrated look. Reference screenshots are in `UI examples/`. Near-black navy background; a translucent/wireframe human body is the central visual on Body/Molecule views, with a glowing highlight on whichever organ or system is active. Panels are thin hairline-bordered cards, optionally with corner brackets, over the dark background. Data is presented like instrumentation: small uppercase monospace labels, scale rulers, numeric readouts, circular gauges -- not flat icons. The chrome is sci-fi; the copy is not -- labels and explanations stay plain-language per the audience below (no military/alarming terms; use organ names and plain descriptions).
+  - **Palette:** background `#05070f`/`#0a0e1a` (near-black navy); surface panels a lighter navy (`#10172a`-ish) with low-opacity borders; primary glow/accent cyan (`#22d3ee` range); secondary highlight warm amber (`#ff9d5c` range) used sparingly for emphasis against the cyan; body text off-white/pale blue-gray, not pure white.
+  - **Severity colors** (interactions, §6.1) stay semantically distinct from the generic accent: major = red/orange, moderate = amber, minor = cyan/blue.
 - **Devices:** Desktop only for v1.
 - **Disclaimer:** "Educational, not medical advice" visible on every page.
 

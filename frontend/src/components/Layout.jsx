@@ -14,9 +14,6 @@ export default function Layout() {
       <div className="disclaimer" role="note">
         Educational, not medical advice.
       </div>
-      <div className="demo-banner" role="note">
-        Demo data: the drugs shown are fictional and every value is made up.
-      </div>
       <ServerStatus />
       <main>
         <Outlet />
