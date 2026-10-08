@@ -1,9 +1,10 @@
 # Prompt Log
 
 A chronological log of the prompts given to Claude (Claude Code) across the development
-of Inside Dose, for a single continuous working session (interrupted once by an
-unplanned restart, noted below). Tool calls, file reads, and Claude's own responses are
-omitted; this lists what the user actually asked for, in order.
+of Inside Dose, across several working sessions (the first began after an unplanned
+restart; a context compaction is noted below). Tool calls, file reads, and Claude's own
+responses are omitted; this lists what the user actually asked for, in order. Entries
+marked "(choice)" are answers to multiple-choice questions Claude asked.
 
 ## Session start / recovery
 
@@ -93,7 +94,7 @@ full context preserved.)*
 33. "how do I make the lookups and data loading faster"
 34. "commit and push"
 
-## This log
+## Prompt log
 
 35. "create a prompt log of this chat"
 
@@ -128,6 +129,16 @@ full context preserved.)*
 48. "make a female version of the body thata you can toggle, since right now there is
     only male anatomy"
 
-## This log (update)
+## Prompt log (update)
 
 49. "add these prompts to prompt log"
+
+## README
+
+50. "create a read me that sounds human written for this project, use the spec to
+    understand the scope of the project. Make sure to what the project does, how to use
+    it, which features you are most proud of, how to run it locally, and how secrets (if
+    any) are handled. briefly summarize how you used AI on this project, along with any
+    citations that are relevant"
+51. "I updated the prompt log, reformat it so that the top part matches the formatted
+    bottom part and fix the numbering of the prompts"
