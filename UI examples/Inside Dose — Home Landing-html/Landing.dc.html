@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Inside Dose — Home</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F5F9FF}
+a{color:#1A5BD0}a:hover{color:#123F94}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#4E6178}
+.nav{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border-radius:8px;font-size:15px;font-weight:600;color:#33475E;text-decoration:none}
+.nav:hover{background:#E8F1FF;color:#0F2236}
+.count{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:22px;padding:0 6px;border-radius:8px;background:#E8F1FF;color:#1A5BD0;font-size:12px;font-weight:700}
+.outlineTxt{color:transparent;-webkit-text-stroke:2.5px var(--accent,#2E7CF6)}
+.hl{background:#E8F1FF;color:#1A5BD0;padding:0 8px;border-radius:8px}
+.search{width:100%;box-sizing:border-box;min-height:56px;padding:0 18px 0 50px;border:1px solid #DCE6F2;border-radius:8px;background:#FFFFFF;color:#0F2236;font-family:inherit;font-size:16px;box-shadow:0 8px 24px rgba(15,34,54,.08)}
+.search::placeholder{color:#6A7C92}
+.search:focus{outline:none;border-color:var(--accent,#2E7CF6);box-shadow:0 0 0 4px rgba(46,124,246,.15),0 8px 24px rgba(15,34,54,.08)}
+.result{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:48px;padding:8px 18px;color:#0F2236;text-decoration:none;font-size:15px;font-weight:600}
+.result:hover{background:#F5F9FF}
+.circleBtn{display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;flex:none;border-radius:50%;background:#1A5BD0;color:#FFFFFF;text-decoration:none;box-shadow:0 8px 20px rgba(26,91,208,.3);transition:transform .15s}
+.circleBtn:hover{transform:translateY(-2px);color:#FFFFFF}
+.cta{display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:0 28px;border-radius:8px;background:#1A5BD0;color:#FFFFFF;font-size:16px;font-weight:700;text-decoration:none;box-shadow:0 8px 20px rgba(26,91,208,.25)}
+.cta:hover{background:#154BB0;color:#FFFFFF}
+.ghost{display:inline-flex;align-items:center;gap:8px;min-height:52px;padding:0 22px;border-radius:8px;border:1px solid #DCE6F2;background:#FFFFFF;color:#0F2236;font-size:16px;font-weight:700;text-decoration:none}
+.ghost:hover{border-color:var(--accent,#2E7CF6);color:#0F2236}
+.card{display:flex;flex-direction:column;gap:6px;min-height:140px;padding:18px;border:1px solid #DCE6F2;border-radius:12px;background:#FFFFFF;color:#0F2236;text-decoration:none;box-shadow:0 1px 2px rgba(15,34,54,.04);transition:transform .15s,box-shadow .15s,border-color .15s}
+.card:hover{transform:translateY(-3px);border-color:#B9D3FB;box-shadow:0 12px 28px rgba(15,34,54,.1);color:#0F2236}
+.dot{width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:#E8F1FF;color:#1A5BD0;font-family:'Source Serif 4', 'Times New Roman', serif,sans-serif;font-size:14px;font-weight:800}
+.nav:focus-visible,.result:focus-visible,.circleBtn:focus-visible,.cta:focus-visible,.ghost:focus-visible,.card:focus-visible{outline:3px solid #1A5BD0;outline-offset:3px}
+.mesh{fill:none;stroke:#2E7CF6;stroke-width:1;opacity:.5}
+.meshBack{fill:none;stroke:#7FAEF5;stroke-width:.8;opacity:.35}
+.shellTop{fill:#D6E6FF;stroke:#2E7CF6;stroke-width:2}
+.shellBot{fill:#FFFFFF;stroke:#2E7CF6;stroke-width:2}
+.verts{fill:none;stroke:#1A5BD0;stroke-width:4.5;stroke-linecap:round}
+.bond{fill:none;stroke:#7FAEF5;stroke-width:3;stroke-linecap:round}
+.atom{fill:#FFFFFF;stroke:#2E7CF6;stroke-width:2}
+.atomBig{fill:#D6E6FF;stroke:#1A5BD0;stroke-width:2}
+.soft{filter:drop-shadow(0 14px 22px rgba(46,124,246,.18))}
+.floatA{animation:floatA 6s ease-in-out infinite}
+.floatB{animation:floatB 7s ease-in-out infinite}
+.floatC{animation:floatA 8s ease-in-out infinite}
+@keyframes floatA{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes floatB{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+@media (prefers-reduced-motion: reduce){.floatA,.floatB,.floatC{animation:none}}
+.srOnly{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</helmet>
+<div style="--accent: {{accent}}; min-height: 1600px; box-sizing: border-box; background: #F5F9FF; color: #0F2236; font-family: 'Source Serif 4', 'Times New Roman', serif, system-ui, sans-serif">
+<div style="max-width: 1440px; margin: 0 auto; padding: 24px 56px 48px; box-sizing: border-box">
+
+<header style="display: flex; justify-content: space-between; align-items: center; gap: 24px">
+<a href="#" style="display: inline-flex; align-items: center; gap: 10px; min-height: 44px; text-decoration: none; color: #0F2236">
+<svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><rect x="4" y="9" width="22" height="12" rx="6" transform="rotate(-35 15 15)" fill="#E8F1FF" stroke="#1A5BD0" stroke-width="2"></rect><path d="M15 6.5 L15 23.5" transform="rotate(-35 15 15)" stroke="#1A5BD0" stroke-width="2"></path></svg>
+<span style="font-family: 'Source Serif 4', 'Times New Roman', serif, sans-serif; font-size: 22px; font-weight: 600">Inside Dose</span>
+</a>
+<nav aria-label="Main" style="display: flex; align-items: center; gap: 4px">
+<a href="#gallery" class="nav">Curated drugs</a>
+<a href="#how" class="nav">How it works</a>
+<a href="#" class="nav">My Drugs <span class="count">0/5</span></a>
+</nav>
+</header>
+
+<section style="position: relative; height: 760px" aria-label="Introduction">
+<div aria-hidden="true" style="position: absolute; left: 50%; top: 70px; width: 560px; height: 560px; transform: translateX(-46%); border-radius: 50%; background: radial-gradient(circle, #DCEBFF 0%, #EAF3FF 45%, rgba(245,249,255,0) 70%)"></div>
+<div style="position: absolute; left: 50%; top: 40px; width: 660px; height: 620px; transform: translateX(-44%)" aria-hidden="true">
+<svg viewBox="0 0 640 600" style="width: 100%; height: 100%; overflow: visible">
+<ellipse cx="250" cy="560" rx="130" ry="9" fill="#2E7CF6" opacity=".12"></ellipse>
+
+<g class="floatA">
+<g class="soft" transform="translate(236 258) rotate(-28)">
+<path class="shellTop" d="M-80 0 L-80 -120 A80 80 0 0 1 80 -120 L80 0 A80 14 0 0 1 -80 0 Z"></path>
+<path class="meshBack" d="M-80 0 A80 14 0 0 1 80 0 M-80 -40 A80 14 0 0 1 80 -40 M-80 -80 A80 14 0 0 1 80 -80 M-80 -120 A80 14 0 0 1 80 -120"></path>
+<path class="mesh" d="M-80 0 L-69 7.1 L-40 12.1 L0 14 L40 12.1 L69 7.1 L80 0 M-80 -40 L-69 -32.9 L-40 -27.9 L0 -26 L40 -27.9 L69 -32.9 L80 -40 M-80 -80 L-69 -72.9 L-40 -67.9 L0 -66 L40 -67.9 L69 -72.9 L80 -80 M-80 -120 L-69 -112.9 L-40 -107.9 L0 -106 L40 -107.9 L69 -112.9 L80 -120 M-69 -160 L-60 -154 L-35 -149.6 L0 -148 L35 -149.6 L60 -154 L69 -160 M-40 -189 L-35 -185.5 L-20 -183 L0 -182 L20 -183 L35 -185.5 L40 -189 M-80 0 L-80 -40 L-80 -80 L-80 -120 L-69 -160 L-40 -189 L0 -200 M-69 7.1 L-69 -32.9 L-69 -72.9 L-69 -112.9 L-60 -154 L-35 -185.5 L0 -200 M-40 12.1 L-40 -27.9 L-40 -67.9 L-40 -107.9 L-35 -149.6 L-20 -183 L0 -200 M0 14 L0 -26 L0 -66 L0 -106 L0 -148 L0 -182 L0 -200 M40 12.1 L40 -27.9 L40 -67.9 L40 -107.9 L35 -149.6 L20 -183 L0 -200 M69 7.1 L69 -32.9 L69 -72.9 L69 -112.9 L60 -154 L35 -185.5 L0 -200 M80 0 L80 -40 L80 -80 L80 -120 L69 -160 L40 -189 L0 -200 M-80 0 L-69 -32.9 M-69 7.1 L-40 -27.9 M-40 12.1 L0 -26 M0 14 L40 -27.9 M40 12.1 L69 -32.9 M69 7.1 L80 -40 M-69 -32.9 L-80 -80 M-40 -27.9 L-69 -72.9 M0 -26 L-40 -67.9 M40 -27.9 L0 -66 M69 -32.9 L40 -67.9 M80 -40 L69 -72.9 M-80 -80 L-69 -112.9 M-69 -72.9 L-40 -107.9 M-40 -67.9 L0 -106 M0 -66 L40 -107.9 M40 -67.9 L69 -112.9 M69 -72.9 L80 -120 M-69 -112.9 L-69 -160 M-40 -107.9 L-60 -154 M0 -106 L-35 -149.6 M40 -107.9 L0 -148 M69 -112.9 L35 -149.6 M80 -120 L60 -154 M-69 -160 L-35 -185.5 M-60 -154 L-20 -183 M-35 -149.6 L0 -182 M0 -148 L20 -183 M35 -149.6 L35 -185.5 M60 -154 L40 -189"></path>
+<path class="verts" d="M-80 0h0M-69 7.1h0M-40 12.1h0M0 14h0M40 12.1h0M69 7.1h0M80 0h0M-80 -40h0M-69 -32.9h0M-40 -27.9h0M0 -26h0M40 -27.9h0M69 -32.9h0M80 -40h0M-80 -80h0M-69 -72.9h0M-40 -67.9h0M0 -66h0M40 -67.9h0M69 -72.9h0M80 -80h0M-80 -120h0M-69 -112.9h0M-40 -107.9h0M0 -106h0M40 -107.9h0M69 -112.9h0M80 -120h0M-69 -160h0M-60 -154h0M-35 -149.6h0M0 -148h0M35 -149.6h0M60 -154h0M69 -160h0M-40 -189h0M-35 -185.5h0M-20 -183h0M0 -182h0M20 -183h0M35 -185.5h0M40 -189h0M0 -200h0"></path>
+</g>
+</g>
+
+<g class="floatB">
+<g class="soft" transform="translate(262 352) rotate(16) scale(1 -1)">
+<path class="shellBot" d="M-80 0 L-80 -120 A80 80 0 0 1 80 -120 L80 0 A80 14 0 0 1 -80 0 Z"></path>
+<path class="meshBack" d="M-80 0 A80 14 0 0 1 80 0 M-80 -40 A80 14 0 0 1 80 -40 M-80 -80 A80 14 0 0 1 80 -80 M-80 -120 A80 14 0 0 1 80 -120"></path>
+<path class="mesh" d="M-80 0 L-69 7.1 L-40 12.1 L0 14 L40 12.1 L69 7.1 L80 0 M-80 -40 L-69 -32.9 L-40 -27.9 L0 -26 L40 -27.9 L69 -32.9 L80 -40 M-80 -80 L-69 -72.9 L-40 -67.9 L0 -66 L40 -67.9 L69 -72.9 L80 -80 M-80 -120 L-69 -112.9 L-40 -107.9 L0 -106 L40 -107.9 L69 -112.9 L80 -120 M-69 -160 L-60 -154 L-35 -149.6 L0 -148 L35 -149.6 L60 -154 L69 -160 M-40 -189 L-35 -185.5 L-20 -183 L0 -182 L20 -183 L35 -185.5 L40 -189 M-80 0 L-80 -40 L-80 -80 L-80 -120 L-69 -160 L-40 -189 L0 -200 M-69 7.1 L-69 -32.9 L-69 -72.9 L-69 -112.9 L-60 -154 L-35 -185.5 L0 -200 M-40 12.1 L-40 -27.9 L-40 -67.9 L-40 -107.9 L-35 -149.6 L-20 -183 L0 -200 M0 14 L0 -26 L0 -66 L0 -106 L0 -148 L0 -182 L0 -200 M40 12.1 L40 -27.9 L40 -67.9 L40 -107.9 L35 -149.6 L20 -183 L0 -200 M69 7.1 L69 -32.9 L69 -72.9 L69 -112.9 L60 -154 L35 -185.5 L0 -200 M80 0 L80 -40 L80 -80 L80 -120 L69 -160 L40 -189 L0 -200 M-80 0 L-69 -32.9 M-69 7.1 L-40 -27.9 M-40 12.1 L0 -26 M0 14 L40 -27.9 M40 12.1 L69 -32.9 M69 7.1 L80 -40 M-69 -32.9 L-80 -80 M-40 -27.9 L-69 -72.9 M0 -26 L-40 -67.9 M40 -27.9 L0 -66 M69 -32.9 L40 -67.9 M80 -40 L69 -72.9 M-80 -80 L-69 -112.9 M-69 -72.9 L-40 -107.9 M-40 -67.9 L0 -106 M0 -66 L40 -107.9 M40 -67.9 L69 -112.9 M69 -72.9 L80 -120 M-69 -112.9 L-69 -160 M-40 -107.9 L-60 -154 M0 -106 L-35 -149.6 M40 -107.9 L0 -148 M69 -112.9 L35 -149.6 M80 -120 L60 -154 M-69 -160 L-35 -185.5 M-60 -154 L-20 -183 M-35 -149.6 L0 -182 M0 -148 L20 -183 M35 -149.6 L35 -185.5 M60 -154 L40 -189"></path>
+<path class="verts" d="M-80 0h0M-69 7.1h0M-40 12.1h0M0 14h0M40 12.1h0M69 7.1h0M80 0h0M-80 -40h0M-69 -32.9h0M-40 -27.9h0M0 -26h0M40 -27.9h0M69 -32.9h0M80 -40h0M-80 -80h0M-69 -72.9h0M-40 -67.9h0M0 -66h0M40 -67.9h0M69 -72.9h0M80 -80h0M-80 -120h0M-69 -112.9h0M-40 -107.9h0M0 -106h0M40 -107.9h0M69 -112.9h0M80 -120h0M-69 -160h0M-60 -154h0M-35 -149.6h0M0 -148h0M35 -149.6h0M60 -154h0M69 -160h0M-40 -189h0M-35 -185.5h0M-20 -183h0M0 -182h0M20 -183h0M35 -185.5h0M40 -189h0M0 -200h0"></path>
+</g>
+</g>
+
+<g class="floatC soft">
+<path class="bond" d="M405 160 L380 128 M405 160 L440 140 M405 160 L400 205 M400 205 L372 232 M545 180 L575 150 M545 180 L580 210 M545 180 L500 250 M500 250 L455 240 M500 250 L470 300 M330 318 L300 300 M330 318 L352 288 M330 318 L305 350 M450 352 L420 330 M450 352 L482 322 M450 352 L470 398 M565 335 L594 312 M565 335 L590 366 M565 335 L532 352 M420 446 L390 424 M420 446 L398 484 M420 446 L455 474"></path>
+<circle class="atomBig" cx="405" cy="160" r="11"></circle><circle class="atom" cx="380" cy="128" r="6"></circle><circle class="atom" cx="440" cy="140" r="6"></circle><circle class="atom" cx="400" cy="205" r="8"></circle><circle class="atom" cx="372" cy="232" r="5"></circle>
+<circle class="atomBig" cx="545" cy="180" r="11"></circle><circle class="atom" cx="575" cy="150" r="6"></circle><circle class="atom" cx="580" cy="210" r="6"></circle><circle class="atomBig" cx="500" cy="250" r="14"></circle><circle class="atom" cx="455" cy="240" r="8"></circle><circle class="atom" cx="470" cy="300" r="6"></circle>
+<circle class="atomBig" cx="330" cy="318" r="11"></circle><circle class="atom" cx="300" cy="300" r="5"></circle><circle class="atom" cx="352" cy="288" r="6"></circle><circle class="atom" cx="305" cy="350" r="7"></circle>
+<circle class="atomBig" cx="450" cy="352" r="12"></circle><circle class="atom" cx="420" cy="330" r="6"></circle><circle class="atom" cx="482" cy="322" r="6"></circle><circle class="atom" cx="470" cy="398" r="8"></circle>
+<circle class="atomBig" cx="565" cy="335" r="10"></circle><circle class="atom" cx="594" cy="312" r="5"></circle><circle class="atom" cx="590" cy="366" r="6"></circle><circle class="atom" cx="532" cy="352" r="6"></circle>
+<circle class="atomBig" cx="420" cy="446" r="12"></circle><circle class="atom" cx="390" cy="424" r="6"></circle><circle class="atom" cx="398" cy="484" r="6"></circle><circle class="atom" cx="455" cy="474" r="7"></circle>
+</g>
+</svg>
+</div>
+
+<div style="position: absolute; left: 0; top: 130px; z-index: 2">
+<h1 style="margin: 0; font-family: 'Source Serif 4', 'Times New Roman', serif, sans-serif; font-weight: 600; font-size: 150px; line-height: .92; letter-spacing: -.02em; color: #0F2236">
+<span style="display: block">Inside<span aria-hidden="true" style="display: inline-block; width: 34px; height: 12px; margin-left: 18px; vertical-align: middle; border-radius: 999px; background: var(--accent, #2EA8FF)"></span></span>
+<span style="display: block; padding-left: 72px">Dose <span class="outlineTxt">Rx.</span></span>
+</h1>
+</div>
+
+<div style="position: absolute; left: 0; top: 470px; z-index: 2; width: 380px; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; align-items: center; gap: 14px; font-size: 15px; font-weight: 600; color: #33475E">
+<span style="line-height: 1.5">How medicine moves<br>through your body</span>
+<span aria-hidden="true" style="flex: 1 1 auto; height: 2px; border-radius: 2px; background: #DCE6F2"></span>
+<span style="font-weight: 600; color: #1A5BD0">2026</span>
+</div>
+<div style="display: flex; align-items: center; gap: 16px; padding-left: 110px">
+<a href="#gallery" class="circleBtn" aria-label="Browse curated drugs"><svg width="18" height="18" viewBox="0 0 16 16" aria-hidden="true" style="fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round"><path d="M3 8 H13 M9 4 L13 8 L9 12"></path></svg></a>
+<span style="font-size: 15px; font-weight: 600; line-height: 1.5; color: #33475E">Browse 20<br>curated drugs</span>
+</div>
+<p style="margin: 22px 0 0; font-size: 16px; line-height: 1.6; color: #33475E">See the molecule, the proteins it targets, where it goes in your body, and how it leaves.</p>
+</div>
+
+<div style="position: absolute; right: 0; top: 220px; z-index: 3; width: 360px; display: flex; flex-direction: column; gap: 20px">
+<div style="font-family: 'Source Serif 4', 'Times New Roman', serif, sans-serif; font-size: 26px; font-weight: 600; line-height: 1.3; color: #0F2236">
+Type any <span class="hl">drug</span>,<br>brand or generic,<br>and follow it inside.
+</div>
+<div style="position: relative">
+<label for="hq" class="srOnly">Search a drug by brand or generic name</label>
+<svg width="20" height="20" viewBox="0 0 16 16" aria-hidden="true" style="position: absolute; left: 20px; top: 18px; fill: none; stroke: #6A7C92; stroke-width: 1.6"><circle cx="7" cy="7" r="5"></circle><path d="M11 11 L15 15"></path></svg>
+<input id="hq" class="search" type="search" autocomplete="off" placeholder="e.g. Lipitor or ibuprofen" value="{{q}}" onChange="{{onQ}}">
+<sc-if value="{{hasQuery}}" hint-placeholder-val="{{ false }}">
+<div role="listbox" aria-label="Matching drugs" style="position: absolute; left: 0; right: 0; top: 64px; padding: 6px 0; border: 1px solid #DCE6F2; border-radius: 12px; background: #FFFFFF; box-shadow: 0 16px 40px rgba(15,34,54,.14); overflow: hidden">
+<sc-for list="{{results}}" as="item" hint-placeholder-count="3">
+<a href="Main.dc.html" class="result" role="option">
+<span>{{item.display}}</span>
+<span style="padding: 2px 10px; border-radius: 6px; background: #E3F7EF; color: #17694A; font-size: 12px; font-weight: 700">Curated</span>
+</a>
+</sc-for>
+<sc-if value="{{noResults}}" hint-placeholder-val="{{ false }}">
+<div style="padding: 12px 18px; font-size: 14px; line-height: 1.5; color: #4E6178">Not in the curated list. Press Enter to look it up live: you'll get the molecule, targets and body map.</div>
+</sc-if>
+</div>
+</sc-if>
+</div>
+<div style="font-size: 14px; line-height: 1.6; color: #4E6178">Any drug: molecule, targets and body map.<br>Curated drugs add the full journey.</div>
+</div>
+
+<div style="position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: space-between; align-items: center; gap: 24px; z-index: 2">
+<span style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: #4E6178"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" style="fill: none; stroke: #17694A; stroke-width: 1.6"><rect x="3" y="7" width="10" height="7" rx="2"></rect><path d="M5.5 7 V5 a2.5 2.5 0 0 1 5 0 V7"></path></svg>Nothing you save leaves your browser</span>
+<div style="display: flex; align-items: center; gap: 12px">
+<a href="#how" class="ghost">How it works</a>
+<a href="Main.dc.html" class="cta">Get started <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" style="fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round"><path d="M3 8 H13 M9 4 L13 8 L9 12"></path></svg></a>
+</div>
+</div>
+</section>
+
+<section id="gallery" style="margin-top: 96px; display: flex; flex-direction: column; gap: 24px" aria-labelledby="galleryTitle">
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px">
+<div>
+<div class="lbl" style="color: #1A5BD0">Curated · full journey</div>
+<h2 id="galleryTitle" style="margin: 6px 0 0; font-family: 'Source Serif 4', 'Times New Roman', serif, sans-serif; font-weight: 600; font-size: 40px; color: #0F2236">The most-prescribed drugs</h2>
+</div>
+<p style="margin: 0; max-width: 420px; font-size: 15px; line-height: 1.6; color: #4E6178">Hand-checked against FDA labels. Each one includes the blood-level curve, the journey through the body, and interaction checks.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px">
+<sc-for list="{{gallery}}" as="item" hint-placeholder-count="20">
+<a href="Main.dc.html" class="card">
+<span class="dot">{{item.initial}}</span>
+<span style="margin-top: 6px; font-family: 'Source Serif 4', 'Times New Roman', serif, sans-serif; font-size: 18px; font-weight: 600; color: #0F2236">{{item.generic}}</span>
+<span style="font-size: 14px; font-weight: 600; color: #1A5BD0">{{item.brand}}</span>
+<span style="margin-top: auto; font-size: 13px; color: #4E6178">{{item.use}}</span>
+</a>
+</sc-for>
+</div>
+</section>
+
+<footer id="how" style="margin-top: 56px; padding-top: 18px; border-top: 1px solid #DCE6F2; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 13px; color: #4E6178">
+<span style="padding: 4px 12px; border-radius: 6px; background: #FFF4E0; color: #8A5300; font-weight: 700">Educational, not medical advice. Values are population averages from FDA labels.</span>
+<span>Data: DailyMed · RxNorm · PubChem · ChEMBL · RCSB PDB · Human Protein Atlas (CC BY-SA)</span>
+</footer>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#2E7CF6","options":["#2E7CF6","#14A3C7","#6C63FF","#3BA676"]},"$preview":{"width":1440,"height":1600}}'>
+/* SPEC §5.3 curated list. Brand names are common US brands for display; confirm against RxNorm. */
+var CURATED = [
+  ['Atorvastatin', 'Lipitor', 'Cholesterol'],
+  ['Metformin', 'Glucophage', 'Type 2 diabetes'],
+  ['Amlodipine', 'Norvasc', 'Blood pressure'],
+  ['Lisinopril', 'Zestril', 'Blood pressure'],
+  ['Losartan', 'Cozaar', 'Blood pressure'],
+  ['Metoprolol', 'Lopressor', 'Blood pressure / heart rate'],
+  ['Rosuvastatin', 'Crestor', 'Cholesterol'],
+  ['Omeprazole', 'Prilosec', 'Acid reflux'],
+  ['Gabapentin', 'Neurontin', 'Nerve pain / seizures'],
+  ['Sertraline', 'Zoloft', 'Depression / anxiety'],
+  ['Escitalopram', 'Lexapro', 'Depression / anxiety'],
+  ['Amphetamine salts', 'Adderall', 'ADHD'],
+  ['Pantoprazole', 'Protonix', 'Acid reflux'],
+  ['Bupropion', 'Wellbutrin', 'Depression / smoking cessation'],
+  ['Hydrochlorothiazide', 'Microzide', 'Blood pressure (diuretic)'],
+  ['Fluoxetine', 'Prozac', 'Depression'],
+  ['Apixaban', 'Eliquis', 'Blood thinner'],
+  ['Montelukast', 'Singulair', 'Asthma / allergies'],
+  ['Acetaminophen', 'Tylenol', 'Pain / fever'],
+  ['Ibuprofen', 'Advil', 'Pain / inflammation']
+];
+
+class Component extends DCLogic {
+  state = { q: '' };
+
+  renderVals() {
+    var self = this;
+    var q = this.state.q.trim().toLowerCase();
+    var results = q ? CURATED.filter(function (c) {
+      return c[0].toLowerCase().indexOf(q) !== -1 || c[1].toLowerCase().indexOf(q) !== -1;
+    }).slice(0, 10).map(function (c) { return { display: c[1] + ' (' + c[0].toLowerCase() + ')' }; }) : [];
+    return {
+      accent: this.props.accent ?? '#2E7CF6',
+      q: this.state.q,
+      onQ: function (e) { self.setState({ q: e.target.value }); },
+      hasQuery: q.length > 0,
+      results: results,
+      noResults: q.length > 0 && results.length === 0,
+      gallery: CURATED.map(function (c) {
+        return { initial: c[0].charAt(0), generic: c[0], brand: c[1], use: c[2] };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>
