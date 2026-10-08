@@ -149,16 +149,7 @@ Planning — making the spec agent-ready
 48. "debug my code for a female version of the body that you can toggle, since right now there is
     only male anatomy deployed"
 
-## Prompt log (update)
+I brainstormed with Claude Opus in planning mode and we wrote SPEC.md together, which then became the roadmap I used to build everything step by step in Claude Code (Opus and Sonnet). Claude Code wrote most of the front end (React, Vite, and three.js for the 3D body) and the FastAPI backend, and I set up the Neon MCP server and skills in it so it could help with the Postgres cache. For the look of the site, I designed the Journey tab and the new home page in Claude Design and then had Claude Code rebuild those mockups in the actual app, in both light and dark mode. The data side was mostly public sources: DailyMed/FDA labels for the curated drug values, RxNorm and PubChem for lookups, ChEMBL for targets, RCSB PDB and Mol* for the protein structures, 3Dmol.js for the molecules, and the Human Protein Atlas for the body map. For the 3D anatomy, AI kept giving me a flat blob, so I went and found open-source anatomy on GitHub (BodyParts3D by way of human-atlas) and the HuBMAP Human Reference Atlas for the female body, and used AI-written scripts to merge and shrink them for the browser. To check things, I had Claude look at the running site in Chrome and take screenshots so we could fix cut-off and overlapping layouts, and a second AI pass re-checked the drug values against their cited sources (which is not a clinical review). Everything is hosted for free: GitHub Pages and Actions for the front end, Render for the API, and Neon for the database.
 
-49. "add these prompts to prompt log"
+For the 3x body, AI set the viewer to 1260px tall and said it was done without looking at it. In the browser it was a 181px-wide strip running off the bottom of the screen. I had to tell it the body was cut off. After that I had to make it fit the window, then fixed the empty space around it, then made it fill its panel. The female model was first reported working, but the skin was rendering as scattered specks. The mesh vertices weren't welded, so the simplifier shredded the mesh. I debugged with AI to fix it. When the body looked small in a screenshot that I sent AI, it spent a lot of time on camera framing. The cause was that the skin and legs were too faint in dark mode. A bug AI introduced was the 0/5 count not updating. It added a  header count with its own separate copy of the saved list.
 
-## README
-
-50. "create a read me that sounds human written for this project, use the spec to
-    understand the scope of the project. Make sure to what the project does, how to use
-    it, which features you are most proud of, how to run it locally, and how secrets (if
-    any) are handled. briefly summarize how you used AI on this project, along with any
-    citations that are relevant"
-51. "I updated the prompt log, reformat it so that the top part matches the formatted
-    bottom part and fix the numbering of the prompts"
