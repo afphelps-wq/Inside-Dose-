@@ -1,16 +1,14 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import BodyTab from '../components/tabs/BodyTab.jsx'
 import JourneyTab from '../components/tabs/JourneyTab.jsx'
 import MoleculeTab from '../components/tabs/MoleculeTab.jsx'
-import TargetsTab from '../components/tabs/TargetsTab.jsx'
+import TargetsBodyTab from '../components/tabs/TargetsBodyTab.jsx'
 import { getDrug } from '../api/client.js'
 import { MAX_DRUGS, useMyDrugs } from '../lib/myDrugs.js'
 
 const TABS = [
   { key: 'molecule', label: 'Molecule' },
-  { key: 'targets', label: 'Targets' },
-  { key: 'body', label: 'Body' },
+  { key: 'targets', label: 'Targets & Body' },
   { key: 'journey', label: 'Journey', curatedOnly: true },
 ]
 
@@ -74,8 +72,7 @@ export default function Drug() {
         ))}
       </div>
       {activeTab.key === 'molecule' && <MoleculeTab rxcui={bundle.rxcui} molecule={bundle.molecule} />}
-      {activeTab.key === 'targets' && <TargetsTab drug={bundle} />}
-      {activeTab.key === 'body' && <BodyTab drug={bundle} />}
+      {activeTab.key === 'targets' && <TargetsBodyTab drug={bundle} />}
       {activeTab.key === 'journey' && bundle.curated && <JourneyTab curated={bundle.curated} />}
       {bundle.sources.length > 0 && (
         <p className="sources muted small">

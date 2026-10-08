@@ -16,6 +16,22 @@ adipose (fat) tissue mesh, so `frontend/public/anatomy/organs.json` has no
 entry for those two of the app's 15 body-map organs (spec §6.3) -- they simply
 have no 3D visual. This is an educational reference, not a clinical tool.
 
+## Female anatomy data
+
+The female body view uses the **HuBMAP Human Reference Atlas, 3D Reference Organ Set for Female**
+(built from the Visible Human Female, National Library of Medicine), licensed under **CC BY 4.0**.
+
+- Library: https://humanatlas.io/3d-reference-library
+- Files: `https://cdn.humanatlas.io/digital-objects/ref-organ/<organ>-female/…/assets/*.glb`
+- License terms: https://creativecommons.org/licenses/by/4.0/
+
+BodyParts3D has no female dataset. `backend/scripts/extract_anatomy_female.py` merges the HRA
+organ GLBs (skin, brain, heart, lungs, liver, small + large intestine, kidneys, pancreas, blood
+vasculature, spleen, bladder) into one mesh per organ, welds and decimates them, and writes
+`frontend/public/anatomy/organs-female.json` + `organs-female.bin.gz` (~7.7 MB), in the same
+layout as the male asset. The HRA set has no stomach or muscle mesh, so those two have no 3D
+visual in the female view (the viewer says so). Both sexes are rendered by `Body3D.jsx`.
+
 ## Adaptation
 
 The 13 organs this app does render (brain, heart, lungs, liver, stomach,

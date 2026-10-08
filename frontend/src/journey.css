@@ -1,0 +1,137 @@
+/* Journey tab -- HUD styling from "UI examples/Inside Dose Body UI.html". Scoped under .jt. */
+.jt {
+  --jt-accent: var(--accent-bright);
+  --jt-line: var(--border);
+  --jt-line2: var(--border-strong);
+  --jt-dim: var(--muted);
+  --jt-soft: var(--text2);
+  --jt-hi: var(--text);
+  --jt-warn: var(--warn-text);
+  --jt-mono: var(--font);
+  --jt-panel: var(--surface);
+  --jt-field: var(--surface-raised);
+  display: flex; flex-direction: column; gap: 20px;
+  font-family: var(--font);
+  color: var(--text);
+}
+.jt .mono { font-family: var(--jt-mono); }
+.jt .lbl { font-size: 11px; letter-spacing: 0.2em; color: var(--jt-dim); text-transform: uppercase; }
+.jt-main { display: grid; grid-template-columns: minmax(300px, 1fr) minmax(420px, 600px) minmax(340px, 1.2fr); gap: 20px; align-items: stretch; }
+.jt-col { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.jt .panel {
+  position: relative; border: 1px solid var(--jt-line); background: var(--jt-panel);
+  border-radius: var(--radius); padding: 16px 18px; margin: 0; box-shadow: 0 1px 2px var(--shadow-sm);
+}
+.jt h3 { margin: 0; }
+
+.jt-tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 18px; }
+.jt-tile-val { display: flex; align-items: baseline; gap: 6px; margin-top: 2px; }
+.jt-tile-val .mono { font-size: 30px; font-weight: 300; color: var(--jt-accent); }
+.jt-tile-val span:last-child { font-size: 12px; color: var(--jt-soft); }
+.jt-tile-range { font-size: 11px; color: var(--jt-dim); }
+.jt-facts { display: flex; flex-direction: column; gap: 12px; }
+.jt-row { display: flex; justify-content: space-between; gap: 10px; font-size: 13px; }
+.jt-row b { font-weight: 400; color: var(--jt-hi); }
+.jt-row span { color: var(--jt-soft); }
+.jt-sep { height: 1px; background: var(--jt-line); }
+.jt-note { margin: 0; font-size: 10px; line-height: 1.6; color: var(--jt-dim); }
+
+.jt-badge {
+  display: inline-flex; align-items: center; padding: 3px 8px; border: 1px solid var(--jt-accent);
+  font-size: 10px; letter-spacing: 0.04em; color: var(--jt-accent); font-family: var(--jt-mono);
+}
+.jt-badges { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.jt-body { display: flex; flex-direction: column; align-items: center; gap: 12px; min-width: 0; }
+.jt-body-head { width: 100%; display: flex; justify-content: space-between; gap: 12px; }
+.jt-body-head em { font-style: normal; color: var(--jt-accent); }
+.jt-stage {
+  width: 100%; flex: 1 1 auto; min-height: 0; box-sizing: border-box;
+  display: flex; flex-direction: column; align-items: stretch; justify-content: center;
+  background: radial-gradient(ellipse at center, var(--stage-glow), transparent 70%);
+}
+.jt-trail { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+.jt-trail span {
+  padding: 4px 8px; border: 1px solid var(--jt-line2); font-family: var(--jt-mono);
+  font-size: 11px; color: var(--jt-dim); cursor: pointer; background: none;
+}
+.jt-trail span.on { border-color: var(--jt-accent); color: var(--jt-hi); }
+
+.jt-steps-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-bottom: 12px; }
+.jt-ctl {
+  min-height: 44px; min-width: 44px; padding: 0 14px; border: 1px solid var(--jt-line2); background: var(--jt-field);
+  color: var(--text); font: inherit; font-size: 12px; letter-spacing: 0.14em; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: 8px;
+}
+.jt-ctl:hover, .jt-ctl.on { border-color: var(--jt-accent); }
+.jt-ctl.on { color: var(--jt-accent); }
+.jt-step {
+  display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 12px; width: 100%; padding: 12px 0;
+  border: 0; border-top: 1px solid var(--jt-line); background: none; color: inherit; font: inherit;
+  text-align: left; cursor: pointer; opacity: 0.55; transition: opacity 0.2s; border-radius: 0;
+}
+.jt-step:hover { opacity: 0.85; }
+.jt-step.on { opacity: 1; }
+.jt-idx {
+  width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--jt-line2); font-family: var(--jt-mono); font-size: 11px; color: var(--jt-soft);
+}
+.jt-step.on .jt-idx { background: var(--jt-accent); border-color: var(--jt-accent); color: #ffffff; }
+.jt-step-body { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.jt-step-top { display: flex; justify-content: space-between; gap: 8px; }
+.jt-step-name { font-size: 12px; letter-spacing: 0.18em; color: var(--jt-hi); text-transform: uppercase; }
+.jt-step-organ { font-family: var(--jt-mono); font-size: 11px; color: var(--jt-accent); }
+.jt-step-text { font-size: 14px; line-height: 1.5; color: var(--text); }
+.jt-ctl:focus-visible, .jt-step:focus-visible, .jt-chip:focus-visible { outline: 2px solid var(--jt-hi); outline-offset: 2px; }
+
+.jt-level { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 28px; }
+.jt-chart-col { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.jt-readout { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 12px; }
+.jt-readout-vals { display: flex; gap: 20px; align-items: baseline; }
+.jt-readout-vals .mono { font-size: 24px; font-weight: 300; color: var(--jt-hi); }
+.jt-readout-vals .mono.acc { color: var(--jt-accent); }
+.jt-readout-vals small { margin-left: 4px; font-size: 12px; color: var(--jt-dim); }
+.jt-plot { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 8px; }
+.jt-yaxis { position: relative; height: 230px; }
+.jt-yaxis span, .jt-xaxis span { position: absolute; font-family: var(--jt-mono); font-size: 10px; color: var(--jt-dim); }
+.jt-yaxis span { right: 0; transform: translateY(50%); }
+.jt-xaxis { position: relative; height: 16px; }
+.jt-xaxis span { transform: translateX(-50%); }
+.jt-canvas { position: relative; height: 230px; border-left: 1px solid var(--jt-line2); border-bottom: 1px solid var(--jt-line2); }
+.jt-gridline { position: absolute; left: 0; right: 0; height: 1px; background: var(--jt-line); }
+.jt-canvas svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.jt-curve { fill: none; stroke: var(--jt-accent); stroke-width: 2; vector-effect: non-scaling-stroke; }
+.jt-area { fill: var(--jt-accent); fill-opacity: 0.09; stroke: none; }
+.jt-cursor { position: absolute; top: 0; bottom: 0; width: 0; border-left: 1px dashed var(--jt-hi); }
+.jt-dot {
+  position: absolute; width: 10px; height: 10px; margin: 0 0 -5px -5px; border-radius: 50%;
+  background: var(--jt-hi); box-shadow: 0 0 0 2px var(--jt-accent);
+}
+.jt-scrub { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 8px; align-items: center; }
+.jt-range { width: 100%; accent-color: var(--jt-accent); height: 28px; margin: 0; cursor: pointer; }
+.jt-range:disabled { opacity: 0.35; cursor: not-allowed; }
+.jt-foot { font-size: 11px; color: var(--jt-dim); }
+.jt-ctls { display: flex; flex-direction: column; gap: 16px; }
+.jt-ctl-head { display: flex; justify-content: space-between; align-items: baseline; }
+.jt-ctl-head .mono { font-size: 22px; color: var(--jt-hi); }
+.jt-ctl-head small { margin-left: 4px; font-size: 12px; color: var(--jt-dim); }
+.jt-minmax { display: flex; justify-content: space-between; font-size: 10px; color: var(--jt-dim); }
+.jt-chips { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
+.jt-chip {
+  min-height: 44px; padding: 0 12px; border: 1px solid var(--jt-line2); background: var(--jt-field); color: var(--jt-soft);
+  font-family: var(--jt-mono); font-size: 12px; cursor: pointer; border-radius: 8px;
+}
+.jt-chip:hover { border-color: var(--jt-accent); }
+.jt-chip.on { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.jt-wtnote { font-size: 11px; line-height: 1.5; color: var(--jt-soft); }
+.jt-warn { margin: 0; padding: 10px 12px; border: 1px solid var(--jt-warn); font-size: 11px; line-height: 1.5; color: var(--jt-warn); }
+
+@media (max-width: 1100px) {
+  .jt-main { grid-template-columns: 1fr; }
+  .jt-level { grid-template-columns: 1fr; }
+  .jt-stage { min-height: 0; }
+}
+
+/* Body fills the window height (header + tabs + panel chrome ~ 330px) and the full column width. */
+.jt-stage > * { width: 100%; }
+.jt-stage .body3d-viewer { width: 100%; height: clamp(560px, calc(100vh - 360px), 1260px); }

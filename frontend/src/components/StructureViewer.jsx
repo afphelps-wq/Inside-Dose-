@@ -1,6 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { getTargetStructures } from '../api/client.js'
 import { loadMolstar } from '../lib/molstarLoader.js'
+import { useTheme } from '../lib/theme.jsx'
+
+const BACKGROUNDS = { dark: 0x060d1a, light: 0xeaf3ff } // matches --viewer-bg
+const setBackground = (viewer, theme) => {
+  try { viewer?.plugin.canvas3d?.setProps({ renderer: { backgroundColor: BACKGROUNDS[theme] } }) } catch { /* cosmetic only */ }
+}
 
 const VIEWER_OPTIONS = {
   layoutIsExpanded: false,
@@ -20,6 +26,10 @@ const VIEWER_OPTIONS = {
 // renders it with Mol* (see frontend/src/assets/CREDITS.md).
 export default function StructureViewer({ uniprot, rxcui }) {
   const containerRef = useRef(null)
+  const viewerRef = useRef(null)
+  const { theme } = useTheme()
+  const themeRef = useRef(theme)
+  themeRef.current = theme
   const [structure, setStructure] = useState(undefined) // undefined = loading, null = none found
   const [error, setError] = useState(null)
   const [retryNonce, setRetryNonce] = useState(0)
@@ -40,6 +50,31 @@ export default function StructureViewer({ uniprot, rxcui }) {
     if (!structure || !containerRef.current) return
     let viewer = null
     let cancelled = false
+    const container = containerRef.current
+    // Mol*'s own "Toggle Full Screen" only expands the viewer inside the page layout.
+    // Swallow it and fullscreen just this viewer through the browser's Fullscreen API.
+    // If the browser refuses real fullscreen, fall back to covering the whole window with just this viewer.
+    const refit = () => window.dispatchEvent(new Event('resize'))
+    const setPseudo = (on) => {
+      container.classList.toggle('structure-viewer-expanded', on)
+      document.body.classList.toggle('viewer-expanded', on)
+      refit()
+    }
+    const onFullscreenClick = (event) => {
+      if (!event.target.closest?.('button[title="Toggle Full Screen"]')) return
+      event.preventDefault()
+      event.stopPropagation()
+      if (document.fullscreenElement === container) document.exitFullscreen()
+      else if (container.classList.contains('structure-viewer-expanded')) setPseudo(false)
+      else (container.requestFullscreen?.() ?? Promise.reject()).catch(() => setPseudo(true))
+    }
+    const onKey = (event) => {
+      if (event.key === 'Escape' && container.classList.contains('structure-viewer-expanded')) setPseudo(false)
+    }
+    document.addEventListener('keydown', onKey)
+    const onFsChange = refit
+    document.addEventListener('fullscreenchange', onFsChange)
+    container.addEventListener('click', onFullscreenClick, true)
     loadMolstar()
       .then((molstar) => {
         if (cancelled || !containerRef.current) return
@@ -48,16 +83,25 @@ export default function StructureViewer({ uniprot, rxcui }) {
       .then((createdViewer) => {
         if (cancelled || !createdViewer) return
         viewer = createdViewer
-        // Match the app's dark HUD theme instead of Mol*'s default white background.
-        try { viewer.plugin.canvas3d?.setProps({ renderer: { backgroundColor: 0x02040a } }) } catch { /* cosmetic only */ }
+        viewerRef.current = viewer
+        // Match the app theme instead of Mol*'s default white background.
+        setBackground(viewer, themeRef.current)
         return viewer.loadPdb(structure.pdb_id)
       })
       .catch((err) => { if (!cancelled) setError(err.message) })
     return () => {
       cancelled = true
+      container.removeEventListener('click', onFullscreenClick, true)
+      document.removeEventListener('keydown', onKey)
+      document.removeEventListener('fullscreenchange', onFsChange)
+      setPseudo(false)
+      if (document.fullscreenElement === container) document.exitFullscreen()
+      viewerRef.current = null
       viewer?.plugin?.dispose?.()
     }
   }, [structure])
+
+  useEffect(() => { setBackground(viewerRef.current, theme) }, [theme])
 
   if (error) {
     return (

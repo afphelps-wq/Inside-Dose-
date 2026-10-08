@@ -1,11 +1,11 @@
 import StructureViewer from '../StructureViewer.jsx'
 
-export default function TargetsTab({ drug }) {
+export default function TargetsTab({ drug, activeGenes = null }) {
   if (!drug.targets.length) return <p>No known protein targets recorded.</p>
   return (
     <div className="stack">
       {drug.targets.map((target) => (
-        <div key={target.gene} className="card">
+        <div key={target.gene} className={`card${activeGenes?.includes(target.gene) ? ' target-active' : ''}${activeGenes && !activeGenes.includes(target.gene) ? ' target-dim' : ''}`}>
           <div className="target">
             <div>
               <h3>{target.name} <span className="pill">{target.gene}</span></h3>

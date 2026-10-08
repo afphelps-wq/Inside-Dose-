@@ -5,12 +5,14 @@ import { GHOST_COLOR, HIGHLIGHT_COLOR, LEVEL_COLORS, LEVEL_OPACITY } from '../li
 
 const ANATOMY_BASE = `${import.meta.env.BASE_URL}anatomy`
 
-let atlasPromise = null
-function loadAtlas() {
-  if (!atlasPromise) {
-    atlasPromise = Promise.all([
-      fetch(`${ANATOMY_BASE}/organs.json`).then((r) => r.json()),
-      fetch(`${ANATOMY_BASE}/organs.bin.gz`).then((r) => r.arrayBuffer()),
+const ATLAS_FILES = { male: 'organs', female: 'organs-female' }
+const atlasPromises = {}
+function loadAtlas(sex) {
+  if (!atlasPromises[sex]) {
+    const base = ATLAS_FILES[sex]
+    atlasPromises[sex] = Promise.all([
+      fetch(`${ANATOMY_BASE}/${base}.json`).then((r) => r.json()),
+      fetch(`${ANATOMY_BASE}/${base}.bin.gz`).then((r) => r.arrayBuffer()),
     ]).then(async ([manifest, payload]) => {
       // Some static hosts (e.g. Vite's dev server) see the .gz extension and
       // set Content-Encoding: gzip, so fetch() already decompressed it; others
@@ -22,9 +24,9 @@ function loadAtlas() {
         ? await new Response(new Blob([payload]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer()
         : payload
       return { manifest, buffer }
-    })
+    }).catch((err) => { delete atlasPromises[sex]; throw err })
   }
-  return atlasPromise
+  return atlasPromises[sex]
 }
 
 function styleFor(organ, { bodyMap, selected, highlight }) {
@@ -38,7 +40,7 @@ function styleFor(organ, { bodyMap, selected, highlight }) {
   return { color: LEVEL_COLORS[entry.level], opacity, emissive: selected === organ ? 0.5 : 0.2 }
 }
 
-export default function Body3D({ bodyMap = {}, selected, highlight, onSelect }) {
+export default function Body3D({ bodyMap = {}, selected, highlight, onSelect, fit = 1.5, sex = 'male' }) {
   const hostRef = useRef(null)
   const propsRef = useRef({ bodyMap, selected, highlight, onSelect })
   propsRef.current = { bodyMap, selected, highlight, onSelect }
@@ -46,6 +48,7 @@ export default function Body3D({ bodyMap = {}, selected, highlight, onSelect }) 
   const [status, setStatus] = useState('loading')
 
   useEffect(() => {
+    setStatus('loading')
     const host = hostRef.current
     let disposed = false
     let renderer, camera, controls, frame
@@ -53,7 +56,7 @@ export default function Body3D({ bodyMap = {}, selected, highlight, onSelect }) 
     const geometries = []
     const materials = []
 
-    loadAtlas()
+    loadAtlas(sex)
       .then(({ manifest, buffer }) => {
         if (disposed || !host) return
 
@@ -73,7 +76,7 @@ export default function Body3D({ bodyMap = {}, selected, highlight, onSelect }) 
         const [min, max] = manifest.bounds
         const center = new THREE.Vector3((min[0] + max[0]) / 2, (min[1] + max[1]) / 2, (min[2] + max[2]) / 2)
         const height = max[1] - min[1]
-        const distance = (height / 2) / Math.tan(THREE.MathUtils.degToRad(17.5)) * 1.5
+        const distance = (height / 2) / Math.tan(THREE.MathUtils.degToRad(17.5)) * fit
         camera.position.set(center.x, center.y, center.z + distance)
         controls.target.copy(center)
         controls.update()
@@ -171,7 +174,7 @@ export default function Body3D({ bodyMap = {}, selected, highlight, onSelect }) 
       }
       meshesRef.current = {}
     }
-  }, [])
+  }, [sex])
 
   // Recolor in place on prop changes -- no scene/geometry rebuild.
   useEffect(() => {
@@ -190,7 +193,12 @@ export default function Body3D({ bodyMap = {}, selected, highlight, onSelect }) 
       <div className="body3d-viewer" ref={hostRef} />
       {status === 'loading' && <p className="loading-state">Loading 3D body…</p>}
       {status === 'error' && <p className="error-banner">Couldn't load the 3D body right now.</p>}
-      {status === 'ready' && <p className="muted small">Drag to rotate, scroll to zoom.</p>}
+      {status === 'ready' && (
+        <p className="muted small">
+          Drag to rotate, scroll to zoom.
+          {sex === 'female' && " The female reference model has no stomach or muscle mesh."}
+        </p>
+      )}
     </div>
   )
 }
