@@ -19,12 +19,15 @@ export default function Layout() {
           </svg>
           <span>Inside Dose</span>
         </Link>
+        <div className="hdr-badges">
+          <span className="hdr-badge warn" title="Educational, not medical advice. Values are population averages from FDA labels.">
+            Educational only
+          </span>
+          <ServerStatus />
+        </div>
         <nav aria-label="Main">
           {isHome ? (
-            <>
-              <button type="button" className="nav-btn" onClick={() => scrollToId('gallery')}>Curated drugs</button>
-              <button type="button" className="nav-btn" onClick={() => scrollToId('how')}>How it works</button>
-            </>
+            <button type="button" className="nav-btn" onClick={() => scrollToId('gallery')}>Curated drugs</button>
           ) : (
             <NavLink to="/" end>Home</NavLink>
           )}
@@ -34,14 +37,6 @@ export default function Layout() {
           <ThemeToggle />
         </nav>
       </header>
-      {!isHome && (
-        <>
-          <div className="disclaimer" role="note">
-            Educational, not medical advice.
-          </div>
-          <ServerStatus />
-        </>
-      )}
       <main>
         <Outlet />
       </main>

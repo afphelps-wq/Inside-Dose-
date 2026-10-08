@@ -40,16 +40,16 @@ export default function ServerStatus() {
 
   if (status === 'waking') {
     return (
-      <div className="server-status waking" role="status">
-        <span className="spinner" aria-hidden="true" /> Waking up the server…
-      </div>
+      <span className="hdr-badge waking" role="status" title="The server is starting up; this can take a few seconds.">
+        <span className="spinner" aria-hidden="true" /> Waking server…
+      </span>
     )
   }
   if (status === 'ready') {
     return (
-      <div className="server-status ready" role="status">
-        Server connected
-      </div>
+      <span className="hdr-badge ready" role="status" title="Connected to the Inside Dose server">
+        <i aria-hidden="true" /> Server connected
+      </span>
     )
   }
   return null

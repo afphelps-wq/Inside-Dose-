@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { useTheme } from '../lib/theme.jsx'
 import { GHOST_COLOR, HIGHLIGHT_COLOR, LEVEL_COLORS, LEVEL_OPACITY } from '../lib/organs.js'
 
 const ANATOMY_BASE = `${import.meta.env.BASE_URL}anatomy`
@@ -29,11 +30,13 @@ function loadAtlas(sex) {
   return atlasPromises[sex]
 }
 
-function styleFor(organ, { bodyMap, selected, highlight }) {
+function styleFor(organ, { bodyMap, selected, highlight, theme }) {
   if (highlight === organ) return { color: HIGHLIGHT_COLOR, opacity: 0.95, emissive: 1.1 }
   const entry = bodyMap[organ]
   if (!entry || !LEVEL_COLORS[entry.level]) {
-    return { color: GHOST_COLOR, opacity: organ === 'skin' ? 0.1 : 0.06, emissive: 0.05 }
+    // the skin silhouette needs more opacity on the dark background to stay readable
+    const skinOpacity = theme === 'dark' ? 0.22 : 0.1
+    return { color: GHOST_COLOR, opacity: organ === 'skin' ? skinOpacity : 0.06, emissive: 0.05 }
   }
   let opacity = LEVEL_OPACITY[entry.level]
   if (entry.basis === 'rna') opacity *= 0.55
@@ -42,8 +45,9 @@ function styleFor(organ, { bodyMap, selected, highlight }) {
 
 export default function Body3D({ bodyMap = {}, selected, highlight, onSelect, fit = 1.5, sex = 'male' }) {
   const hostRef = useRef(null)
-  const propsRef = useRef({ bodyMap, selected, highlight, onSelect })
-  propsRef.current = { bodyMap, selected, highlight, onSelect }
+  const { theme } = useTheme()
+  const propsRef = useRef({ bodyMap, selected, highlight, onSelect, theme })
+  propsRef.current = { bodyMap, selected, highlight, onSelect, theme }
   const meshesRef = useRef({})
   const [status, setStatus] = useState('loading')
 
@@ -180,13 +184,13 @@ export default function Body3D({ bodyMap = {}, selected, highlight, onSelect, fi
   useEffect(() => {
     for (const [organ, mesh] of Object.entries(meshesRef.current)) {
       if (organ === '__cleanup' || !mesh.material) continue
-      const style = styleFor(organ, { bodyMap, selected, highlight })
+      const style = styleFor(organ, { bodyMap, selected, highlight, theme })
       mesh.material.color.set(style.color)
       mesh.material.emissive.set(style.color)
       mesh.material.emissiveIntensity = style.emissive
       mesh.material.opacity = style.opacity
     }
-  }, [bodyMap, selected, highlight])
+  }, [bodyMap, selected, highlight, theme])
 
   return (
     <div>

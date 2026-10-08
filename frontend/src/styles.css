@@ -453,3 +453,15 @@ body.viewer-expanded { overflow: hidden; }
 .sex-toggle button + button { border-left: 1px solid var(--border); }
 .sex-toggle button:hover:not(:disabled):not(.on) { background: var(--accent-soft); }
 .sex-toggle button.on { background: var(--accent); color: var(--on-accent); }
+
+/* Small status indicators in the top bar (replace the old full-width banners) */
+.hdr-badges { display: flex; align-items: center; gap: 8px; margin-right: auto; margin-left: 12px; flex-wrap: wrap; }
+.hdr-badge {
+  display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--surface); color: var(--muted);
+  font-size: 12px; font-weight: 600; white-space: nowrap; cursor: default;
+}
+.hdr-badge.warn { background: var(--warn-soft); border-color: var(--warn-border); color: var(--warn-text); }
+.hdr-badge.ready i { width: 8px; height: 8px; border-radius: 50%; background: var(--ok-text); }
+.hdr-badge.waking { color: var(--accent); }
+.hdr-badge .spinner { width: 10px; height: 10px; border-width: 2px; }

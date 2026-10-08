@@ -117,7 +117,6 @@ export default function Home() {
               Nothing you save leaves your browser
             </span>
             <div className="h-btns">
-              <button type="button" className="h-ghost" onClick={() => scrollToId('how')}>How it works</button>
               <button type="button" className="h-cta" onClick={() => searchRef.current?.focus()}>Get started <Arrow /></button>
             </div>
           </div>
@@ -147,7 +146,7 @@ export default function Home() {
           )}
         </section>
 
-        <footer id="how" className="h-footer">
+        <footer className="h-footer">
           <span className="h-disclaimer">Educational, not medical advice. Values are population averages from FDA labels.</span>
           <span>Data: DailyMed · RxNorm · PubChem · ChEMBL · RCSB PDB · Human Protein Atlas (CC BY-SA)</span>
         </footer>

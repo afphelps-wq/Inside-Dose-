@@ -132,6 +132,11 @@
   .jt-stage { min-height: 0; }
 }
 
-/* Body fills the window height (header + tabs + panel chrome ~ 330px) and the full column width. */
-.jt-stage > * { width: 100%; }
-.jt-stage .body3d-viewer { width: 100%; height: clamp(560px, calc(100vh - 360px), 1260px); }
+/* The body viewer grows to fill whatever height the row gives the panel (no dead space under it). */
+.jt-body { align-self: stretch; }
+.jt-stage { flex: 1 1 auto; justify-content: stretch; }
+.jt-stage > * { width: 100%; flex: 1 1 auto; display: flex; flex-direction: column; }
+.jt-stage .body3d-viewer { width: 100%; flex: 1 1 auto; height: auto; min-height: clamp(560px, calc(100vh - 330px), 1260px); }
+
+/* Right column: the controls panel takes up any spare height so it lines up with the other columns. */
+.jt-main > .jt-col:last-child .jt-ctls { flex: 1 1 auto; justify-content: space-between; }
