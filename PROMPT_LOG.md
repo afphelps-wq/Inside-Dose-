@@ -1,10 +1,7 @@
 # Prompt Log
 
 A chronological log of the prompts given to Claude (Claude Code) across the development
-of Inside Dose, across several working sessions (the first began after an unplanned
-restart; a context compaction is noted below). Tool calls, file reads, and Claude's own
-responses are omitted; this lists what the user actually asked for, in order. Entries
-marked "(choice)" are answers to multiple-choice questions Claude asked.
+of Inside Dose
 
 ## Planning Prompt
 A. "I'm trying to brainstorm a webservice that uses front end and backend and apis and data visualization. My initial Idea is to train a model on the open source patient transcriptome and proteasome data and drug compounds to train it to understand and predict how a drug will interact with the proteasome. Then I want to create a consumer web service that allows you to input the drugs you are taking, visualize it as a chemical compound/ molecule, visualize how it interacts and metabolizes through your body using the predictive model"
