@@ -3,10 +3,12 @@
 A chronological log of the prompts given to Claude (Claude Code) across the development
 of Inside Dose.
 
-"I'm trying to brainstorm a webservice that uses front end and backend and apis and data visualization. My initial Idea is to train a model on the open source patient transcriptome and proteasome data and drug compounds to train it to understand and predict how a drug will interact with the proteasome. Then I want to create a consumer web service that allows you to input the drugs you are taking, visualize it as a chemical compound/ molecule, visualize how it interacts and metabolizes through your body using the predictive model"
-"I do mean proteome, I don't want it to be personalized I just want to show the population average but make a web service that is easy to navigate and showcase visually how the drug is interacting with your body."
-"I don't want to encorperate machine learning actually"
-Planning — writing SPEC.md
+## Planning Prompt
+A. "I'm trying to brainstorm a webservice that uses front end and backend and apis and data visualization. My initial Idea is to train a model on the open source patient transcriptome and proteasome data and drug compounds to train it to understand and predict how a drug will interact with the proteasome. Then I want to create a consumer web service that allows you to input the drugs you are taking, visualize it as a chemical compound/ molecule, visualize how it interacts and metabolizes through your body using the predictive model"
+
+B. "I do mean proteome, I don't want it to be personalized I just want to show the population average but make a web service that is easy to navigate and showcase visually how the drug is interacting with your body."
+
+C. Planning — writing SPEC.md
 "create a spec.md with information about this project from our brainstorming. Create a frontend(design, visualization, inputs), backend(server, environment variables, etc), API keys needed, data needed sections. Ask me questions as you create. Don't assume anything! Ask before filling in any section."
 (choices, overview) Audience: "General public" · Purpose: "Class project" · v1 scope: "Any drug (live lookup)" · Name: "Not yet, placeholder"
 (choices, scope) Live lookup gaps: "Hybrid (Recommended)" · Class: "15-113" · Deadline: "< 4 weeks" · Course constraints: "No constraints"
